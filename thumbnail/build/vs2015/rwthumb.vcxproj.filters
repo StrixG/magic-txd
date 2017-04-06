@@ -5,10 +5,10 @@
     <ClCompile Include="..\..\src\thumbprov.cpp" />
     <ClCompile Include="..\..\src\rwwin32streamwrap.cpp" />
     <ClCompile Include="..\..\src\contextprov.cpp" />
-    <ClCompile Include="..\..\..\vendor\shextshared\src\shell_minlink.cpp">
+    <ClCompile Include="..\..\..\vendor\shextshared\Reg.cpp">
       <Filter>shextshared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\vendor\shextshared\src\Reg.cpp">
+    <ClCompile Include="..\..\..\vendor\shextshared\shell_minlink.cpp">
       <Filter>shextshared</Filter>
     </ClCompile>
   </ItemGroup>
@@ -48,13 +48,16 @@
     <ClInclude Include="..\..\src\shell_minlink.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\vendor\shextshared\src\Reg.h">
+    <ClInclude Include="..\..\..\vendor\shextshared\idltools.h">
       <Filter>shextshared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\vendor\shextshared\src\shell_minlink.h">
+    <ClInclude Include="..\..\..\vendor\shextshared\modrelink.h">
       <Filter>shextshared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\vendor\shextshared\src\modrelink.h">
+    <ClInclude Include="..\..\..\vendor\shextshared\Reg.h">
+      <Filter>shextshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\vendor\shextshared\shell_minlink.h">
       <Filter>shextshared</Filter>
     </ClInclude>
   </ItemGroup>

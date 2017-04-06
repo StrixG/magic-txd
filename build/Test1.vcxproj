@@ -208,7 +208,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -270,7 +270,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -332,7 +332,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -394,7 +394,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -456,7 +456,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -510,7 +510,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -564,7 +564,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -618,7 +618,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.8/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>

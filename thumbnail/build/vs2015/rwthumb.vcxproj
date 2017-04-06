@@ -167,7 +167,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StdInc.h</PrecompiledHeaderFile>
@@ -187,7 +187,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StdInc.h</PrecompiledHeaderFile>
@@ -207,7 +207,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StdInc.h</PrecompiledHeaderFile>
@@ -227,7 +227,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StdInc.h</PrecompiledHeaderFile>
@@ -249,7 +249,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StdInc.h</PrecompiledHeaderFile>
@@ -273,7 +273,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StdInc.h</PrecompiledHeaderFile>
@@ -297,7 +297,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StdInc.h</PrecompiledHeaderFile>
@@ -321,7 +321,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\vendor\rwlib\include;..\..\..\vendor\eirrepo\;..\..\..\vendor\FileSystem\include\;..\..\..\vendor\shextshared\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StdInc.h</PrecompiledHeaderFile>
@@ -339,7 +339,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\vendor\shextshared\src\Reg.cpp">
+    <ClCompile Include="..\..\..\vendor\shextshared\Reg.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_legacy|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -349,7 +349,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_legacy|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\vendor\shextshared\src\shell_minlink.cpp">
+    <ClCompile Include="..\..\..\vendor\shextshared\shell_minlink.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_legacy|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -374,9 +374,10 @@
     <ClCompile Include="..\..\src\thumbprov.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\vendor\shextshared\src\modrelink.h" />
-    <ClInclude Include="..\..\..\vendor\shextshared\src\Reg.h" />
-    <ClInclude Include="..\..\..\vendor\shextshared\src\shell_minlink.h" />
+    <ClInclude Include="..\..\..\vendor\shextshared\idltools.h" />
+    <ClInclude Include="..\..\..\vendor\shextshared\modrelink.h" />
+    <ClInclude Include="..\..\..\vendor\shextshared\Reg.h" />
+    <ClInclude Include="..\..\..\vendor\shextshared\shell_minlink.h" />
     <ClInclude Include="..\..\resources\rcdesc.h" />
     <ClInclude Include="..\..\src\contextprov.h" />
     <ClInclude Include="..\..\src\Reg.h" />
