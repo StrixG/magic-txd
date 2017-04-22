@@ -1,6 +1,33 @@
 #ifndef _QT_INTEROP_UTILS_INTERNAL_
 #define _QT_INTEROP_UTILS_INTERNAL_
 
+AINLINE bool qstring_native_compare( const QString& left, const char *right )
+{
+    int leftLen = left.length();
+
+    const char *rightPtr = right;
+
+    for ( int n = 0; n < leftLen; n++ )
+    {
+        char c = *rightPtr;
+
+        if ( c == '\0' )
+        {
+            return false;
+        }
+
+        QChar leftChar = QChar::fromLatin1( c );
+        QChar rightChar = left.at( n );
+
+        if ( leftChar != rightChar )
+        {
+            return false;
+        }
+    }
+
+    return ( *rightPtr == '\0' );
+}
+
 template <typename modeType>
 struct naturalModeList : public std::list <modeType>
 {
@@ -16,7 +43,7 @@ struct naturalModeList : public std::list <modeType>
         if ( iter == this->end() )
             return false;
 
-        naturalOut = iter->natural;
+        naturalOut = QString::fromStdString( iter->natural );
         return true;
     }
 
@@ -54,7 +81,7 @@ struct naturalModeList : public std::list <modeType>
     {
         for ( const modeType& item : *this )
         {
-            box->addItem( item.natural );
+            box->addItem( QString::fromStdString( item.natural ) );
         }
     }
 };

@@ -1,4 +1,4 @@
-unset VC_FILEFIND
+set VC_FILEFIND=
 
 echo trying to find %SEARCHNAME%...
 @ECHO off

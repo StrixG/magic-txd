@@ -127,11 +127,11 @@ QString MagicLanguage::getStringFormattedWithVars(QString&& string) {
     return result;
 }
 
-static const QRegularExpression regExp1("[\\S]");
-static const QRegularExpression regExp2("[\\s]");
-
 bool MagicLanguage::loadText()
 {
+    static const QRegularExpression regExp1("[\\S]");
+    static const QRegularExpression regExp2("[\\s]");
+
     QFile file(languageFilePath);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))

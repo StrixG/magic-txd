@@ -11,7 +11,7 @@ namespace toolshare
 struct platformToNatural
 {
     rwkind::eTargetPlatform mode;
-    QString natural;
+    std::string natural;
 
     inline bool operator == ( const decltype( mode )& right ) const
     {
@@ -20,7 +20,7 @@ struct platformToNatural
 
     inline bool operator == ( const QString& right ) const
     {
-        return ( right == this->natural );
+        return ( qstring_native_compare( right, this->natural.c_str() ) );
     }
 };
 
@@ -42,7 +42,7 @@ static platformToNaturalList_t platformToNaturalList =
 struct gameToNatural
 {
     rwkind::eTargetGame mode;
-    QString natural;
+    std::string natural;
 
     inline bool operator == ( const decltype( mode )& right ) const
     {
@@ -51,7 +51,7 @@ struct gameToNatural
 
     inline bool operator == ( const QString& right ) const
     {
-        return ( right == this->natural );
+        return ( qstring_native_compare( right, this->natural.c_str() ) );
     }
 };
 

@@ -11,7 +11,6 @@
 #include <QtGUI\QImageWriter>
 
 #include <QtCore\QtPlugin>
-Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 
 struct ScopedSystemEventFilter
 {
@@ -149,6 +148,9 @@ extern void DbgHeap_Validate( void );
 
 int main(int argc, char *argv[])
 {
+    // Need to import here because static init order.
+    Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
+
     // Initialize all main window plugins.
     InitializeRWFileSystemWrap();
     InitializeTaskCompletionWindowEnv();

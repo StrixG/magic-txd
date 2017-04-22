@@ -34,7 +34,5 @@
 #define QT_FEATURE_system_png -1
 #define QT_FEATURE_system_xcb -1
 #define QT_FEATURE_tslib -1
-#define QT_FEATURE_xinput2 -1
-#define QT_FEATURE_xkb -1
 #define QT_FEATURE_xkbcommon_evdev -1
 #define QT_FEATURE_xlib -1

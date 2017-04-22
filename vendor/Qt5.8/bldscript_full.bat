@@ -1,6 +1,10 @@
 call "_userconf.bat"
 
+if %_BLD_VALID%==0 (goto do_nothing)
+
 REM rd /S /Q qt5
+set _DIRBACK_BLDSCRIPT="%CD%"
+cd /D "%_TMPOUTPATH_GIT%"
 git clone git://code.qt.io/qt/qt5.git
 cd qt5
 
@@ -14,5 +18,7 @@ perl init-repository ^
 call "../configure_repo.bat"
 nmake
 nmake install
-cd ..
-move "%_TMPOUTPATH%" %QTOUTNAME%
+cd /D "%_DIRBACK_BLDSCRIPT%"
+robocopy "%_TMPOUTPATH%" "%QTOUTNAME%" /MOVE /E
+
+:do_nothing

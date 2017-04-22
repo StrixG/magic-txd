@@ -5,7 +5,13 @@
 
 #include "createtxddlg.h"
 
-static const QRegularExpression forbPathChars("[/:?\"<>|\\[\\]\\\\]");
+static inline const QRegularExpression& get_forb_path_chars( void )
+{
+    // IMPORTANT: always put statics into functions.
+    static const QRegularExpression forbPathChars("[/:?\"<>|\\[\\]\\\\]");
+
+    return forbPathChars;
+}
 
 CreateTxdDialog::CreateTxdDialog(MainWindow *mainWnd) : QDialog(mainWnd), versionGUI( mainWnd, this )
 {
@@ -71,7 +77,7 @@ void CreateTxdDialog::UpdateAccessibility(void)
     bool hasValidVersion = this->versionGUI.GetSelectedVersion(libVer);
 
     // Alright, set enabled-ness based on valid version.
-    if(!hasValidVersion || this->txdName->text().isEmpty() || this->txdName->text().contains(forbPathChars))
+    if(!hasValidVersion || this->txdName->text().isEmpty() || this->txdName->text().contains(get_forb_path_chars()))
         this->applyButton->setDisabled(true);
     else
         this->applyButton->setDisabled(false);

@@ -9,7 +9,7 @@
 struct addrToNatural
 {
     rw::eRasterStageAddressMode mode;
-    QString natural;
+    std::string natural;
 
     inline bool operator == ( const rw::eRasterStageAddressMode& right ) const
     {
@@ -18,7 +18,7 @@ struct addrToNatural
 
     inline bool operator == ( const QString& right ) const
     {
-        return ( right == this->natural );
+        return ( qstring_native_compare( right, this->natural.c_str() ) );
     }
 };
 
@@ -34,7 +34,7 @@ static const addrToNaturalList_t addrToNaturalList =
 struct filterToNatural
 {
     rw::eRasterStageFilterMode mode;
-    QString natural;
+    std::string natural;
     bool isMipmap;
 
     inline bool operator == ( const rw::eRasterStageFilterMode& right ) const
@@ -44,7 +44,7 @@ struct filterToNatural
 
     inline bool operator == ( const QString& right ) const
     {
-        return ( right == this->natural );
+        return ( qstring_native_compare( right, this->natural.c_str() ) );
     }
 };
 
@@ -66,7 +66,7 @@ inline QComboBox* createAddressingBox( void )
 
     for ( const addrToNatural& item : addrToNaturalList )
     {
-        addrSelect->addItem( item.natural );
+        addrSelect->addItem( QString::fromStdString( item.natural ) );
     }
 
     addrSelect->setMinimumWidth( 200 );
@@ -101,7 +101,7 @@ QComboBox* RenderPropWindow::createFilterBox( void ) const
 
         if ( isMipmapProp == hasMipmaps )
         {
-            filterSelect->addItem( item.natural );
+            filterSelect->addItem( QString::fromStdString( item.natural ) );
         }
     }
 
