@@ -23,15 +23,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rwtools", "..\vendor\rwlib\
 		{367055C8-A642-49C8-A200-51249C94F9F0} = {367055C8-A642-49C8-A200-51249C94F9F0}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libimagequant", "..\vendor\rwlib\vendor\libimagequant\vs2015\libimagequant.vcxproj", "{367055C8-A642-49C8-A200-51249C94F9F0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libimagequant", "..\vendor\rwlib\vendor\libimagequant\build\libimagequant.vcxproj", "{367055C8-A642-49C8-A200-51249C94F9F0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "squish", "..\vendor\rwlib\vendor\squish-1.11\v14\squish\squish.vcxproj", "{6A8518C3-D81A-4428-BD7F-C37933088AC1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "squish", "..\vendor\rwlib\vendor\squish-1.11\build\squish.vcxproj", "{6A8518C3-D81A-4428-BD7F-C37933088AC1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{C11221A6-2A83-474F-B84F-83A229178005}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\vendor\zlib\vs2015\zlib.vcxproj", "{65D5E721-48DD-4DA9-9903-6E2FDD90725A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\vendor\zlib\build\zlib.vcxproj", "{65D5E721-48DD-4DA9-9903-6E2FDD90725A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpng", "..\vendor\libpng\projects\vstudio\libpng\libpng.vcxproj", "{B991279B-D8C1-45DA-8331-94D6E7840DD4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpng", "..\vendor\libpng\build\libpng.vcxproj", "{B991279B-D8C1-45DA-8331-94D6E7840DD4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{65D5E721-48DD-4DA9-9903-6E2FDD90725A} = {65D5E721-48DD-4DA9-9903-6E2FDD90725A}
 	EndProjectSection
@@ -46,9 +46,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "format_a4l4", "..\formats\f
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "format_v8u8", "..\formats\format_v8u8\build\vs2015\format_v8u8.vcxproj", "{1F80C2E2-0DE8-48F2-99E9-0176FA91B11B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg", "..\vendor\libjpeg\build\vs2015\libjpeg.vcxproj", "{7209B422-33E4-49E4-BAEA-9B10DF7502D3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg", "..\vendor\libjpeg\build\libjpeg.vcxproj", "{7209B422-33E4-49E4-BAEA-9B10DF7502D3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtiff", "..\vendor\rwlib\vendor\libtiff\build\vs2015\libtiff.vcxproj", "{024E7ABB-3A5D-4090-B73E-29E79946C127}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtiff", "..\vendor\rwlib\vendor\libtiff\build\libtiff.vcxproj", "{024E7ABB-3A5D-4090-B73E-29E79946C127}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NativeExecutive", "..\vendor\NativeExecutive\build\NativeExecutive.vcxproj", "{7E697733-5C68-49B4-82D4-A313210D49DF}"
 EndProject
