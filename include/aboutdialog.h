@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtWidgets\QDialog>
+#include <QtWidgets/QDialog>
 
 class MainWindow;
 

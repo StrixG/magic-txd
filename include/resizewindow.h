@@ -1,10 +1,10 @@
 #pragma once
 
-#include <QtWidgets\QDialog>
-#include <QtWidgets\QLineEdit>
-#include <QtWidgets\QPushButton>
-#include <QtWidgets\QHBoxLayout>
-#include <QtWidgets\QVBoxLayout>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
 #include "qtutils.h"
 #include "languages.h"
 
@@ -245,7 +245,7 @@ private:
                             }
                         }
                     }
-                    
+
                     if ( !gotValidDimms )
                     {
                         allowSet = false;

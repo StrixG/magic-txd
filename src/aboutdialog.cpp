@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include <QtGUI\QMovie>
+#include <QtGui/QMovie>
 
 struct LabelDoNotUseCommercially : public QLabel, public magicTextLocalizationItem
 {
@@ -42,7 +42,7 @@ AboutDialog::AboutDialog( MainWindow *mainWnd ) : QDialog( mainWnd )
     mainLogoLabel->setAlignment( Qt::AlignCenter );
 
     this->mainLogoLabel = mainLogoLabel;
-    
+
     headerGroup->addWidget( mainLogoLabel );
 
     QLabel *labelCopyrightHolders = CreateLabelL( "Main.About.Credits" );
@@ -85,7 +85,7 @@ AboutDialog::AboutDialog( MainWindow *mainWnd ) : QDialog( mainWnd )
     QLabel *labelSpecialThanks1 = new QLabel( specialThanks1 );
 
     labelSpecialThanks1->setObjectName( "labelSpecThx" );
-    
+
     labelSpecialThanks1->setAlignment( Qt::AlignTop );
 
     specialThanksLayout->addWidget( labelSpecialThanks1, 0, Qt::AlignHCenter );
@@ -192,7 +192,7 @@ AboutDialog::AboutDialog( MainWindow *mainWnd ) : QDialog( mainWnd )
     this->setLayout( rootLayout );
 
     RegisterTextLocalizationItem( this );
-    
+
     mainWnd->RegisterThemeItem( this );
 
     // There can be only one.

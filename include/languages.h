@@ -1,13 +1,13 @@
 #pragma once
 
-#include <QtCore\QHash>
-#include <QtCore\QVector>
-#include <QtWidgets\qradiobutton.h>
-#include <QtWidgets\qcheckbox.h>
-#include <QtWidgets\qpushbutton.h>
-#include <QtWidgets\qlabel.h>
+#include <QtCore/QHash>
+#include <QtCore/QVector>
+#include <QtWidgets/qradiobutton.h>
+#include <QtWidgets/qcheckbox.h>
+#include <QtWidgets/qpushbutton.h>
+#include <QtWidgets/qlabel.h>
 
-#include <QtCore\QDirIterator>
+#include <QtCore/QDirIterator>
 
 #define DEFAULT_LANGUAGE "English"
 

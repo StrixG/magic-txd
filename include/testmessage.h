@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QtWidgets\QMessageBox>
-#include <QtCore\QString>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QString>
 
 template <typename... ArgTypes> void TestMessage(char *format, ArgTypes... Args) {
     char text[512];

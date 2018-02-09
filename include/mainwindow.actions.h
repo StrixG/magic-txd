@@ -11,7 +11,7 @@ struct MagicActionSystem abstract
     MagicActionSystem( NativeExecutive::CExecutiveManager *natExec );
     ~MagicActionSystem( void );
 
-    typedef void (__stdcall*actionRuntime_t)( MagicActionSystem *system, void *ud );
+    typedef void (*actionRuntime_t)( MagicActionSystem *system, void *ud );
 
     void LaunchAction( actionRuntime_t cb, void *ud );
 

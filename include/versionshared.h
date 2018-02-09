@@ -1,8 +1,8 @@
 // Include file shared between dialogs that want to display common version GUI components.
 #pragma once
 
-#include <QtCore\QCoreApplication.h>
-#include <QtWidgets\qlineedit.h>
+#include <QtCore/QCoreApplication>
+#include <QtWidgets/qlineedit.h>
 
 static inline std::string rwVersionToString( const rw::LibraryVersion& version )
 {
@@ -159,7 +159,7 @@ struct VersionSetSelection abstract : public QObject
         {
             if ( ( rwLibMajor >= 3 && rwLibMajor <= 6 ) &&
                     ( rwLibMinor <= 15 ) &&
-                    ( rwRevMajor <= 15 ) && 
+                    ( rwRevMajor <= 15 ) &&
                     ( rwRevMinor <= 63 ) )
             {
                 theVersion.rwLibMajor = rwLibMajor;
@@ -364,7 +364,7 @@ private slots:
         }
 
         this->UpdateAccessibility();
-        
+
         this->NotifyUpdate();
     }
 

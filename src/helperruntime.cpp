@@ -10,6 +10,8 @@
 
 #include "guiserialization.hxx"
 
+#include <sdk/UniChar.h>
+
 struct helper_item
 {
     inline helper_item( void )
@@ -157,7 +159,7 @@ struct helperRuntimeEnv : public magicSerializationProvider
     {
         LIST_FOREACH_BEGIN( helper_item, this->helper_items.root, node )
 
-            if ( stricmp( item->triggerName, name ) == 0 )
+            if ( StringEqualToZero( item->triggerName, name, false ) == 0 )
                 return item;
 
         LIST_FOREACH_END
@@ -190,7 +192,7 @@ bool RegisterHelperWidget(MainWindow *mainWnd, const char *triggerName, eHelperT
             new_item->locale_item_name = locale_item_name;
             new_item->helperType = diagType;
 			new_item->richText = richText;
-            
+
             LIST_INSERT( helperEnv->helper_items.root, new_item->node );
 
             helperEnv->helperItemCount++;

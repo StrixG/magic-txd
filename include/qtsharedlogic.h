@@ -1,9 +1,9 @@
 #pragma once
 
-#include <QtWidgets\QPushButton>
-#include <QtWidgets\QLineEdit>
-#include <QtWidgets\QFileDialog>
-#include <QtWidgets\QHBoxLayout>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QHBoxLayout>
 #include "qtutils.h"
 
 #include "languages.h"
@@ -68,7 +68,7 @@ namespace qtshared
 
         return pathRow;
     }
-    
+
     inline QLayout* createMipmapGenerationGroup( QObject *parent, bool isEnabled, int curMipMax, QCheckBox*& propGenMipmapsOut, MagicLineEdit*& editMaxMipLevelOut )
     {
         QHBoxLayout *genMipGroup = new QHBoxLayout();

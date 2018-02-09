@@ -1,13 +1,13 @@
 #pragma once
 
-#include <QtWidgets\QVBoxLayout>
-#include <QtWidgets\QHBoxLayout>
-#include <QtWidgets\QDialog>
-#include <QtWidgets\QLabel>
-#include <QtWidgets\QPushButton>
-#include <QtWidgets\QComboBox>
-#include <QtWidgets\QLineEdit>
-#include <QtWidgets\QRadioButton>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QRadioButton>
 
 #include "languages.h"
 

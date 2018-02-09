@@ -82,7 +82,7 @@ private:
     TxdBuildModule *module;
 };
 
-static rw::TextureBase* BuilderMakeTextureFromStream( 
+static rw::TextureBase* BuilderMakeTextureFromStream(
     rw::Interface *rwEngine, rw::Stream *imgStream, const filePath& extention,
     TxdBuildModule *module,
     rwkind::eTargetGame targetGame, rwkind::eTargetPlatform targetPlatform,
@@ -102,36 +102,36 @@ static rw::TextureBase* BuilderMakeTextureFromStream(
 
 inline bool getFilterModeFromString( const char *string, rw::eRasterStageFilterMode& filter_out )
 {
-    if ( stricmp( string, "point" ) == 0 )
+    if ( strieq( string, "point" ) )
     {
         filter_out = rw::RWFILTER_POINT;
         return true;
     }
-    else if ( stricmp( string, "linear" ) == 0 )
+    else if ( strieq( string, "linear" ) )
     {
         filter_out = rw::RWFILTER_LINEAR;
         return true;
     }
-    else if ( stricmp( string, "point_mip_point" ) == 0 ||
-              stricmp( string, "point_point" ) == 0 )
+    else if ( strieq( string, "point_mip_point" ) ||
+              strieq( string, "point_point" ) )
     {
         filter_out = rw::RWFILTER_POINT_POINT;
         return true;
     }
-    else if ( stricmp( string, "linear_mip_point" ) == 0 ||
-              stricmp( string, "linear_point" ) == 0 )
+    else if ( strieq( string, "linear_mip_point" ) ||
+              strieq( string, "linear_point" ) )
     {
         filter_out = rw::RWFILTER_LINEAR_POINT;
         return true;
     }
-    else if ( stricmp( string, "point_mip_linear" ) == 0 ||
-              stricmp( string, "point_linear" ) == 0 )
+    else if ( strieq( string, "point_mip_linear" ) ||
+              strieq( string, "point_linear" ) )
     {
         filter_out = rw::RWFILTER_POINT_LINEAR;
         return true;
     }
-    else if ( stricmp( string, "linear_mip_linear" ) == 0 ||
-              stricmp( string, "linear_linear" ) == 0 )
+    else if ( strieq( string, "linear_mip_linear" ) ||
+              strieq( string, "linear_linear" ) )
     {
         filter_out = rw::RWFILTER_LINEAR_LINEAR;
         return true;
@@ -156,22 +156,22 @@ inline rw::eRasterStageFilterMode GetConfigNodeFilterMode( const ConfigNode& cfg
 
 inline bool getTexAddressFromString( const char *string, rw::eRasterStageAddressMode& address_out )
 {
-    if ( stricmp( string, "wrap" ) == 0 )
+    if ( strieq( string, "wrap" ) )
     {
         address_out = rw::RWTEXADDRESS_WRAP;
         return true;
     }
-    else if ( stricmp( string, "clamp" ) == 0 )
+    else if ( strieq( string, "clamp" ) )
     {
         address_out = rw::RWTEXADDRESS_CLAMP;
         return true;
     }
-    else if ( stricmp( string, "mirror" ) == 0 )
+    else if ( strieq( string, "mirror" ) )
     {
         address_out = rw::RWTEXADDRESS_MIRROR;
         return true;
     }
-    else if ( stricmp( string, "border" ) == 0 )
+    else if ( strieq( string, "border" ) )
     {
         address_out = rw::RWTEXADDRESS_BORDER;
         return true;
@@ -196,14 +196,14 @@ inline rw::eRasterStageAddressMode GetConfigNodeAddressMode( const ConfigNode& c
 
 inline bool getPaletteTypeFromString( const char *string, rw::ePaletteType& palTypeOut )
 {
-    if ( stricmp( string, "PAL8" ) == 0 ||
-         stricmp( string, "8BIT" ) == 0 )
+    if ( strieq( string, "PAL8" ) ||
+         strieq( string, "8BIT" ) )
     {
         palTypeOut = rw::PALETTE_8BIT;
         return true;
     }
-    else if ( stricmp( string, "PAL4" ) == 0 ||
-              stricmp( string, "4BIT" ) == 0 )
+    else if ( strieq( string, "PAL4" ) ||
+              strieq( string, "4BIT" ) )
     {
         palTypeOut = rw::PALETTE_4BIT;
         return true;
@@ -261,7 +261,7 @@ inline void PutVersionOnObject( rw::RwObject *rwObj, rwkind::eTargetPlatform gui
         const char *_unusedVerName;
 
         bool gotGUIVersion = rwkind::GetTargetVersionFromPlatformAndGame( gui_targetPlatform, gui_targetGame, reqObjVer, _unusedVerName );
-        
+
         if ( gotGUIVersion )
         {
             hasVersion = true;
@@ -295,7 +295,7 @@ void BuildSingleTexture(
             filePath texName = FileSystem::GetFileNameItem( texturePath, false );
 
             std::string ansiTexName = texName.convert_ansi();
-            
+
             // Tell the runtime that we process a texture.
             {
                 module->OnMessage( std::string( "*** " ) + ansiTexName + " ...\n" );
@@ -408,7 +408,7 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
         [&]( const CINI::Entry::Setting& cfg )
     {
         // Check all kinds of keys here and plant them into the configuration system properly.
-        if ( stricmp( cfg.key, "platform" ) == 0 )
+        if ( strieq( cfg.key, "platform" ) )
         {
             // Is it even a platform?
             if ( rw::IsNativeTexture( rwEngine, cfg.value ) )
@@ -420,19 +420,19 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
                 module->OnMessage( std::string( "not a platform: " ) + cfg.value + '\n' );
             }
         }
-        else if ( stricmp( cfg.key, "rwversion" ) == 0 ||
-                  stricmp( cfg.key, "version" ) == 0 ||
-                  stricmp( cfg.key, "rw_version" ) == 0 ||
-                  stricmp( cfg.key, "rwver" ) == 0 )
+        else if ( strieq( cfg.key, "rwversion" ) ||
+                  strieq( cfg.key, "version" ) ||
+                  strieq( cfg.key, "rw_version" ) ||
+                  strieq( cfg.key, "rwver" ) )
         {
             txdConfigNode.SetString( "rwver", cfg.value );
         }
-        else if ( stricmp( cfg.key, "gameVer" ) == 0 ||
-                  stricmp( cfg.key, "gameVersion" ) == 0 )
+        else if ( strieq( cfg.key, "gameVer" ) ||
+                  strieq( cfg.key, "gameVersion" ) )
         {
             // Process this and try to set a better RW version if we found a match.
             std::cmatch verMatch;
-            
+
             bool didMatch = std::regex_match( cfg.value, verMatch, gameVer_regex );
 
             if ( didMatch && verMatch.size() == 3 )
@@ -483,11 +483,11 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
                 module->OnMessage( std::string( "failed to parse gameVer: " ) + cfg.value + '\n' );
             }
         }
-        else if ( stricmp( cfg.key, "game" ) == 0 )
+        else if ( strieq( cfg.key, "game" ) )
         {
             // We do very similar work to gameVer, just more.
             std::cmatch verMatch;
-            
+
             bool didMatch = std::regex_match( cfg.value, verMatch, game_regex );
 
             if ( didMatch && verMatch.size() == 3 )
@@ -552,12 +552,12 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
                 module->OnMessage( std::string( "failed to parse game: " ) + cfg.value + '\n' );
             }
         }
-        else if ( stricmp( cfg.key, "size" ) == 0 )
+        else if ( strieq( cfg.key, "size" ) )
         {
             // Ability to scale texture to a fixed size.
             txdConfigNode.SetString( "size", cfg.value );
         }
-        else if ( stricmp( cfg.key, "filterMode" ) == 0 )
+        else if ( strieq( cfg.key, "filterMode" ) )
         {
             rw::eRasterStageFilterMode filterOut;
 
@@ -570,9 +570,9 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
                 module->OnMessage( std::string( "not a filterMode: " ) + cfg.value + '\n' );
             }
         }
-        else if ( stricmp( cfg.key, "uAddress" ) == 0 ||
-                  stricmp( cfg.key, "uAddressing" ) == 0 ||
-                  stricmp( cfg.key, "u_address" ) == 0 )
+        else if ( strieq( cfg.key, "uAddress" ) ||
+                  strieq( cfg.key, "uAddressing" ) ||
+                  strieq( cfg.key, "u_address" ) )
         {
             rw::eRasterStageAddressMode addressOut;
 
@@ -585,9 +585,9 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
                 module->OnMessage( std::string( "not a uAddress: " ) + cfg.value + '\n' );
             }
         }
-        else if ( stricmp( cfg.key, "vAddress" ) == 0 ||
-                  stricmp( cfg.key, "vAddressing" ) == 0 ||
-                  stricmp( cfg.key, "v_address" ) == 0 )
+        else if ( strieq( cfg.key, "vAddress" ) ||
+                  strieq( cfg.key, "vAddressing" ) ||
+                  strieq( cfg.key, "v_address" ) )
         {
             rw::eRasterStageAddressMode addressOut;
 
@@ -600,21 +600,21 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
                 module->OnMessage( std::string( "not a vAddress: " ) + cfg.value + '\n' );
             }
         }
-        else if ( stricmp( cfg.key, "compressed" ) == 0 )
+        else if ( strieq( cfg.key, "compressed" ) )
         {
             txdConfigNode.SetBoolean( "compressed", entry->GetBool( cfg.key ) );
         }
-        else if ( stricmp( cfg.key, "comprQuality" ) == 0 ||
-                  stricmp( cfg.key, "compressionQuality" ) == 0 )
+        else if ( strieq( cfg.key, "comprQuality" ) ||
+                  strieq( cfg.key, "compressionQuality" ) )
         {
             txdConfigNode.SetBoolean( "comprQuality", entry->GetInt( cfg.key ) );
         }
-        else if ( stricmp( cfg.key, "palettized" ) == 0 )
+        else if ( strieq( cfg.key, "palettized" ) )
         {
             txdConfigNode.SetBoolean( "palettized", entry->GetBool( cfg.key ) );
         }
-        else if ( stricmp( cfg.key, "palType" ) == 0 ||
-                  stricmp( cfg.key, "paletteType" ) == 0 )
+        else if ( strieq( cfg.key, "palType" ) ||
+                  strieq( cfg.key, "paletteType" ) )
         {
             rw::ePaletteType palTypeOut;
 
@@ -627,13 +627,13 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
                 module->OnMessage( std::string( "not a palType: " ) + cfg.value + '\n' );
             }
         }
-        else if ( stricmp( cfg.key, "genMipmaps" ) == 0 ||
-                  stricmp( cfg.key, "generateMipmaps" ) == 0 )
+        else if ( strieq( cfg.key, "genMipmaps" ) ||
+                  strieq( cfg.key, "generateMipmaps" ) )
         {
             txdConfigNode.SetBoolean( "genMipmaps", entry->GetBool( cfg.key ) );
         }
-        else if ( stricmp( cfg.key, "genMipMaxLevel" ) == 0 ||
-                  stricmp( cfg.key, "maxMipLevel" ) == 0 )
+        else if ( strieq( cfg.key, "genMipMaxLevel" ) ||
+                  strieq( cfg.key, "maxMipLevel" ) )
         {
             txdConfigNode.SetInt( "genMipMaxLevel", entry->GetInt( cfg.key ) );
         }
@@ -696,7 +696,7 @@ void BuildTXDArchives(
 
                 txdWritePath += L".txd";
             }
-            
+
             // We can only continue if we actually have a valid location to write our TXD to.
             if ( hasTXDWritePath )
             {
@@ -709,7 +709,7 @@ void BuildTXDArchives(
                 {
                     throw rw::RwException( "failed to allocate texture dictionary object" );
                 }
-        
+
                 try
                 {
                     // Load configuration for this TXD.
@@ -763,7 +763,7 @@ void BuildTXDArchives(
                                             {
                                                 // We have to parse the path to this texture.
                                                 filePath pathToTexture;
-                                                    
+
                                                 bool gotPath = gameRoot->GetRelativePathFromRoot( texturePath, false, pathToTexture );
 
                                                 if ( gotPath )
@@ -1017,7 +1017,7 @@ bool TxdBuildModule::RunApplication( const run_config& config )
 
                     throw;
                 }
-        
+
                 delete gameRootTranslator;
             }
             else
@@ -1031,7 +1031,7 @@ bool TxdBuildModule::RunApplication( const run_config& config )
         catch( ... )
         {
             rw::ReleaseThreadedRuntimeConfig( rwEngine );
-        
+
             throw;
         }
 

@@ -1,12 +1,12 @@
 #pragma once
 
-#include <QtWidgets\QDialog>
-#include <QtWidgets\QHBoxLayout>
-#include <QtWidgets\QVBoxLayout>
-#include <QtWidgets\QComboBox>
-#include <QtWidgets\QPushButton>
-#include <QtWidgets\QLabel>
-#include <QtWidgets\QLineEdit>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 
 #include <regex>
 #include <string>

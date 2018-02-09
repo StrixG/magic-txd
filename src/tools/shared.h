@@ -1,5 +1,13 @@
 #pragma once
 
+#include <sdk/UniChar.h>
+
+template <typename leftCharType, typename rightCharType>
+inline bool strieq( const leftCharType *left, const rightCharType *right )
+{
+    return StringEqualToZero( left, right, false );
+}
+
 struct MessageReceiver abstract
 {
     virtual void OnMessage( const std::string& msg ) = 0;
@@ -38,60 +46,60 @@ namespace rwkind
 
     static inline bool GetTargetPlatformFromFriendlyString( const char *targetPlatform, rwkind::eTargetPlatform& platOut )
     {
-        if ( stricmp( targetPlatform, "PC" ) == 0 )
+        if ( strieq( targetPlatform, "PC" ) )
         {
             platOut = PLATFORM_PC;
             return true;
         }
-        else if ( stricmp( targetPlatform, "PS2" ) == 0 ||
-                  stricmp( targetPlatform, "Playstation 2" ) == 0 ||
-                  stricmp( targetPlatform, "PlayStation2" ) == 0 )
+        else if ( strieq( targetPlatform, "PS2" )||
+                  strieq( targetPlatform, "Playstation 2" ) ||
+                  strieq( targetPlatform, "PlayStation2" ) )
         {
             platOut = PLATFORM_PS2;
             return true;
         }
-        else if ( stricmp( targetPlatform, "XBOX" ) == 0 )
+        else if ( strieq( targetPlatform, "XBOX" ) )
         {
             platOut = PLATFORM_XBOX;
             return true;
         }
-        else if ( stricmp( targetPlatform, "Gamecube" ) == 0 ||
-                  stricmp( targetPlatform, "GCube" ) == 0 ||
-                  stricmp( targetPlatform, "GC" ) == 0 )
+        else if ( strieq( targetPlatform, "Gamecube" ) ||
+                  strieq( targetPlatform, "GCube" ) ||
+                  strieq( targetPlatform, "GC" ) )
         {
             platOut = PLATFORM_GC;
             return true;
         }
-        else if ( stricmp( targetPlatform, "DXT_MOBILE" ) == 0 ||
-                  stricmp( targetPlatform, "S3TC_MOBILE" ) == 0 ||
-                  stricmp( targetPlatform, "MOBILE_DXT" ) == 0 ||
-                  stricmp( targetPlatform, "MOBILE_S3TC" ) == 0 )
+        else if ( strieq( targetPlatform, "DXT_MOBILE" ) ||
+                  strieq( targetPlatform, "S3TC_MOBILE" ) ||
+                  strieq( targetPlatform, "MOBILE_DXT" ) ||
+                  strieq( targetPlatform, "MOBILE_S3TC" ) )
         {
             platOut = PLATFORM_DXT_MOBILE;
             return true;
         }
-        else if ( stricmp( targetPlatform, "PVR" ) == 0 ||
-                  stricmp( targetPlatform, "PowerVR" ) == 0 ||
-                  stricmp( targetPlatform, "PVRTC" ) == 0 )
+        else if ( strieq( targetPlatform, "PVR" ) ||
+                  strieq( targetPlatform, "PowerVR" ) ||
+                  strieq( targetPlatform, "PVRTC" ) )
         {
             platOut = PLATFORM_PVR;
             return true;
         }
-        else if ( stricmp( targetPlatform, "ATC" ) == 0 ||
-                  stricmp( targetPlatform, "ATI_Compress" ) == 0 ||
-                  stricmp( targetPlatform, "ATI" ) == 0 ||
-                  stricmp( targetPlatform, "ATITC" ) == 0 ||
-                  stricmp( targetPlatform, "ATI TC" ) == 0 )
+        else if ( strieq( targetPlatform, "ATC" ) ||
+                  strieq( targetPlatform, "ATI_Compress" ) ||
+                  strieq( targetPlatform, "ATI" ) ||
+                  strieq( targetPlatform, "ATITC" ) ||
+                  strieq( targetPlatform, "ATI TC" ) )
         {
             platOut = PLATFORM_ATC;
             return true;
         }
-        else if ( stricmp( targetPlatform, "UNC" ) == 0 ||
-                  stricmp( targetPlatform, "UNCOMPRESSED" ) == 0 ||
-                  stricmp( targetPlatform, "unc_mobile" ) == 0 ||
-                  stricmp( targetPlatform, "uncompressed_mobile" ) == 0 ||
-                  stricmp( targetPlatform, "mobile_unc" ) == 0 ||
-                  stricmp( targetPlatform, "mobile_uncompressed" ) == 0 )
+        else if ( strieq( targetPlatform, "UNC" ) ||
+                  strieq( targetPlatform, "UNCOMPRESSED" ) ||
+                  strieq( targetPlatform, "unc_mobile" ) ||
+                  strieq( targetPlatform, "uncompressed_mobile" ) ||
+                  strieq( targetPlatform, "mobile_unc" ) ||
+                  strieq( targetPlatform, "mobile_uncompressed" ) )
         {
             platOut = PLATFORM_UNC_MOBILE;
             return true;
@@ -102,47 +110,47 @@ namespace rwkind
 
     static inline bool GetTargetGameFromFriendlyString( const char *targetVersion, rwkind::eTargetGame& gameOut )
     {
-        if ( stricmp( targetVersion, "SA" ) == 0 ||
-             stricmp( targetVersion, "SanAndreas" ) == 0 ||
-             stricmp( targetVersion, "San Andreas" ) == 0 ||
-             stricmp( targetVersion, "GTA SA" ) == 0 ||
-             stricmp( targetVersion, "GTASA" ) == 0 )
+        if ( strieq( targetVersion, "SA" ) ||
+             strieq( targetVersion, "SanAndreas" ) ||
+             strieq( targetVersion, "San Andreas" ) ||
+             strieq( targetVersion, "GTA SA" ) ||
+             strieq( targetVersion, "GTASA" ) )
         {
             gameOut = GAME_GTASA;
             return true;
         }
-        else if ( stricmp( targetVersion, "VC" ) == 0 ||
-                  stricmp( targetVersion, "ViceCity" ) == 0 ||
-                  stricmp( targetVersion, "Vice City" ) == 0 ||
-                  stricmp( targetVersion, "GTA VC" ) == 0 ||
-                  stricmp( targetVersion, "GTAVC" ) == 0 )
+        else if ( strieq( targetVersion, "VC" ) ||
+                  strieq( targetVersion, "ViceCity" ) ||
+                  strieq( targetVersion, "Vice City" ) ||
+                  strieq( targetVersion, "GTA VC" ) ||
+                  strieq( targetVersion, "GTAVC" ) )
         {
             gameOut = GAME_GTAVC;
             return true;
         }
-        else if ( stricmp( targetVersion, "GTAIII" ) == 0 ||
-                  stricmp( targetVersion, "III" ) == 0 ||
-                  stricmp( targetVersion, "GTA3" ) == 0 ||
-                  stricmp( targetVersion, "GTA 3" ) == 0 )
+        else if ( strieq( targetVersion, "GTAIII" ) ||
+                  strieq( targetVersion, "III" ) ||
+                  strieq( targetVersion, "GTA3" ) ||
+                  strieq( targetVersion, "GTA 3" ) )
         {
             gameOut = GAME_GTA3;
             return true;
         }
-        else if ( stricmp( targetVersion, "MANHUNT" ) == 0 ||
-                  stricmp( targetVersion, "MHUNT" ) == 0 ||
-                  stricmp( targetVersion, "MH" ) == 0 )
+        else if ( strieq( targetVersion, "MANHUNT" ) ||
+                  strieq( targetVersion, "MHUNT" ) ||
+                  strieq( targetVersion, "MH" ) )
         {
             gameOut = GAME_MANHUNT;
             return true;
         }
-        else if ( stricmp( targetVersion, "BULLY" ) == 0 )
+        else if ( strieq( targetVersion, "BULLY" ) )
         {
             gameOut = GAME_BULLY;
             return true;
         }
-        else if ( stricmp( targetVersion, "SHEROES" ) == 0 ||
-                  stricmp( targetVersion, "Sonic Heroes" ) == 0 ||
-                  stricmp( targetVersion, "SonicHeroes" ) == 0 )
+        else if ( strieq( targetVersion, "SHEROES" ) ||
+                  strieq( targetVersion, "Sonic Heroes" ) ||
+                  strieq( targetVersion, "SonicHeroes" ) )
         {
             gameOut = GAME_SHEROES;
             return true;
@@ -383,7 +391,7 @@ namespace rwkind
             {
                 return "Direct3D9";
             }
-            
+
             return "Direct3D8";
         }
         else if ( targetPlatform == PLATFORM_PSP )
@@ -410,7 +418,7 @@ namespace rwkind
         {
             return "uncompressed_mobile";
         }
-        
+
         return NULL;
     }
 

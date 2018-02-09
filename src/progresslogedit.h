@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <QtWidgets\qplaintextedit.h>
+#include <QtWidgets/qplaintextedit.h>
 
 struct AppendConsoleMessageEvent : public QEvent
 {

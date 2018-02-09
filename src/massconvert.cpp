@@ -4,7 +4,7 @@
 
 #include "qtinteroputils.hxx"
 
-#include <QtCore\QCoreApplication>
+#include <QtCore/QCoreApplication>
 
 #include "qtsharedlogic.h"
 
@@ -50,10 +50,10 @@ struct massconvEnv : public magicSerializationProvider
     {
         endian::little_endian <rwkind::eTargetGame> c_gameType;
         endian::little_endian <rwkind::eTargetPlatform> c_targetPlatform;
-        
+
         bool c_clearMipmaps;
         bool c_generateMipmaps;
-        
+
         endian::little_endian <rw::eMipmapGenerationMode> c_mipGenMode;
         endian::little_endian <rw::uint32> c_mipGenMaxLevel;
 
@@ -68,7 +68,7 @@ struct massconvEnv : public magicSerializationProvider
         bool c_dxtPackedDecompression;
         bool c_imgArchivesCompressed;
         bool c_ignoreSerializationRegions;
-        
+
         endian::little_endian <rw::float32> c_compressionQuality;
 
         bool c_outputDebug;
@@ -443,7 +443,7 @@ void MassConvertWindow::customEvent( QEvent *evt )
 {
     // Handle events for the log.
     logEditControl.customEvent( evt );
-    
+
     if ( ConversionFinishEvent *convEndEvt = dynamic_cast <ConversionFinishEvent*> ( evt ) )
     {
         // We can enable the conversion button again.

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtWidgets\QDialog>
+#include <QtWidgets/QDialog>
 #include "languages.h"
 
 struct MassBuildWindow : public QDialog, public magicTextLocalizationItem

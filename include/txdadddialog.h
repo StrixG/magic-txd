@@ -1,15 +1,15 @@
 #pragma once
 
-#include <QtWidgets\QDialog>
-#include <QtWidgets\QFormLayout>
-#include <QtWidgets\QLineEdit>
-#include <QtWidgets\QComboBox>
-#include <QtWidgets\QGroupBox>
-#include <QtWidgets\QRadioButton>
-#include <QtWidgets\QPushButton>
-#include <QtWidgets\QCheckBox>
-#include <QtGUI\QPainter>
-#include <QtGUI\QResizeEvent>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QCheckBox>
+#include <QtGui/QPainter>
+#include <QtGui/QResizeEvent>
 
 #include <functional>
 

@@ -12,7 +12,7 @@
 static const bool _lockdownPlatform = false;        // SET THIS TO TRUE FOR RELEASE.
 #else
 static const bool _lockdownPlatform = true;         // WE ARE RELEASING SOON.
-#endif 
+#endif
 static const size_t _recommendedPlatformMaxName = 32;
 static const bool _enableMaskName = false;
 
@@ -30,7 +30,7 @@ void TexAddDialog::SetCurrentPlatform( QString name )
     {
         editBox->setText( std::move( name ) );
     }
-    else if ( QComboBox *comboBox = dynamic_cast <QComboBox*> ( this->platformSelectWidget ) ) 
+    else if ( QComboBox *comboBox = dynamic_cast <QComboBox*> ( this->platformSelectWidget ) )
     {
         comboBox->setCurrentText( std::move( name ) );
     }
@@ -366,7 +366,7 @@ void TexAddDialog::createRasterForConfiguration(void)
                 }
                 else
                 {
-                    throw std::exception("invalid compression type selected");
+                    throw std::exception(); //"invalid compression type selected"
                 }
 
                 rasterFormat = rw::RASTER_DEFAULT;
@@ -388,7 +388,7 @@ void TexAddDialog::createRasterForConfiguration(void)
 
                     if (rasterFormat == rw::RASTER_DEFAULT)
                     {
-                        throw std::exception("invalid pixel format selected");
+                        throw std::exception(); //"invalid pixel format selected"
                     }
                 }
 
@@ -411,7 +411,7 @@ void TexAddDialog::createRasterForConfiguration(void)
                     }
                     else
                     {
-                        throw std::exception("invalid palette type selected");
+                        throw std::exception(); //"invalid palette type selected"
                     }
                 }
                 else
@@ -673,7 +673,7 @@ TexAddDialog::TexAddDialog(MainWindow *mainWnd, const dialogCreateParams& create
             {
                 QComboBox *platformComboBox = createPlatformSelectComboBox(mainWnd);
                 //platformComboBox->setFixedWidth(LEFTPANELADDDIALOGWIDTH);
-                
+
                 connect(platformComboBox, (void (QComboBox::*)(const QString&))&QComboBox::activated, this, &TexAddDialog::OnPlatformSelect);
 
                 platformDisplayWidget = platformComboBox;
@@ -847,7 +847,7 @@ TexAddDialog::TexAddDialog(MainWindow *mainWnd, const dialogCreateParams& create
     connect(addButton, &QPushButton::clicked, this, &TexAddDialog::OnTextureAddRequest);
 
     layout.bottom->addWidget(addButton);
-    
+
     this->setLayout(layout.root);
 
     // Do initial stuff.
@@ -1126,7 +1126,7 @@ void TexAddDialog::OnPlatformSelect(const QString& _)
 
     // If no option is visible, hide the label.
     bool shouldHideLabel = ( !enableOriginal && !enableRawRaster && !enableCompressSelect && !enablePaletteSelect && !enablePixelFormatSelect );
-    
+
     this->platformHeaderLabel->setVisible( !shouldHideLabel );
 
     this->enableOriginal = enableOriginal;

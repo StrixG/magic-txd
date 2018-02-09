@@ -31,14 +31,14 @@ AINLINE bool qstring_native_compare( const QString& left, const char *right )
 template <typename modeType>
 struct naturalModeList : public std::list <modeType>
 {
-    inline naturalModeList( std::initializer_list <modeType> list ) : list( list )
+    inline naturalModeList( std::initializer_list <modeType> list ) : std::list <modeType> ( list )
     {}
 
     typedef decltype( modeType::mode ) mode_t;
 
     inline bool getNaturalFromMode( mode_t mode, QString& naturalOut ) const
     {
-        const_iterator iter = std::find( this->begin(), this->end(), mode );
+        auto iter = std::find( this->begin(), this->end(), mode );
 
         if ( iter == this->end() )
             return false;
@@ -49,7 +49,7 @@ struct naturalModeList : public std::list <modeType>
 
     inline bool getModeFromNatural( const QString& natural, mode_t& modeOut ) const
     {
-        const_iterator iter = std::find( this->begin(), this->end(), natural );
+        auto iter = std::find( this->begin(), this->end(), natural );
 
         if ( iter == this->end() )
             return false;

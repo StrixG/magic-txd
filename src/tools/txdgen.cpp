@@ -42,7 +42,7 @@ bool TxdGenModule::ProcessTXDArchive(
     try
     {
         rw::TexDictionary *txd = NULL;
-        
+
         if ( txd_stream != NULL )
         {
             try
@@ -70,7 +70,7 @@ bool TxdGenModule::ProcessTXDArchive(
             catch( rw::RwException& except )
             {
                 errMsg = "error reading txd: " + except.message;
-                
+
                 throw;
             }
         }
@@ -262,7 +262,7 @@ bool TxdGenModule::ProcessTXDArchive(
                 catch( rw::RwException& except )
                 {
                     errMsg = "error processing textures: " + except.message;
-                    
+
                     throw;
                 }
 
@@ -293,7 +293,7 @@ bool TxdGenModule::ProcessTXDArchive(
                             catch( rw::RwException& except )
                             {
                                 errMsg = "error writing txd: " + except.message;
-                                
+
                                 throw;
                             }
                         }
@@ -315,7 +315,7 @@ bool TxdGenModule::ProcessTXDArchive(
                 rwEngine->DeleteRwObject( txd );
 
                 txd = NULL;
-                
+
                 throw;
             }
 
@@ -441,7 +441,7 @@ struct _discFileSentry_txdgen
                 {
                     // Make sure we copy from the beginning of the source stream.
                     sourceStream->Seek( 0, SEEK_SET );
-                    
+
                     // Copy the stream contents.
                     FileSystem::StreamCopy( *sourceStream, *targetStream );
 
@@ -495,13 +495,13 @@ TxdGenModule::run_config TxdGenModule::ParseConfig( CFileTranslator *root, const
                 // Output root.
                 if ( const char *newOutputRoot = mainEntry->Get( "outputRoot" ) )
                 {
-                    cfg.c_outputRoot = (std::wstring_convert <std::codecvt <wchar_t, char, std::mbstate_t>, wchar_t> ()).from_bytes( newOutputRoot );
+                    cfg.c_outputRoot = CharacterUtil::ConvertStrings <char8_t, wchar_t> ( (const char8_t*)newOutputRoot );
                 }
 
                 // Game root.
                 if ( const char *newGameRoot = mainEntry->Get( "gameRoot" ) )
                 {
-                    cfg.c_gameRoot = (std::wstring_convert <std::codecvt <wchar_t, char, std::mbstate_t>, wchar_t> ()).from_bytes( newGameRoot );
+                    cfg.c_gameRoot = CharacterUtil::ConvertStrings <char8_t, wchar_t> ( (const char8_t*)newGameRoot );
                 }
 
                 // Target Platform.
@@ -533,27 +533,27 @@ TxdGenModule::run_config TxdGenModule::ParseConfig( CFileTranslator *root, const
                 // Mipmap Generation Mode.
                 if ( const char *mipGenMode = mainEntry->Get( "mipGenMode" ) )
                 {
-                    if ( stricmp( mipGenMode, "default" ) == 0 ||
-                            stricmp( mipGenMode, "recommended" ) == 0 )
+                    if ( strieq( mipGenMode, "default" ) ||
+                         strieq( mipGenMode, "recommended" ) )
                     {
                         cfg.c_mipGenMode = rw::MIPMAPGEN_DEFAULT;
                     }
-                    else if ( stricmp( mipGenMode, "contrast" ) == 0 )
+                    else if ( strieq( mipGenMode, "contrast" ) )
                     {
                         cfg.c_mipGenMode = rw::MIPMAPGEN_CONTRAST;
                     }
-                    else if ( stricmp( mipGenMode, "brighten" ) == 0 )
+                    else if ( strieq( mipGenMode, "brighten" ) )
                     {
                         cfg.c_mipGenMode = rw::MIPMAPGEN_BRIGHTEN;
                     }
-                    else if ( stricmp( mipGenMode, "darken" ) == 0 )
+                    else if ( strieq( mipGenMode, "darken" ) )
                     {
                         cfg.c_mipGenMode = rw::MIPMAPGEN_DARKEN;
                     }
-                    else if ( stricmp( mipGenMode, "selectclose" ) == 0 )
+                    else if ( strieq( mipGenMode, "selectclose" ) )
                     {
                         cfg.c_mipGenMode = rw::MIPMAPGEN_SELECTCLOSE;
-                    } 
+                    }
                 }
 
                 // Mipmap generation maximum level.
@@ -588,11 +588,11 @@ TxdGenModule::run_config TxdGenModule::ParseConfig( CFileTranslator *root, const
                 // Palette runtime type.
                 if ( const char *palRuntimeType = mainEntry->Get( "palRuntimeType" ) )
                 {
-                    if ( stricmp( palRuntimeType, "native" ) == 0 )
+                    if ( strieq( palRuntimeType, "native" ) )
                     {
                         cfg.c_palRuntimeType = rw::PALRUNTIME_NATIVE;
                     }
-                    else if ( stricmp( palRuntimeType, "pngquant" ) == 0 )
+                    else if ( strieq( palRuntimeType, "pngquant" ) )
                     {
                         cfg.c_palRuntimeType = rw::PALRUNTIME_PNGQUANT;
                     }
@@ -601,13 +601,13 @@ TxdGenModule::run_config TxdGenModule::ParseConfig( CFileTranslator *root, const
                 // DXT compression method.
                 if ( const char *dxtCompressionMethod = mainEntry->Get( "dxtRuntimeType" ) )
                 {
-                    if ( stricmp( dxtCompressionMethod, "native" ) == 0 )
+                    if ( strieq( dxtCompressionMethod, "native" ) )
                     {
                         cfg.c_dxtRuntimeType = rw::DXTRUNTIME_NATIVE;
                     }
-                    else if ( stricmp( dxtCompressionMethod, "squish" ) == 0 ||
-                                stricmp( dxtCompressionMethod, "libsquish" ) == 0 ||
-                                stricmp( dxtCompressionMethod, "recommended" ) == 0 )
+                    else if ( strieq( dxtCompressionMethod, "squish" ) ||
+                              strieq( dxtCompressionMethod, "libsquish" ) ||
+                              strieq( dxtCompressionMethod, "recommended" ) )
                     {
                         cfg.c_dxtRuntimeType = rw::DXTRUNTIME_SQUISH;
                     }
@@ -642,7 +642,7 @@ TxdGenModule::run_config TxdGenModule::ParseConfig( CFileTranslator *root, const
                 {
                     cfg.c_dxtPackedDecompression = mainEntry->GetBool( "dxtPackedDecompression" );
                 }
-                    
+
                 // IMG archive compression
                 if ( mainEntry->Find( "imgArchivesCompressed" ) )
                 {
@@ -756,7 +756,7 @@ bool TxdGenModule::ApplicationMain( const run_config& cfg )
         else if ( cfg.c_targetPlatform == PLATFORM_DXT_MOBILE )
         {
             strTargetPlatform = "S3TC [mobile]";
-        }   
+        }
         else if ( cfg.c_targetPlatform == PLATFORM_PVR )
         {
             strTargetPlatform = "PowerVR [mobile]";

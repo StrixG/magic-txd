@@ -1,14 +1,14 @@
 #pragma once
 
-#include <QtWidgets\QDialog>
-#include <QtWidgets\QLabel>
-#include <QtWidgets\QPushButton>
-#include <QtWidgets\QHBoxLayout>
-#include <QtCore\QEvent>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QHBoxLayout>
+#include <QtCore/QEvent>
 
-#include <QtCore\QCoreApplication>
+#include <QtCore/QCoreApplication>
 
-#include "ProgressLogEdit.h"
+#include "progresslogedit.h"
 
 struct TaskCompletionWindow abstract : public QDialog
 {
@@ -125,7 +125,7 @@ private:
     rw::thread_t waitThreadHandle;
 
     RwListEntry <TaskCompletionWindow> node;
-    
+
     bool hasRequestedClosure;
     bool closeOnCompletion;
     bool hasCompleted;

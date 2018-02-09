@@ -1,7 +1,7 @@
 #pragma once
-#include <QtCore\QString>
-#include <QtCore\QFile>
-#include <QtCore\QTextStream>
+#include <QtCore/QString>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 
 class styles {
 public:

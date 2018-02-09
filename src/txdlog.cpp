@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include <QtCore\QTextStream>
+#include <QtCore/QTextStream>
 #include "qtutils.h"
 #include "languages.h"
 
@@ -73,7 +73,7 @@ TxdLog::TxdLog(MainWindow *mainWnd, QString AppPath, QWidget *ParentWidget)
 	QVBoxLayout *mainLayout = new QVBoxLayout();
 	mainLayout->addWidget(buttonsBackground);
 	mainLayout->addWidget(hLineBackground);
-        
+
 	/* --- List --- */
 	listWidget = new QListWidget;
 	listWidget->setObjectName("logList");
@@ -117,22 +117,22 @@ void TxdLog::updateContent( MainWindow *mainWnd )
 
     QString sLogCopy = MAGIC_TEXT("Main.Log.Copy");
     menuWidth += GetTextWidthInPixels(sLogCopy, 20);
-	
+
     buttonCopy->setText( sLogCopy );
 
     QString sLogCopyAll = MAGIC_TEXT("Main.Log.CopyAll");
     menuWidth += GetTextWidthInPixels(sLogCopyAll, 20);
-	
+
     buttonCopyAll->setText( sLogCopyAll );
 
     QString sLogClear = MAGIC_TEXT("Main.Log.Clear");
     menuWidth += GetTextWidthInPixels(sLogClear, 20);
-	
+
     buttonClear->setText( sLogClear );
 
     QString sLogClose = MAGIC_TEXT("Main.Log.Close");
     menuWidth += GetTextWidthInPixels(sLogClose, 20);
-	
+
     buttonClose->setText( sLogClose );
 
     // Okay.

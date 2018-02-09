@@ -1,12 +1,16 @@
 #include "mainwindow.h"
 
+#ifdef _WIN32
 #include <d3d9.h>
 #include <cwchar>
 #include <locale>
+#endif //_WIN32
 
 #include "texformathelper.hxx"
 
+#ifdef _WIN32
 #include <Windows.h>
+#endif //_WIN32
 
 inline const wchar_t* GetMAGFDir( void )
 {
@@ -24,6 +28,7 @@ inline const wchar_t* GetMAGFDir( void )
         ;
 }
 
+#ifdef _WIN32
 typedef void (__cdecl* LPFNSETINTERFACE)( const MagicFormatPluginInterface *intf );
 typedef MagicFormat* (__cdecl* LPFNDLLFUNC1)(unsigned int&);
 
@@ -96,9 +101,11 @@ private:
 };
 
 static MagicFormatPluginExports _funcExportIntf;
+#endif //_WIN32
 
 void MainWindow::initializeNativeFormats( void )
 {
+#ifdef _WIN32
     // Register a basic format that we want to test things on.
     // We only can do that if the engine has the Direct3D9 native texture loaded.
     rw::d3dpublic::d3dNativeTextureDriverInterface *driverIntf = (rw::d3dpublic::d3dNativeTextureDriverInterface*)rw::GetNativeTextureDriverInterface( this->rwEngine, "Direct3D9" );
@@ -151,7 +158,7 @@ void MainWindow::initializeNativeFormats( void )
                                     this->magf_formats.push_back( reg_entry );
 
                                     success = true;
-                                    
+
                                     QString message =
                                         QString( "Loaded plugin " ) + QString::fromStdWString( wPluginName ) +
                                         QString( " (" ) + handler->GetFormatName() + QString( ")" );
@@ -198,10 +205,12 @@ void MainWindow::initializeNativeFormats( void )
 			FindClose(hFind);
 		}
     }
+#endif //_WIN32
 }
 
 void MainWindow::shutdownNativeFormats( void )
 {
+#ifdef _WIN32
     rw::d3dpublic::d3dNativeTextureDriverInterface *driverIntf = (rw::d3dpublic::d3dNativeTextureDriverInterface*)rw::GetNativeTextureDriverInterface( this->rwEngine, "Direct3D9" );
 
     if ( driverIntf )
@@ -228,4 +237,5 @@ void MainWindow::shutdownNativeFormats( void )
         // Clear the list of resident formats.
         this->magf_formats.clear();
     }
+#endif //_WIN32
 }

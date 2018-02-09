@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 
-#include "textureviewport.h"
+#include "textureViewport.h"
 
 TexViewportWidget::TexViewportWidget(MainWindow *MainWnd)
 {

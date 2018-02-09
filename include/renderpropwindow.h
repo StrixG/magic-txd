@@ -2,12 +2,12 @@
 
 #include <list>
 
-#include <QtWidgets\QDialog>
-#include <QtWidgets\QVBoxLayout>
-#include <QtWidgets\QFormLayout>
-#include <QtWidgets\QPushButton>
-#include <QtWidgets\QComboBox>
-#include <QtWidgets\QHBoxLayout>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QHBoxLayout>
 
 struct RenderPropWindow : public QDialog, public magicTextLocalizationItem
 {

@@ -1,16 +1,18 @@
 #include "mainwindow.h"
-#include <QtWidgets\QApplication>
+#include <QtWidgets/QApplication>
 #include "styles.h"
-#include <QtCore\QTimer>
+#include <QtCore/QTimer>
 #include "resource.h"
 
 #include <NativeExecutive/CExecutiveManager.h>
 
+#ifdef _WIN32
 #include <Windows.h>
+#endif //_WIN32
 
-#include <QtGUI\QImageWriter>
+#include <QtGui/QImageWriter>
 
-#include <QtCore\QtPlugin>
+#include <QtCore/QtPlugin>
 
 struct ScopedSystemEventFilter
 {
@@ -19,7 +21,7 @@ struct ScopedSystemEventFilter
         _currentFilter = this;
 
         QWidget *theWidget = NULL;
-        
+
         this->evt = NULL;
         this->handlerWidget = NULL;
 
@@ -146,10 +148,21 @@ static defaultMemAlloc _factMemAlloc;
 
 extern void DbgHeap_Validate( void );
 
+static void important_message( const char *msg, const char *title )
+{
+#ifdef _WIN32
+    MessageBoxA( nullptr, msg, title, MB_OK );
+#elif defined(__linux__)
+    printf( "%s\n", msg );
+#endif //CROSS PLATFORM CODE
+}
+
 int main(int argc, char *argv[])
 {
+#ifdef _WIN32
     // Need to import here because static init order.
     Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
+#endif //_WIN32
 
     // Initialize all main window plugins.
     InitializeRWFileSystemWrap();
@@ -185,7 +198,7 @@ int main(int argc, char *argv[])
 
         if ( rwEngine == NULL )
         {
-            throw std::exception( "failed to initialize the RenderWare engine" );
+            throw std::exception(); // "failed to initialize the RenderWare engine"
         }
 
         try
@@ -221,7 +234,7 @@ int main(int argc, char *argv[])
 
             if ( !fsHandle )
             {
-                throw std::exception( "failed to initialize the FileSystem module" );
+                throw std::exception(); // "failed to initialize the FileSystem module"
             }
 
             try
@@ -234,14 +247,12 @@ int main(int argc, char *argv[])
 
                     if ( styleSheet.isEmpty() )
                     {
-                        MessageBoxW(
-                            NULL,
-                            L"Failed to load stylesheet resource \"resources\\dark.shell\"." \
+                        important_message(
+                            "Failed to load stylesheet resource \"resources\\dark.shell\"." \
                             "Please verify whether you have installed Magic.TXD correctly!",
-                            L"Error",
-                            MB_OK
+                            "Error"
                         );
-                    
+
                         // Even without stylesheet, we allow launching Magic.TXD.
                         // The user gets what he asked for.
                     }
@@ -283,11 +294,9 @@ int main(int argc, char *argv[])
                     {
                         std::string errMsg = "uncaught RenderWare exception: " + except.message;
 
-                        MessageBoxA(
-                            NULL,
+                        important_message(
                             errMsg.c_str(),
-                            "Uncaught C++ Exception",
-                            MB_OK
+                            "Uncaught C++ Exception"
                         );
 
                         // Continue execution.
@@ -297,11 +306,9 @@ int main(int argc, char *argv[])
                     {
                         std::string errMsg = std::string( "uncaught C++ STL exception: " ) + except.what();
 
-                        MessageBoxA(
-                            NULL,
+                        important_message(
                             errMsg.c_str(),
-                            "Uncaught C++ Exception",
-                            MB_OK
+                            "Uncaught C++ Exception"
                         );
 
                         // Continue execution.
@@ -339,10 +346,9 @@ int main(int argc, char *argv[])
     {
         std::string errMsg = "uncaught RenderWare error during init: " + except.message;
 
-        MessageBoxA( NULL,
+        important_message(
             errMsg.c_str(),
-            "Uncaught C++ Exception",
-            MB_OK
+            "Uncaught C++ Exception"
         );
 
         // Just continue.
@@ -351,20 +357,18 @@ int main(int argc, char *argv[])
     {
         std::string errMsg = std::string( "uncaught C++ STL error during init: " ) + except.what();
 
-        MessageBoxA( NULL,
+        important_message(
             errMsg.c_str(),
-            "Uncaught C++ Exception",
-            MB_OK
+            "Uncaught C++ Exception"
         );
 
         // Just continue.
     }
     catch( ... )
     {
-        MessageBoxW( NULL,
-            L"Magic.TXD has encountered an unknown C++ exception and was forced to close. Please report this to the developers with appropriate steps to reproduce.",
-            L"Uncaught C++ Exception",
-            MB_OK
+        important_message(
+            "Magic.TXD has encountered an unknown C++ exception and was forced to close. Please report this to the developers with appropriate steps to reproduce.",
+            "Uncaught C++ Exception"
         );
 
         // Continue for safe quit.

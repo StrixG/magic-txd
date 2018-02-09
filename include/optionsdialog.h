@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QtWidgets\QDialog>
-#include <QtWidgets\QComboBox>
-#include <QtWidgets\qtabwidget.h>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/qtabwidget.h>
 
 struct OptionsDialog : public QDialog, public magicTextLocalizationItem
 {

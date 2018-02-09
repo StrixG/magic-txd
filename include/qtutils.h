@@ -1,12 +1,12 @@
 #pragma once
 
-#include <QtWidgets\QWidget>
-#include <QtWidgets\QHBoxLayout>
-#include <QtWidgets\QVBoxLayout>
-#include <QtWidgets\QPushButton>
-#include <QtWidgets\QLineEdit>
-#include <QtWidgets\QMenu>
-#include <QtGUI\QContextMenuEvent>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QMenu>
+#include <QtGui/QContextMenuEvent>
 
 void SetupWindowSize(QWidget *widget, unsigned int baseWidth, unsigned int baseHeight, unsigned int minWidth, unsigned int minHeight);
 

@@ -11,6 +11,7 @@ struct texture_name_validator : public QValidator
 
 private:
     typedef character_env <wchar_t> wideEnv;
+    typedef character_env_iterator_tozero <wchar_t> wideIter;
 
     static inline bool is_char_valid( wideEnv::ucp_t char_code )
     {
@@ -26,7 +27,7 @@ public:
         // Make a new valid string.
         std::wstring validOut;
 
-        wideEnv::const_iterator iter( wideInput.c_str() );
+        wideIter iter( wideInput.c_str() );
 
         while ( !iter.IsEnd() )
         {
@@ -39,10 +40,8 @@ public:
             }
 
             // Encode it into the wide string.
-            wideEnv::encoding_iterator enc_iter( &charCode, 1 );
-
             wideEnv::enc_result wide_enc;
-            enc_iter.Resolve( wide_enc );
+            wideEnv::EncodeUCP( charCode, wide_enc );
 
             for ( size_t n = 0; n < wide_enc.numData; n++ )
             {
@@ -59,7 +58,7 @@ public:
         // We validate this thing.
         std::wstring wideStr = str.toStdWString();
 
-        wideEnv::const_iterator iter( wideStr.c_str() );
+        wideIter iter( wideStr.c_str() );
         
         bool needs_fixup = false;
 

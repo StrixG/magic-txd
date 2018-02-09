@@ -40,7 +40,7 @@ static rw::TexDictionary* RwTexDictionaryStreamRead( rw::Interface *rwEngine, CF
 
             throw;
         }
-        
+
         rwEngine->DeleteStream( rwStream );
     }
 
@@ -81,10 +81,10 @@ static void ExportImagesFromDictionary(
                 targetFileName += txdFileName;
                 targetFileName += "/";
             }
-        
+
             targetFileName += texHandle->GetName();
             targetFileName += ".";
-            
+
             std::string lower_ext = imgFormat;
             std::transform( lower_ext.begin(), lower_ext.end(), lower_ext.begin(), ::tolower );
 
@@ -106,7 +106,7 @@ static void ExportImagesFromDictionary(
                             // Write it!
                             try
                             {
-                                if ( stricmp( imgFormat.c_str(), "RWTEX" ) == 0 )
+                                if ( strieq( imgFormat.c_str(), "RWTEX" ) )
                                 {
                                     rwEngine->Serialize( texHandle, rwStream );
                                 }
@@ -287,7 +287,7 @@ bool MassExportModule::ApplicationMain( const run_config& cfg )
 
         throw;
     }
-    
+
     if ( gotGameRoot )
     {
         delete gameRootTranslator;

@@ -1,20 +1,20 @@
 #pragma once
 
-#include <QtCore\qlist.h>
-#include <QtWidgets\qwidget.h>
-#include <QtCore\qstring.h>
-#include <QtWidgets\qlistview.h>
-#include <QtWidgets\qdialog.h>
-#include <QtWidgets\qpushbutton.h>
-#include <QtWidgets\qlabel.h>
-#include <QtWidgets\qscrollbar.h>
-#include <QtWidgets\qfiledialog.h>
-#include <QtCore\qobject.h>
-#include <QtWidgets\QHBoxLayout>
-#include <QtWidgets\qlistwidget.h>
-#include <QtWidgets\QlistWidgetItem>
-#include <QtWidgets\QApplication>
-#include <QtGUI\QClipboard>
+#include <QtCore/qlist.h>
+#include <QtWidgets/qwidget.h>
+#include <QtCore/qstring.h>
+#include <QtWidgets/qlistview.h>
+#include <QtWidgets/qdialog.h>
+#include <QtWidgets/qpushbutton.h>
+#include <QtWidgets/qlabel.h>
+#include <QtWidgets/qscrollbar.h>
+#include <QtWidgets/qfiledialog.h>
+#include <QtCore/qobject.h>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/qlistwidget.h>
+#include <QtWidgets/QListWidgetItem>
+#include <QtWidgets/QApplication>
+#include <QtGui/QClipboard>
 
 #include "defs.h"
 

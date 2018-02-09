@@ -6,16 +6,16 @@
 #define _DEBUG_HELPER_TEXT
 #endif
 
-#include <QtCore\qconfig.h>
+#include <QtCore/qconfig.h>
 
-#include <QtWidgets\QMainWindow>
-#include <QtWidgets\QListWidget>
-#include <QtCore\QFileInfo>
-#include <QtWidgets\QLabel>
-#include <QtWidgets\QScrollArea>
-#include <QtWidgets\QSplitter>
-#include <QtWidgets\QAction>
-#include <QtWidgets\QMessageBox>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QListWidget>
+#include <QtCore/QFileInfo>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QScrollArea>
+#include <QtWidgets/QSplitter>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QMessageBox>
 
 #include <renderware.h>
 
@@ -31,7 +31,7 @@
 class MainWindow;
 
 #include "versionsets.h"
-#include "textureviewport.h"
+#include "textureViewport.h"
 
 #include "mainwindow.actions.h"
 
@@ -261,7 +261,7 @@ private:
 
     QFileInfo openedTXDFileInfo;
     bool hasOpenedTXDFileInfo;
-    
+
     // We currently have a very primitive change-tracking system.
     // If we made any action that could have modified the TXD, we remember that.
     // Then if the user wants to discard the TXD, we ask if he wants to save it first.
@@ -330,7 +330,7 @@ private:
     QLabel *friendlyIconGame;
     QWidget *friendlyIconSeparator;
     QLabel *friendlyIconPlatform;
-    
+
     bool bShowFriendlyIcons;
 
     bool recheckingThemeItem;
@@ -373,12 +373,12 @@ private:
     // OTHERWISE THE EDITOR COULD CRASH.
 
 	TxdLog *txdLog; // log management class
-    RwVersionDialog *verDlg; // txd version setup class
-    TexNameWindow *texNameDlg; // dialog to change texture name
-    RenderPropWindow *renderPropDlg; // change a texture's wrapping or filtering
-    TexResizeWindow *resizeDlg; // change raster dimensions
-    PlatformSelWindow *platformDlg; // set TXD platform
-    AboutDialog *aboutDlg;  // about us. :-)
+    class RwVersionDialog *verDlg; // txd version setup class
+    class TexNameWindow *texNameDlg; // dialog to change texture name
+    class RenderPropWindow *renderPropDlg; // change a texture's wrapping or filtering
+    class TexResizeWindow *resizeDlg; // change raster dimensions
+    class PlatformSelWindow *platformDlg; // set TXD platform
+    class AboutDialog *aboutDlg;  // about us. :-)
     QDialog *optionsDlg;    // many options.
 
     struct magf_extension

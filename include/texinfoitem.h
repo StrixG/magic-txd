@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QtWidgets\QLabel>
-#include <QtWidgets\QVBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
 #include "languages.h"
 
 class TexInfoWidget : public QWidget, public magicTextLocalizationItem
@@ -71,7 +71,7 @@ public:
                 static constexpr char error_message[] = "unknown";
 
                 static constexpr size_t error_message_len = ( sizeof( error_message ) - 1 );
-                
+
                 static_assert( sizeof( error_message ) < sizeof( platformTexInfoBuf ), "oh no, somebody does not care about buffer boundaries" );
 
                 memcpy( platformTexInfoBuf, error_message, error_message_len );

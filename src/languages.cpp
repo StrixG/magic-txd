@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 
 #include "languages.h"
-#include <QtCore\QFile>
-#include <QtCore\QTextStream>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 #include "testmessage.h"
 
 #include "guiserialization.hxx"
@@ -154,7 +154,7 @@ bool MagicLanguage::loadText()
 
         if (key_start == -1)
             continue;
-        
+
         // Ignore commented lines.
         if (line.at(key_start) == '#')
             continue;
@@ -185,7 +185,7 @@ bool MagicLanguage::loadText()
                     // We are at the end, so quit.
                     break;
                 }
-                
+
                 // Add a new locale line.
                 if ( didHaveLine )
                 {
@@ -255,7 +255,7 @@ bool MagicLanguage::getLanguageInfo(QString filepath, LanguageInfo &info) {
                     info.authors = strList[5];
 
                     //TestMessage(L"vesrion: %d, name: %s, original: %s, abbr: %s, authors: %s", info.version,
-                    //    info.name.toStdWString().c_str(), info.nameInOriginal.toStdWString().c_str(), 
+                    //    info.name.toStdWString().c_str(), info.nameInOriginal.toStdWString().c_str(),
                     //    info.abbr.toStdWString().c_str(), info.authors.toStdWString().c_str());
 
                     return true;

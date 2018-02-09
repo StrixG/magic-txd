@@ -2,15 +2,17 @@
 
 #include <renderware.h>
 
-#include <QtWidgets\QDialog>
-#include <QtWidgets\QVBoxLayout>
-#include <QtWidgets\QHBoxLayout>
-#include <QtWidgets\QComboBox>
-#include <QtWidgets\QPushButton>
-#include <QtWidgets\QLabel>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QLabel>
 
 #include "qtutils.h"
 #include "languages.h"
+
+#include <sdk/UniChar.h>
 
 // We want to have a simple window which can be used by the user to export all textures of a TXD.
 
@@ -43,7 +45,7 @@ private:
                 const char *nativeName = texRaster->getNativeDataTypeName();
 
                 rw::GetNativeImageTypesForNativeTexture( engineInterface, nativeName, reg_natTex );
-                
+
                 if ( isFirstRaster )
                 {
                     for ( const std::string& nativeFormat : reg_natTex )
@@ -226,7 +228,7 @@ public slots:
                                                 // Now attempt the write.
                                                 try
                                                 {
-                                                    if ( stricmp( ansiFormatTarget.c_str(), "RWTEX" ) == 0 )
+                                                    if ( StringEqualToZero( ansiFormatTarget.c_str(), "RWTEX", false ) == 0 )
                                                     {
                                                         engineInterface->Serialize( texture, rwStream );
                                                     }

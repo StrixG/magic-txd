@@ -2,8 +2,8 @@
 
 #include <algorithm>
 #include <renderware.h>
-#include <QtCore\QFile>
-#include <QtCore\QTextStream>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 #include "testmessage.h"
 
 class RwVersionSets {
@@ -165,7 +165,7 @@ public:
         return value;
     }
 
-    static void lineToVersion(QString &line, rw::LibraryVersion &rwVersion) {
+    static void lineToVersion(const QString &line, rw::LibraryVersion &rwVersion) {
         QStringList strList = line.split('.');
         rwVersion.set(strList[0].toInt(), strList[1].toInt(), strList[2].toInt(), strList[3].toInt());
     }
@@ -273,7 +273,7 @@ public:
                 }
             }
             line = RwVersionSets::streamGetOneLine(stream);
-        } 
+        }
     }
 
     bool matchSet(const rw::LibraryVersion &libVersion, eDataType dataTypeId, int &setIndex, int &platformIndex, int &dataTypeIndex) {

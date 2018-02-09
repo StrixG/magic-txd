@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtWidgets\QScrollArea>
+#include <QtWidgets/QScrollArea>
 
 class MainWindow;
 

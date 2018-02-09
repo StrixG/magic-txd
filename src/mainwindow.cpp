@@ -1,18 +1,18 @@
 #include "mainwindow.h"
 #include "texinfoitem.h"
-#include <QtWidgets\QCommonStyle>
-#include <QtWidgets\QMenuBar>
-#include <QtWidgets\QHBoxLayout>
-#include <QtWidgets\qsplitter.h>
-#include <QtGUI\qmovie.h>
-#include <QtWidgets\QFileDialog>
-#include <QtCore\QDir>
-#include <QtGUI\QDesktopServices>
-#include <QtGUI\qdrag.h>
-#include <QtGUI\QDragEnterEvent>
-#include <QtGUI\QDragLeaveEvent>
-#include <QtGUI\QDropEvent>
-#include <QtCore\qmimedata.h>
+#include <QtWidgets/QCommonStyle>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/qsplitter.h>
+#include <QtGui/qmovie.h>
+#include <QtWidgets/QFileDialog>
+#include <QtCore/QDir>
+#include <QtGui/QDesktopServices>
+#include <QtGui/qdrag.h>
+#include <QtGui/QDragEnterEvent>
+#include <QtGui/QDragLeaveEvent>
+#include <QtGui/QDropEvent>
+#include <QtCore/qmimedata.h>
 
 #include "styles.h"
 #include "rwversiondialog.h"
@@ -169,7 +169,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
         txdNameLayout->setMargin(0);
         txdNameLayout->setSpacing(0);
         txdNameBackground->setLayout(txdNameLayout);
-	
+
 	    QWidget *txdOptionsBackground = new QWidget();
 	    txdOptionsBackground->setFixedHeight(54);
 	    txdOptionsBackground->setObjectName("background_1");
@@ -183,7 +183,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
         fileMenu->addAction(actionNew);
 
         this->actionNewTXD = actionNew;
-        
+
         connect( actionNew, &QAction::triggered, this, &MainWindow::onCreateNewTXD );
 
 	    QAction *actionOpen = CreateMnemonicActionL( "Main.File.Open", this );
@@ -328,7 +328,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
         editMenu->addAction(actionShowOptions);
 
         this->actionShowOptions = actionShowOptions;
-        
+
         connect(actionShowOptions, &QAction::triggered, this, &MainWindow::onShowOptions);
 
         toolsMenu = menu->addMenu("");
@@ -377,7 +377,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
         // Add remaining formats that rwlib supports.
         {
             rw::registered_image_formats_t regFormats;
-            
+
             rw::GetRegisteredImageFormats( this->rwEngine, regFormats );
 
             for ( rw::registered_image_formats_t::const_iterator iter = regFormats.cbegin(); iter != regFormats.cend(); iter++ )
@@ -398,10 +398,10 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
 
                 if ( gotDefaultExt && displayName != NULL )
                 {
-                    if ( stricmp( defaultExt, "PNG" ) != 0 &&
-                         stricmp( defaultExt, "DDS" ) != 0 &&
-                         stricmp( defaultExt, "PVR" ) != 0 &&
-                         stricmp( defaultExt, "BMP" ) != 0 )
+                    if ( StringEqualToZero( defaultExt, "PNG", false ) &&
+                         StringEqualToZero( defaultExt, "DDS", false ) &&
+                         StringEqualToZero( defaultExt, "PVR", false ) &&
+                         StringEqualToZero( defaultExt, "BMP", false ) )
                     {
                         this->addTextureFormatExportLinkToMenu( exportMenu, displayName, defaultExt, theFormat.formatName );
                     }
@@ -504,7 +504,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
 	    viewMenu->addAction(actionShowMipLevels);
 
         connect( actionShowMipLevels, &QAction::triggered, this, &MainWindow::onToggleShowMipmapLayers );
-        
+
         QAction *actionShowLog = CreateMnemonicActionL( "Main.View.ShowLog", this );
         actionShowLog->setShortcut( Qt::Key_F7 );
         viewMenu->addAction(actionShowLog);
@@ -512,7 +512,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
         connect( actionShowLog, &QAction::triggered, this, &MainWindow::onToggleShowLog );
 
 	    viewMenu->addSeparator();
-	        
+
         this->actionThemeDark = CreateMnemonicActionL( "Main.View.DarkThm", this );
         this->actionThemeDark->setCheckable(true);
         this->actionThemeLight = CreateMnemonicActionL( "Main.View.LightTm", this );
@@ -620,7 +620,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
         friendlyIconRow->addWidget( friendlyIconPlatform );
 
         txdOptionsBackground2->setLayout( friendlyIconRow );
-	
+
 	    QVBoxLayout *bottomLayout = new QVBoxLayout;
 	    bottomLayout->addWidget(hLineBackground2);
 	    bottomLayout->addWidget(txdOptionsBackground2);
@@ -706,7 +706,7 @@ MainWindow::~MainWindow()
     // Less dangerous than killing by language context.
     {
         QObjectList children = this->children();
-        
+
         for ( QObject *obj : children )
         {
             if ( QDialog *subDlg = dynamic_cast <QDialog*> ( obj ) )
@@ -817,7 +817,7 @@ void MainWindow::UpdateExportAccessibility( void )
 {
     // Export options are available depending on what texture has been selected.
     bool has_txd = ( this->currentTXD != NULL );
-   
+
     for ( TextureExportAction *exportAction : this->actionsExportItems )
     {
         bool shouldEnable = has_txd;
@@ -837,7 +837,7 @@ void MainWindow::UpdateExportAccessibility( void )
                         {
                             std::string ansiMethodName = qt_to_ansi( exportAction->displayName );
 
-                            if ( stricmp( ansiMethodName.c_str(), "RWTEX" ) == 0 )
+                            if ( StringEqualToZero( ansiMethodName.c_str(), "RWTEX", false ) == 0 )
                             {
                                 hasSupport = true;
                             }
@@ -854,7 +854,7 @@ void MainWindow::UpdateExportAccessibility( void )
                     hasSupport = false;
                 }
             }
-            
+
             if ( !hasSupport )
             {
                 // No texture item selected means we cannot export anyway.
@@ -908,7 +908,7 @@ void MainWindow::dragEnterEvent( QDragEnterEvent *evt )
     const QMimeData *mimeStuff = evt->mimeData();
 
     // Basically, we receive a number of files in a drag operation.
-    // We only support a single TXD file in the 
+    // We only support a single TXD file in the
 
     if ( mimeStuff )
     {
@@ -957,7 +957,7 @@ void MainWindow::dragEnterEvent( QDragEnterEvent *evt )
                     if ( this->currentTXD )
                     {
                         eImportExpectation imp_exp = getActualImageImportExpectation( rwEngine, extention );
-                        
+
                         if ( imp_exp != IMPORTE_NONE )
                         {
                             recognizedData = true;
@@ -1063,7 +1063,7 @@ void MainWindow::dropEvent( QDropEvent *evt )
                             else
                             {
                                 rw::streamConstructionFileParamW_t fileParam( widePath.c_str() );
-                                
+
                                 rw::Stream *imgStream = rwEngine->CreateStream( rw::RWSTREAMTYPE_FILE_W, rw::RWSTREAMMODE_READONLY, &fileParam );
 
                                 if ( imgStream )
@@ -1191,7 +1191,7 @@ void MainWindow::updateTextureList( bool selectLastItemInList )
     this->currentSelectedTexture = NULL;
 
     // this->hideFriendlyIcons();
-    
+
     if ( txdObj )
     {
         TexInfoWidget *texInfoToSelect = NULL;
@@ -1461,7 +1461,7 @@ bool MainWindow::openTxdFile(QString fileName, bool silent)
             catch( ... )
             {
                 delete fileStream;
-                
+
                 throw;
             }
 
@@ -1516,7 +1516,7 @@ void MainWindow::onCloseCurrent( bool checked )
 void MainWindow::onTextureItemChanged(QListWidgetItem *listItem, QListWidgetItem *prevTexInfoItem)
 {
     QListWidget *texListWidget = this->textureListWidget;
-    
+
     QWidget *listItemWidget = texListWidget->itemWidget( listItem );
 
     TexInfoWidget *texItem = dynamic_cast <TexInfoWidget*> ( listItemWidget );
@@ -1845,7 +1845,7 @@ bool MainWindow::performSaveAsTXD( void )
     if ( this->currentTXD != NULL )
     {
         QString txdSavePath;
-        
+
         if (!(this->lastTXDSaveDir.isEmpty()) && this->currentTXD) {
             if (this->hasOpenedTXDFileInfo)
                 txdSavePath = this->lastTXDSaveDir + "/" + this->openedTXDFileInfo.fileName();
@@ -1947,7 +1947,7 @@ void MainWindow::DoAddTexture( const TexAddDialog::texAddOperation& params )
                     {
                         // We kinda should get rid of this texture.
                         this->rwEngine->DeleteRwObject( newTexture );
-                        
+
                         throw;
                     }
                 }
@@ -2038,7 +2038,7 @@ QString MainWindow::requestValidImagePath( const QString *imageName )
         }
 
         imgExtensionSelect += ansi_to_qt( entry.formatName ) + QString( " (" );
-        
+
         bool needsExtSep = false;
 
         for ( const std::string& extName : entry.ext_array )
@@ -2053,7 +2053,7 @@ QString MainWindow::requestValidImagePath( const QString *imageName )
 
             needsExtSep = true;
         }
-        
+
         imgExtensionSelect += QString( ")" );
 
         hasEntry = true;
@@ -2329,7 +2329,7 @@ void MainWindow::onManipulateTexture( bool checked )
 
             // Update the stored raster.
             rw::TextureBase *tex = curSelTexItem->GetTextureHandle();
-            
+
             TexAddDialog::RwTextureAssignNewRaster(
                 tex, params.add_raster.raster,
                 params.add_raster.texName, params.add_raster.maskName
@@ -2381,7 +2381,7 @@ void MainWindow::onExportTexture( bool checked )
                 std::string ansiExportFunction = qt_to_ansi( exportFunction );
 
                 const QString actualExt = defaultExt.toLower();
-            
+
                 // Construct a default filename for the object.
                 QString defaultFileName = QString( texHandle->GetName().c_str() ) + "." + actualExt;
 
@@ -2389,7 +2389,7 @@ void MainWindow::onExportTexture( bool checked )
                 QString caption;
                 bool found = false;
                 QString captionFormat = MAGIC_TEXT_CHECK_AVAILABLE("Main.Export.Desc", &found);
-                
+
                 if (found)
                     caption = QString(captionFormat).arg(exportFunction);
                 else
@@ -2402,7 +2402,7 @@ void MainWindow::onExportTexture( bool checked )
                 {
                     // Try to open that file for writing.
                     std::wstring unicodeImagePath = finalFilePath.toStdWString();
-                
+
                     rw::streamConstructionFileParamW_t fileParam( unicodeImagePath.c_str() );
 
                     rw::Stream *imageStream = this->rwEngine->CreateStream( rw::RWSTREAMTYPE_FILE_W, rw::RWSTREAMMODE_CREATE, &fileParam );
@@ -2412,7 +2412,7 @@ void MainWindow::onExportTexture( bool checked )
                         try
                         {
                             // Directly write us.
-                            if ( stricmp( ansiExportFunction.c_str(), "RWTEX" ) == 0 )
+                            if ( StringEqualToZero( ansiExportFunction.c_str(), "RWTEX", false ) == 0 )
                             {
                                 rwEngine->Serialize( texHandle, imageStream );
                             }
@@ -2431,7 +2431,15 @@ void MainWindow::onExportTexture( bool checked )
                             this->rwEngine->DeleteStream( imageStream );
 
                             // Since we failed, we do not want that image stream anymore.
+#ifdef _WIN32
                             _wremove( unicodeImagePath.c_str() );
+#elif defined(__linux__)
+                            std::string ansiPathName = finalFilePath.toStdString();
+
+                            remove( ansiPathName.c_str() );
+#else
+#error no image unlink file implementation
+#endif //CROSS PLATFORM CODE
 
                             throw;
                         }
@@ -2635,7 +2643,7 @@ void MainWindow::onSetupTxdVersion(bool checked) {
     else
     {
 	    RwVersionDialog *dialog = new RwVersionDialog( this );
-        
+
         dialog->setVisible( true );
 
         this->verDlg = dialog;

@@ -2,9 +2,13 @@
 
 #include "massexport.h"
 
-#include <QtCore\QByteArray>
+#include <QtCore/QByteArray>
 
+#ifdef _WIN32
 #include <ShlObj.h>
+#elif defined(__linux__)
+#include <unistd.h>
+#endif //_WIN32
 
 #include <modrelink.h>
 
@@ -27,7 +31,7 @@ struct mainWindowSerialization
         for ( rw::uint32 n = 0; n < blockCount; n++ )
         {
             rw::BlockProvider cfgBlock( &mainBlock );
-            
+
             cfgBlock.EnterContext();
 
             try
@@ -105,11 +109,18 @@ struct mainWindowSerialization
     inline void Initialize( MainWindow *mainwnd )
     {
         // First create a translator that resides in the application path.
-        HMODULE appHandle = GetModuleHandle( NULL );
-
+#ifdef _WIN32
         wchar_t pathBuffer[ 1024 ];
 
-        DWORD pathLen = GetModuleFileNameW( appHandle, pathBuffer, NUMELMS( pathBuffer ) );
+        DWORD pathLen = GetModuleFileNameW( NULL, pathBuffer, NUMELMS( pathBuffer ) );
+#elif defined(__linux__)
+        char pathBuffer[ 1024 ];
+
+        ssize_t writtenCount = readlink( "/proc/self/exe", pathBuffer, countof(pathBuffer)-1 );
+        pathBuffer[ writtenCount ] = 0;
+#else
+#error missing implementation for application directory fetch
+#endif //_WIN32
 
         CFileSystem *fileSystem = mainwnd->fileSystem;
 
@@ -125,6 +136,7 @@ struct mainWindowSerialization
 
             configRoot = fileSystem->CreateTranslator( pathBuffer, DIR_FLAG_WRITABLE );
 
+#ifdef _WIN32
             if ( configRoot == NULL )
             {
                 // We try getting a directory in the local user application data folder.
@@ -215,6 +227,7 @@ struct mainWindowSerialization
                     }
                 }
             }
+#endif //_WIN32
 
             this->configRoot = configRoot;
         }
@@ -360,7 +373,7 @@ struct mainWindowSerialization
         {
             delete appRoot;
         }
-        
+
         if ( CFileTranslator *configRoot = this->configRoot )
         {
             delete configRoot;
