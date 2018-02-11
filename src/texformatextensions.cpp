@@ -115,7 +115,7 @@ void MainWindow::initializeNativeFormats( void )
 		WIN32_FIND_DATA FindFileData;
 		memset(&FindFileData, 0, sizeof(WIN32_FIND_DATA));
         std::wstring magfpath = this->m_appPath.toStdWString();
-        std::wstring path = magfpath + L'\\' + GetMAGFDir() + L'\\' + L"*.magf";
+        std::wstring path = magfpath + L'/' + GetMAGFDir() + L'/' + L"*.magf";
 		HANDLE hFind = FindFirstFileW(path.c_str(), &FindFileData);
 		if (hFind != INVALID_HANDLE_VALUE)
 		{
@@ -124,7 +124,7 @@ void MainWindow::initializeNativeFormats( void )
 				if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 				{
                     std::wstring wPluginName = FindFileData.cFileName;
-                    std::wstring filename = magfpath + L'\\' + GetMAGFDir() + L'\\' + FindFileData.cFileName;
+                    std::wstring filename = magfpath + L'/' + GetMAGFDir() + L'/' + FindFileData.cFileName;
 					HMODULE hDLL = LoadLibraryW(filename.c_str());
 					if (hDLL != NULL)
 					{

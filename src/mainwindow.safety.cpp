@@ -37,11 +37,11 @@ void MainWindow::ModifiedStateBarrier( bool blocking, modifiedEndCallback_t cb )
             QPushButton *saveAcceptButton = CreateButtonL( "Main.SavChange.Save" );
 
             saveAcceptButton->setDefault( true );
-            
+
             connect( saveAcceptButton, &QPushButton::clicked, this, &SaveChangesDialog::onRequestSave );
 
             buttonRow->addWidget( saveAcceptButton );
-        
+
             QPushButton *notSaveButton = CreateButtonL( "Main.SavChange.Ignore" );
 
             connect( notSaveButton, &QPushButton::clicked, this, &SaveChangesDialog::onRequestIgnore );
@@ -120,7 +120,7 @@ void MainWindow::ModifiedStateBarrier( bool blocking, modifiedEndCallback_t cb )
 
     bool hasPostponedExec = false;
 
-    if ( rw::TexDictionary *currentTXD = this->currentTXD )
+    if ( this->currentTXD != nullptr )
     {
         if ( this->wasTXDModified )
         {

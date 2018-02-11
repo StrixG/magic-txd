@@ -218,9 +218,9 @@ void AboutDialog::updateTheme( MainWindow *mainWnd )
     QMovie *stars = new QMovie();
 
     if(mainWnd->actionThemeDark->isChecked())
-        stars->setFileName(mainWnd->makeAppPath("resources\\dark\\stars2.gif"));
+        stars->setFileName(mainWnd->makeAppPath("resources/dark/stars2.gif"));
     else
-        stars->setFileName(mainWnd->makeAppPath("resources\\light\\stars2.gif"));
+        stars->setFileName(mainWnd->makeAppPath("resources/light/stars2.gif"));
     mainLogoLabel->setMovie(stars);
     stars->start();
 }

@@ -134,12 +134,12 @@ public:
         {
             QString textureInfo;
 
-            if ( rw::Raster *rasterInfo = this->rwTextureHandle->GetRaster() )
+            if ( rw::Raster *rasterInfo = texHandle->GetRaster() )
             {
                 textureInfo = getDefaultRasterInfoString( rasterInfo );
             }
 
-            this->texNameLabel->setText( ansi_to_qt( this->rwTextureHandle->GetName() ) );
+            this->texNameLabel->setText( ansi_to_qt( texHandle->GetName() ) );
             this->texInfoLabel->setText( textureInfo );
         }
         else

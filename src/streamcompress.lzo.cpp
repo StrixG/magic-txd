@@ -2,7 +2,7 @@
 
 #include <sdk/PluginHelpers.h>
 
-struct lzoStreamCompressionManager : public compressionManager
+struct lzoStreamCompressionManager final : public compressionManager
 {
     inline void Initialize( MainWindow *mainWnd )
     {
@@ -21,7 +21,7 @@ struct lzoStreamCompressionManager : public compressionManager
         return mainWnd->fileSystem->IsStreamLZOCompressed( stream );
     }
 
-    struct fsysProviderWrap : public compressionProvider
+    struct fsysProviderWrap final : public compressionProvider
     {
         inline fsysProviderWrap( CIMGArchiveCompressionHandler *handler )
         {

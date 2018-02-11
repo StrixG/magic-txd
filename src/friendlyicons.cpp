@@ -5,6 +5,8 @@ static inline bool getRecommendedPlatformForDataType( RwVersionSets::eDataType d
 {
     switch( dataType )
     {
+    case RwVersionSets::RWVS_DT_NOT_DEFINED:
+        break;
     case RwVersionSets::RWVS_DT_D3D8:
     case RwVersionSets::RWVS_DT_D3D9:
         platformOut = RwVersionSets::RWVS_PL_PC;
@@ -72,7 +74,7 @@ void MainWindow::updateFriendlyIcons()
                     // Prepare game icon.
                     if (!currentSet.iconName.isEmpty())
                     {
-                        QString gameIconPath = makeAppPath("resources\\icons\\") + currentSet.iconName + ".png";
+                        QString gameIconPath = makeAppPath("resources/icons/") + currentSet.iconName + ".png";
 
                         this->friendlyIconGame->setPixmap( QPixmap( gameIconPath ) );
 
@@ -107,23 +109,25 @@ void MainWindow::updateFriendlyIcons()
 
                 switch (platformType)
                 {
+                case RwVersionSets::RWVS_PL_NOT_DEFINED:
+                    break;
                 case RwVersionSets::RWVS_PL_PC:
-                    platIconPath = makeAppPath("resources\\icons\\pc.png");
+                    platIconPath = makeAppPath("resources/icons/pc.png");
                     break;
                 case RwVersionSets::RWVS_PL_PS2:
-                    platIconPath = makeAppPath("resources\\icons\\ps2.png");
+                    platIconPath = makeAppPath("resources/icons/ps2.png");
                     break;
                 case RwVersionSets::RWVS_PL_PSP:
-                    platIconPath = makeAppPath("resources\\icons\\psp.png");
+                    platIconPath = makeAppPath("resources/icons/psp.png");
                     break;
                 case RwVersionSets::RWVS_PL_XBOX:
-                    platIconPath = makeAppPath("resources\\icons\\xbox.png");
+                    platIconPath = makeAppPath("resources/icons/xbox.png");
                     break;
                 case RwVersionSets::RWVS_PL_GAMECUBE:
-                    platIconPath = makeAppPath("resources\\icons\\gamecube.png");
+                    platIconPath = makeAppPath("resources/icons/gamecube.png");
                     break;
                 case RwVersionSets::RWVS_PL_MOBILE:
-                    platIconPath = makeAppPath("resources\\icons\\mobile.png");
+                    platIconPath = makeAppPath("resources/icons/mobile.png");
                     break;
                 }
 
@@ -132,7 +136,7 @@ void MainWindow::updateFriendlyIcons()
                 if ( doShowPlatIcon )
                 {
                     this->friendlyIconPlatform->setPixmap( QPixmap( platIconPath ) );
-                            
+
                     doesHavePlatformIcon = true;
                 }
             }

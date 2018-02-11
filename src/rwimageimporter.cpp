@@ -2,7 +2,7 @@
 
 bool imageImportMethods::impMeth_loadImage( rw::Stream *imgStream, loadActionResult& action_result ) const
 {
-    rw::Interface *rwEngine = imgStream->engineInterface;
+    //rw::Interface *rwEngine = imgStream->engineInterface;
 
     rw::Raster *platOrig = this->MakeRaster();
 
@@ -12,11 +12,11 @@ bool imageImportMethods::impMeth_loadImage( rw::Stream *imgStream, loadActionRes
         {
             // Try to load the image data.
             platOrig->readImage( imgStream );
-        
+
             // Return the stuff.
             action_result.texRaster = platOrig;
             action_result.texHandle = NULL;
-            
+
             return true;
         }
         catch( ... )
@@ -103,7 +103,7 @@ bool imageImportMethods::LoadImage( rw::Stream *stream, eImportExpectation imp_e
     rw::int64 streamPos = stream->tell();
 
     bool needsStreamReset = false;
-    
+
     // First try the expected image data type, if available.
     if ( imp_exp != IMPORTE_NONE )
     {

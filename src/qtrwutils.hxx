@@ -11,13 +11,13 @@ inline QImage convertRWBitmapToQImage( const rw::Bitmap& rasterBitmap )
 	QImage texImage(width, height, QImage::Format::Format_ARGB32);
 
 	// Copy scanline by scanline.
-	for (int y = 0; y < height; y++)
+	for (rw::uint32 y = 0; y < height; y++)
 	{
 		uchar *scanLineContent = texImage.scanLine(y);
 
 		QRgb *colorItems = (QRgb*)scanLineContent;
 
-		for (int x = 0; x < width; x++)
+		for (rw::uint32 x = 0; x < width; x++)
 		{
 			QRgb *colorItem = (colorItems + x);
 

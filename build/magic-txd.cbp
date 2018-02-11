@@ -35,7 +35,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-fPIC" />
-			<Add option="-std=c++17" />
+			<Add option="-std=c++17 -Wno-invalid-offsetof" />
 			<Add option="-DQT_STATIC" />
 			<Add option="-DQT_WIDGETS_LIB" />
 			<Add option="-DQT_GUI_LIB" />
@@ -88,11 +88,13 @@
 			<Add option="-lqlinuxfb" />
 			<Add option="-lXrender" />
 			<Add option="-lfontconfig" />
+			<Add option="-lqgif" />
 			<Add directory="../vendor/gtaconfig/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/FileSystem/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/rwlib/output/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/Qt5.10/lib/linux/" />
 			<Add directory="../vendor/Qt5.10/lib/linux/plugins/platforms/" />
+			<Add directory="../vendor/Qt5.10/lib/linux/plugins/imageformats/" />
 		</Linker>
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.cpp" />
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.h" />

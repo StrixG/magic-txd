@@ -1,5 +1,3 @@
-#pragma once
-
 #include "mainwindow.h"
 #include "qtutils.h"
 

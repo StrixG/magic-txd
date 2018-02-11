@@ -90,9 +90,9 @@ TxdLog::TxdLog(MainWindow *mainWnd, QString AppPath, QWidget *ParentWidget)
 
 	// icons
     // NOTE: the Qt libpng implementation complains about a "known invalid sRGB profile" here.
-	picWarning.load(AppPath + "\\resources\\warning.png");
-	picError.load(AppPath + "\\resources\\error.png");
-	picInfo.load(AppPath + "\\resources\\info.png");
+	picWarning.load(AppPath + "/resources/warning.png");
+	picError.load(AppPath + "/resources/error.png");
+	picInfo.load(AppPath + "/resources/info.png");
 
     SetupWindowSize(logWidget, 450, 200, 450, 150);
 

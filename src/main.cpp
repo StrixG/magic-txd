@@ -13,6 +13,7 @@
 Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #elif defined(__linux__)
 Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)
+Q_IMPORT_PLUGIN(QGifPlugin)
 #endif //CROSS PLATFORM CODE
 
 #include <QtGui/QImageWriter>
@@ -76,7 +77,7 @@ SystemEventHandlerWidget::~SystemEventHandlerWidget(void)
 
     if (sysEvtFilter)
     {
-        if (sysEvtFilter->handlerWidget = this)
+        if (sysEvtFilter->handlerWidget == this)
         {
             sysEvtFilter->handlerWidget = NULL;
             sysEvtFilter->evt = NULL;

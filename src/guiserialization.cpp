@@ -239,7 +239,7 @@ struct mainWindowSerialization
         {
             try
             {
-                CFile *configFile = this->configRoot->Open( L"app.bin", L"rb" );
+                CFile *configFile = configRoot->Open( L"app.bin", L"rb" );
 
                 if ( configFile )
                 {

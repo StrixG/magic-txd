@@ -126,6 +126,7 @@ public:
 
         // Load the language.
         bool loadedLanguage = selectLanguageByFileName( mainWnd->lastLanguageFileName );
+        (void)loadedLanguage;
 
         // Since loading the configuration is optional, we do not care if we failed to load a language here.
     }

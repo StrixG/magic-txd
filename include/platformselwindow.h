@@ -1,10 +1,10 @@
 #pragma once
 
-#include <QDialog>
-#include <QPushButton>
-#include <QComboBox>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
 
 struct PlatformSelWindow : public QDialog
 {
@@ -12,7 +12,7 @@ struct PlatformSelWindow : public QDialog
     {
         this->setWindowTitle( "Platform Select" );
         this->setWindowFlags( this->windowFlags() & ~Qt::WindowContextHelpButtonHint );
-        
+
         this->mainWnd = mainWnd;
 
         this->setWindowModality( Qt::WindowModal );
@@ -44,7 +44,7 @@ struct PlatformSelWindow : public QDialog
         this->platformComboBox = platformComboBox;
 
         connect( platformComboBox, (void (QComboBox::*)( const QString& ))&QComboBox::activated, this, &PlatformSelWindow::OnPlatformSelect );
-        
+
         platformRow->addWidget( platformComboBox );
 
         rootLayout->addLayout( platformRow );

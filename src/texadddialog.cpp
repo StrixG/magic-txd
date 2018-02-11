@@ -72,9 +72,9 @@ void TexAddDialog::releaseConvRaster(void)
 {
     if (rw::Raster *convRaster = this->convRaster)
     {
-        rw::DeleteRaster(this->convRaster);
+        rw::DeleteRaster(convRaster);
 
-        this->convRaster = NULL;
+        this->convRaster = nullptr;
     }
 }
 
@@ -85,7 +85,7 @@ void TexAddDialog::clearTextureOriginal( void )
     {
         rw::DeleteRaster( prevOrig );
 
-        this->platformOrigRaster = NULL;
+        this->platformOrigRaster = nullptr;
     }
 
     // Delete any texture link.
@@ -93,7 +93,7 @@ void TexAddDialog::clearTextureOriginal( void )
     {
         this->mainWnd->GetEngine()->DeleteRwObject( texHandle );
 
-        this->texHandle = NULL;
+        this->texHandle = nullptr;
     }
 }
 
@@ -133,7 +133,7 @@ rw::Raster* TexAddDialog::MakeRaster( void )
             {
                 rw::DeleteRaster( platOrig );
 
-                platOrig = NULL;
+                platOrig = nullptr;
             }
         }
         catch( ... )
@@ -260,7 +260,7 @@ void TexAddDialog::loadPlatformOriginal(void)
                         // It may contain unique properties.
                         if ( texHandle )
                         {
-                            assert( this->texHandle == NULL );
+                            assert( this->texHandle == nullptr );
 
                             this->texHandle = texHandle;
                         }
@@ -561,9 +561,9 @@ TexAddDialog::TexAddDialog(MainWindow *mainWnd, const dialogCreateParams& create
     this->setWindowFlags( this->windowFlags() & ~Qt::WindowContextHelpButtonHint );
 
     // Create a raster handle that will hold platform original data.
-    this->platformOrigRaster = NULL;
-    this->texHandle = NULL;
-    this->convRaster = NULL;
+    this->platformOrigRaster = nullptr;
+    this->texHandle = nullptr;
+    this->convRaster = nullptr;
 
     if (this->dialog_type == CREATE_IMGPATH)
     {
@@ -578,13 +578,11 @@ TexAddDialog::TexAddDialog(MainWindow *mainWnd, const dialogCreateParams& create
 
             FileSystem::GetFileNameItem( wImgPath.c_str(), true, NULL, &extension );
 
-            eImportExpectation expImp = IMPORTE_IMAGE;
-
             this->img_exp = getRecommendedImageImportExpectation( extension );
         }
 
         // We want to load the raster on demand.
-        this->platformOrigRaster = NULL;
+        this->platformOrigRaster = nullptr;
 
         this->imgPath = std::move( imgPath );
     }
@@ -659,7 +657,7 @@ TexAddDialog::TexAddDialog(MainWindow *mainWnd, const dialogCreateParams& create
             }
             else
             {
-                this->textureMaskNameEdit = NULL;
+                this->textureMaskNameEdit = nullptr;
             }
             // If the current TXD already has a platform, we disable editing this platform and simply use it.
             bool lockdownPlatform = ( _lockdownPlatform && mainWnd->lockDownTXDPlatform );
@@ -1030,8 +1028,6 @@ void TexAddDialog::OnPlatformSelect(const QString& _)
     bool enablePaletteSelect = false;
     bool enablePixelFormatSelect = true;
 
-    bool isOnlyCompression = false;
-
     bool supportsDXT1 = true;
     bool supportsDXT2 = true;
     bool supportsDXT3 = true;
@@ -1051,8 +1047,6 @@ void TexAddDialog::OnPlatformSelect(const QString& _)
                 enableCompressSelect = true;    // decide later.
                 enablePaletteSelect = false;
                 enablePixelFormatSelect = false;
-
-                isOnlyCompression = true;
             }
             else
             {

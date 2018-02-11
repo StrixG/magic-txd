@@ -32,7 +32,7 @@ QPushButton* CreateButtonL( QString systemToken )
 
 struct FixedWidthLocalizedButton : public QPushButton, public simpleLocalizationItem
 {
-    inline FixedWidthLocalizedButton( QString systemToken, int fontSize ) : fontSize( fontSize ), simpleLocalizationItem( systemToken )
+    inline FixedWidthLocalizedButton( QString systemToken, int fontSize ) : simpleLocalizationItem( systemToken ), fontSize( fontSize )
     {
         Init();
     }
@@ -85,7 +85,7 @@ QLabel* CreateLabelL( QString systemToken )
 
 struct FixedWidthLocalizedLabel : public QLabel, public simpleLocalizationItem
 {
-    inline FixedWidthLocalizedLabel( QString systemToken, int fontSize ) : font_size( fontSize ), simpleLocalizationItem( std::move( systemToken ) )
+    inline FixedWidthLocalizedLabel( QString systemToken, int fontSize ) : simpleLocalizationItem( std::move( systemToken ) ), font_size( fontSize )
     {
         Init();
     }

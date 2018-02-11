@@ -1,7 +1,5 @@
 inline void MagicMapToInternalRasterFormat( MAGIC_RASTER_FORMAT formatIn, rw::eRasterFormat& formatOut )
 {
-    bool hasFormat = false;
-
     if ( formatIn == MAGIC_RASTER_FORMAT::RASTER_DEFAULT )
     {
         formatOut = rw::RASTER_DEFAULT;

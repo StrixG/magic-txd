@@ -26,6 +26,7 @@
 #include "optionsdialog.h"
 #include "createtxddlg.h"
 #include "languages.h"
+//#include "platformselwindow.h"
 
 #include "tools/txdgen.h"
 #include "tools/imagepipe.hxx"
@@ -47,19 +48,19 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
     m_appPathForStyleSheet = appPath;
     m_appPathForStyleSheet.replace('\\', '/');
     // Initialize variables.
-    this->currentTXD = NULL;
-    this->txdNameLabel = NULL;
-    this->currentSelectedTexture = NULL;
-    this->txdLog = NULL;
-    this->verDlg = NULL;
+    this->currentTXD = nullptr;
+    this->txdNameLabel = nullptr;
+    this->currentSelectedTexture = nullptr;
+    this->txdLog = nullptr;
+    this->verDlg = nullptr;
 
-    this->texNameDlg = NULL;
-    this->renderPropDlg = NULL;
-    this->resizeDlg = NULL;
-    this->platformDlg = NULL;
-    this->aboutDlg = NULL;
-    this->optionsDlg = NULL;
-    this->rwVersionButton = NULL;
+    this->texNameDlg = nullptr;
+    this->renderPropDlg = nullptr;
+    this->resizeDlg = nullptr;
+    //this->platformDlg = nullptr;
+    this->aboutDlg = nullptr;
+    this->optionsDlg = nullptr;
+    this->rwVersionButton = nullptr;
     this->recheckingThemeItem = false;
 
     this->recommendedTxdPlatform = "Direct3D9";
@@ -664,7 +665,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
     }
     catch( ... )
     {
-        rwEngine->SetWarningManager( NULL );
+        rwEngine->SetWarningManager( nullptr );
 
         throw;
     }
@@ -698,7 +699,7 @@ MainWindow::~MainWindow()
     SafeDelete( texNameDlg );
     SafeDelete( renderPropDlg );
     SafeDelete( resizeDlg );
-    SafeDelete( platformDlg );
+    //SafeDelete( platformDlg );
     SafeDelete( aboutDlg );
     SafeDelete( optionsDlg );
 
@@ -1244,7 +1245,7 @@ void MainWindow::updateWindowTitle( void )
         windowTitleString += " (legacy)";
     }
 
-    if ( rw::TexDictionary *txd = this->currentTXD )
+    if ( this->currentTXD != nullptr )
     {
         if ( this->hasOpenedTXDFileInfo )
         {
@@ -1257,7 +1258,7 @@ void MainWindow::updateWindowTitle( void )
     // Also update the top label.
     if (this->txdNameLabel)
     {
-        if (rw::TexDictionary *txd = this->currentTXD)
+        if ( this->currentTXD != nullptr )
         {
             QString topLabelDisplayString;
 
@@ -2366,7 +2367,7 @@ void MainWindow::onExportTexture( bool checked )
     // Get it.
     TexInfoWidget *selectedTexture = this->currentSelectedTexture;
 
-    if ( selectedTexture != NULL )
+    if ( selectedTexture != nullptr )
     {
         rw::TextureBase *texHandle = selectedTexture->GetTextureHandle();
 
@@ -2393,7 +2394,7 @@ void MainWindow::onExportTexture( bool checked )
                 if (found)
                     caption = QString(captionFormat).arg(exportFunction);
                 else
-                    caption = QString("Save ") + exportFunction + QString(" as..."), defaultFileName;
+                    caption = QString("Save ") + exportFunction + QString(" as...");
 
 
                 QString finalFilePath = QFileDialog::getSaveFileName(this, caption, defaultFileName, formatName + " (*." + actualExt + ");;Any (*.*)");

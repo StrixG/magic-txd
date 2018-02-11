@@ -892,14 +892,14 @@ bool TxdGenModule::ApplicationMain( const run_config& cfg )
 
         // Do the conversion!
         {
-            CFileTranslator *absGameRootTranslator = NULL;
-            CFileTranslator *absOutputRootTranslator = NULL;
+            CFileTranslator *absGameRootTranslator = nullptr;
+            CFileTranslator *absOutputRootTranslator = nullptr;
 
             bool hasGameRoot = obtainAbsolutePath( cfg.c_gameRoot.c_str(), absGameRootTranslator, false, true );
             bool hasOutputRoot = obtainAbsolutePath( cfg.c_outputRoot.c_str(), absOutputRootTranslator, true, true );
 
             // Create a debug directory if we want to output debug.
-            CFileTranslator *absDebugOutputTranslator = NULL;
+            CFileTranslator *absDebugOutputTranslator = nullptr;
 
             bool hasDebugRoot = false;
 

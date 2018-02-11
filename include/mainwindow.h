@@ -84,7 +84,7 @@ class MainWindow : public QMainWindow, public magicTextLocalizationItem
     friend class TexNameWindow;
     friend class RenderPropWindow;
     friend class TexResizeWindow;
-    friend class PlatformSelWindow;
+    //friend class PlatformSelWindow;
     friend class ExportAllWindow;
     friend class AboutDialog;
     friend class OptionsDialog;
@@ -377,7 +377,7 @@ private:
     class TexNameWindow *texNameDlg; // dialog to change texture name
     class RenderPropWindow *renderPropDlg; // change a texture's wrapping or filtering
     class TexResizeWindow *resizeDlg; // change raster dimensions
-    class PlatformSelWindow *platformDlg; // set TXD platform
+    //class PlatformSelWindow *platformDlg; // set TXD platform
     class AboutDialog *aboutDlg;  // about us. :-)
     QDialog *optionsDlg;    // many options.
 

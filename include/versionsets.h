@@ -80,6 +80,8 @@ public:
     // translate id to name for engine
     static const char *platformNameFromId(ePlatformType platform) {
         switch (platform) {
+        case RWVS_PL_NOT_DEFINED:
+            break;
         case RWVS_PL_PC:
             return "PC";
         case RWVS_PL_PS2:
@@ -98,6 +100,8 @@ public:
 
     static const char *dataNameFromId(eDataType dataType) {
         switch (dataType) {
+        case RWVS_DT_NOT_DEFINED:
+            break;
         case RWVS_DT_D3D8:
             return "Direct3D8";
         case RWVS_DT_D3D9:
@@ -278,16 +282,16 @@ public:
 
     bool matchSet(const rw::LibraryVersion &libVersion, eDataType dataTypeId, int &setIndex, int &platformIndex, int &dataTypeIndex) {
         const int numSets = sets.size();
-        for (unsigned int set = 0; set < numSets; set++) {
+        for (int set = 0; set < numSets; set++) {
             const RwVersionSets::Set& currentSet = sets[set];
             const int numAvailPlatforms = currentSet.availablePlatforms.size();
 
-            for (unsigned int p = 0; p < numAvailPlatforms; p++) {
+            for (int p = 0; p < numAvailPlatforms; p++) {
                 const RwVersionSets::Set::Platform& platform = currentSet.availablePlatforms[p];
                 if (platform.versionMin.version <= libVersion.version && platform.versionMax.version >= libVersion.version) {
                     const int numAvailDataTypes = platform.availableDataTypes.size();
 
-                    for (unsigned int d = 0; d < numAvailDataTypes; d++) {
+                    for (int d = 0; d < numAvailDataTypes; d++) {
                         if (platform.availableDataTypes[d] == dataTypeId) {
                             setIndex = set;
                             platformIndex = p;

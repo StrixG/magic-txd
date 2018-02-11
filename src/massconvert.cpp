@@ -446,6 +446,8 @@ void MassConvertWindow::customEvent( QEvent *evt )
 
     if ( ConversionFinishEvent *convEndEvt = dynamic_cast <ConversionFinishEvent*> ( evt ) )
     {
+        (void)convEndEvt;
+
         // We can enable the conversion button again.
         this->buttonConvert->setDisabled( false );
 

@@ -26,8 +26,11 @@ struct VersionSetSelection abstract : public QObject
 	    QComboBox *gameComboBox = new QComboBox;
         gameComboBox->setFixedWidth(300);
 	    gameComboBox->addItem(getLanguageItemByKey("Main.SetupTV.Custom"));   /// HAXXXXXXX
-        for (unsigned int i = 0; i < mainWnd->versionSets.sets.size(); i++)
-            gameComboBox->addItem(mainWnd->versionSets.sets[i].name);
+	    {
+            int numVersionSets = mainWnd->versionSets.sets.size();
+            for (int i = 0; i < numVersionSets; i++)
+                gameComboBox->addItem(mainWnd->versionSets.sets[i].name);
+        }
         this->gameSelectBox = gameComboBox;
 
         QObject::connect( gameComboBox, static_cast<void (QComboBox::*)(int index)>(&QComboBox::currentIndexChanged), this, &VersionSetSelection::OnChangeSelectedGame );

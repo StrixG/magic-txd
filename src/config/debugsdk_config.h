@@ -3,6 +3,8 @@
 #define PAGE_HEAP_INTEGRITY_CHECK
 #define PAGE_HEAP_MEMORY_STATS
 
+#ifdef _WIN32
 #define _DEBUG_TRACE_LIBRARY_
+#endif //_WIN32
 
 #define _DEBUGSDK_CRT_STARTUP

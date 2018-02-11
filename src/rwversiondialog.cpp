@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "rwversiondialog.h"
 
-RwVersionDialog::RwVersionDialog( MainWindow *mainWnd ) : versionGUI( mainWnd, this ), QDialog( mainWnd )
+RwVersionDialog::RwVersionDialog( MainWindow *mainWnd ) : QDialog( mainWnd ), versionGUI( mainWnd, this )
 {
 	setObjectName("background_1");
     setWindowFlags( this->windowFlags() & ~Qt::WindowContextHelpButtonHint );
@@ -25,7 +25,7 @@ RwVersionDialog::RwVersionDialog( MainWindow *mainWnd ) : versionGUI( mainWnd, t
 
 	layout.bottom->addWidget(buttonAccept);
     layout.bottom->addWidget(buttonCancel);
-		
+
     // Initiate the ready dialog.
     this->versionGUI.InitializeVersionSelect();
 
@@ -115,7 +115,7 @@ void RwVersionDialog::OnRequestAccept( bool clicked )
 
             // The user might want to be notified of the platform change.
             this->mainWnd->txdLog->addLogMessage(
-                QString("changed the TXD platform to match version (") + previousPlatform + 
+                QString("changed the TXD platform to match version (") + previousPlatform +
                 QString(">") + currentPlatform + QString(")"),
                 LOGMSG_INFO
             );

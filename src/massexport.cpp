@@ -92,15 +92,13 @@ MassExportWindow::MassExportWindow( MainWindow *mainWnd ) : QDialog( mainWnd )
     // Just one pane with things to edit.
     // First we should put the paths to perform the extraction.
     MagicLayout<QVBoxLayout> layout(this);
-    
+
     QFormLayout *pathRootForm = new QFormLayout();
 
     pathRootForm->addRow(
         CreateLabelL( "Tools.GameRt" ),
         qtshared::createPathSelectGroup( QString::fromStdWString( env->config.gameRoot ), this->editGameRoot )
     );
-
-    QHBoxLayout *outputRootGroup = new QHBoxLayout();
 
     pathRootForm->addRow(
         CreateLabelL( "Tools.Output" ),
@@ -149,7 +147,7 @@ MassExportWindow::MassExportWindow( MainWindow *mainWnd ) : QDialog( mainWnd )
             boxRecomImageFormat->setCurrentIndex( existFormatIndex );
         }
     }
-    
+
     this->boxRecomImageFormat = boxRecomImageFormat;
 
     imgFormatGroup->addWidget( boxRecomImageFormat );
@@ -295,7 +293,7 @@ void MassExportWindow::OnRequestExport( bool checked )
 
         // Allocate a private configuration for the task.
         const massexportEnv *env = massexportEnvRegister.GetConstPluginStruct( mainWnd );
-        
+
         exporttask_params *params = new exporttask_params();
         params->config = env->config;
         params->taskWnd = NULL;
@@ -327,7 +325,7 @@ void MassExportWindow::serialize( void )
     env->config.gameRoot = this->editGameRoot->text().toStdWString();
     env->config.outputRoot = this->editOutputRoot->text().toStdWString();
     env->config.recImgFormat = qt_to_ansi( this->boxRecomImageFormat->currentText() );
-    
+
     MassExportModule::eOutputType outputType = MassExportModule::OUTPUT_TXDNAME;
 
     if ( this->optionExportPlain->isChecked() )

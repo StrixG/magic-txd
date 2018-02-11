@@ -42,7 +42,7 @@ struct mh2zCompressionEnv : public compressionManager
         return true;
     }
 
-    struct mh2zCompressionProvider : public compressionProvider
+    struct mh2zCompressionProvider final : public compressionProvider
     {
         bool Compress( CFile *input, CFile *output ) override
         {

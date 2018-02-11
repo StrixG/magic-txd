@@ -68,6 +68,8 @@ public:
     {
         if ( task_completion_event *completeEvt = dynamic_cast <task_completion_event*> ( evt ) )
         {
+            (void)completeEvt;
+
             // We finished!
             if ( this->hasRequestedClosure || this->closeOnCompletion )
             {
