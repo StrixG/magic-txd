@@ -24,7 +24,7 @@ git checkout 5.10
 perl init-repository --module-subset=qtbase,qtimageformats
 ./configure -static -release -platform linux-g++ -opensource \
     -nomake examples -nomake tests -no-opengl -no-mtdev -dbus-linked -fontconfig \
-    -qt-zlib -qt-libpng -qt-libjpeg -sys-freetype -qt-harfbuzz -qt-sqlite -qt-xkbcommon-x11 \
+    -qt-zlib -qt-libpng -qt-libjpeg -system-freetype -qt-harfbuzz -qt-sqlite -qt-xkbcommon-x11 \
     -qt-xcb -qt-pcre \
     -prefix "$_TMPOUTPATH_GIT/install"
 

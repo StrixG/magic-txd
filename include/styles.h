@@ -6,7 +6,7 @@
 class styles {
 public:
     static QString get(QString appPath, QString filename) {
-        QFile file(appPath + "\\" + filename);
+        QFile file(appPath + "/" + filename);
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
             return QString();
         QTextStream in(&file);

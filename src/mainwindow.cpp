@@ -160,7 +160,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
         starsMovie = new QMovie;
 
         // set default theme movie
-        starsMovie->setFileName(makeAppPath("resources\\dark\\stars.gif"));
+        starsMovie->setFileName(makeAppPath("resources/dark/stars.gif"));
         starsBox->setMovie(starsMovie);
         starsMovie->start();
         txdNameLayout->addWidget(starsBox, 0, 0);
@@ -398,10 +398,10 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
 
                 if ( gotDefaultExt && displayName != NULL )
                 {
-                    if ( StringEqualToZero( defaultExt, "PNG", false ) &&
-                         StringEqualToZero( defaultExt, "DDS", false ) &&
-                         StringEqualToZero( defaultExt, "PVR", false ) &&
-                         StringEqualToZero( defaultExt, "BMP", false ) )
+                    if ( !StringEqualToZero( defaultExt, "PNG", false ) &&
+                         !StringEqualToZero( defaultExt, "DDS", false ) &&
+                         !StringEqualToZero( defaultExt, "PVR", false ) &&
+                         !StringEqualToZero( defaultExt, "BMP", false ) )
                     {
                         this->addTextureFormatExportLinkToMenu( exportMenu, displayName, defaultExt, theFormat.formatName );
                     }
@@ -650,7 +650,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
 
         // Read data files
 
-        this->versionSets.readSetsFile(this->makeAppPath("data\\versionsets.dat"));
+        this->versionSets.readSetsFile(this->makeAppPath("data/versionsets.dat"));
 
         //
 
@@ -1638,8 +1638,8 @@ void MainWindow::onToogleDarkTheme(bool checked) {
     if (checked && !this->recheckingThemeItem) {
         this->actionThemeLight->setChecked(false);
         this->starsMovie->stop();
-        this->setStyleSheet(styles::get(this->m_appPath, "resources\\dark.shell"));
-        this->starsMovie->setFileName(makeAppPath("resources\\dark\\stars.gif"));
+        this->setStyleSheet(styles::get(this->m_appPath, "resources/dark.shell"));
+        this->starsMovie->setFileName(makeAppPath("resources/dark/stars.gif"));
         this->starsMovie->start();
 
         this->UpdateTheme();
@@ -1655,8 +1655,8 @@ void MainWindow::onToogleLightTheme(bool checked) {
     if (checked && !this->recheckingThemeItem) {
         this->actionThemeDark->setChecked(false);
         this->starsMovie->stop();
-        this->setStyleSheet(styles::get(this->m_appPath, "resources\\light.shell"));
-        this->starsMovie->setFileName(makeAppPath("resources\\light\\stars.gif"));
+        this->setStyleSheet(styles::get(this->m_appPath, "resources/light.shell"));
+        this->starsMovie->setFileName(makeAppPath("resources/light/stars.gif"));
         this->starsMovie->start();
 
         this->UpdateTheme();
@@ -2709,7 +2709,7 @@ void MainWindow::onAboutUs(bool checked)
 }
 
 QString MainWindow::makeAppPath(QString subPath) {
-    return m_appPath + "\\" + subPath;
+    return m_appPath + "/" + subPath;
 }
 
 // Theme management.

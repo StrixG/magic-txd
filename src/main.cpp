@@ -241,12 +241,12 @@ int main(int argc, char *argv[])
 
                 MagicTXDApplication a(argc, argv);
                 {
-                    QString styleSheet = styles::get(a.applicationDirPath(), "resources\\dark.shell");
+                    QString styleSheet = styles::get(a.applicationDirPath(), "resources/dark.shell");
 
                     if ( styleSheet.isEmpty() )
                     {
                         important_message(
-                            "Failed to load stylesheet resource \"resources\\dark.shell\"." \
+                            "Failed to load stylesheet resource \"resources/dark.shell\".\n" \
                             "Please verify whether you have installed Magic.TXD correctly!",
                             "Error"
                         );
@@ -265,7 +265,7 @@ int main(int argc, char *argv[])
 
                 try
                 {
-                    w->setWindowIcon(QIcon(w->makeAppPath("resources\\icons\\stars.png")));
+                    w->setWindowIcon(QIcon(w->makeAppPath("resources/icons/stars.png")));
                     w->show();
 
                     w->launchDetails();
