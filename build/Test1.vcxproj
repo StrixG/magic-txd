@@ -222,7 +222,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.9\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.9\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -285,7 +285,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.9\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.9\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -348,7 +348,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.9\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.9\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -411,7 +411,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.9\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.9\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -469,7 +469,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcred.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.9\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.9\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -524,7 +524,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcred.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.9\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.9\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -579,7 +579,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcred.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.9\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.9\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -634,7 +634,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcred.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.9\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.9\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>

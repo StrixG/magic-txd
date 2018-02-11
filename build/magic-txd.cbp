@@ -10,8 +10,9 @@
 				<Option output="../output/linux/Debug/magic-txd" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../output/linux/Debug" />
 				<Option object_output="../obj/linux/Debug/" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
@@ -33,6 +34,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-fPIC" />
 			<Add option="-std=c++17" />
 			<Add option="-DQT_STATIC" />
 			<Add option="-DQT_WIDGETS_LIB" />
@@ -41,7 +43,7 @@
 			<Add directory="../include" />
 			<Add directory="../src/config" />
 			<Add directory="../vendor/FileSystem/include" />
-			<Add directory="../vendor/Qt5.9/include" />
+			<Add directory="../vendor/Qt5.10/include" />
 			<Add directory="../vendor/rwlib/include" />
 			<Add directory="../vendor/eirrepo" />
 			<Add directory="../magic_api" />
@@ -52,32 +54,36 @@
 		</Compiler>
 		<Linker>
 			<Add option="-pthread" />
-			<Add library="libfs" />
-			<Add library="gtaconfig" />
-			<Add library="rwlib" />
-			<Add library="Qt5ThemeSupport" />
-			<Add library="Qt5FontDatabaseSupport" />
-			<Add library="Qt5EventDispatcherSupport" />
-			<Add library="Qt5AccessibilitySupport" />
-			<Add library="qlinuxfb" />
-			<Add library="qminimal" />
-			<Add library="qoffscreen" />
-			<Add library="qvnc" />
-			<Add library="qxcb" />
-			<Add library="qtpcre2" />
-			<Add library="Qt5Core" />
-			<Add library="Qt5Widgets" />
-			<Add library="Qt5Gui" />
+			<Add option="-lfs -lgtaconfig -lrwlib" />
+			<Add option="-lQt5ThemeSupport" />
+			<Add option="-lQt5FontDatabaseSupport" />
+			<Add option="-lQt5EventDispatcherSupport" />
+			<Add option="-lQt5AccessibilitySupport" />
+			<Add option="-lqlinuxfb" />
+			<Add option="-lqminimal" />
+			<Add option="-lqoffscreen" />
+			<Add option="-lqvnc" />
+			<Add option="-lqxcb" />
+			<Add option="-lQt5Widgets" />
+			<Add option="-lQt5Gui" />
+			<Add option="-lQt5Core" />
+			<Add option="-lqtlibpng -lqtharfbuzz -lqtfreetype" />
+			<Add option="`pkg-config --libs --cflags icu-uc icu-io icu-i18n`" />
+			<Add option="-ldl" />
+			<Add option="-lqtpcre2" />
+			<Add option="-lglib-2.0" />
 			<Add directory="../vendor/gtaconfig/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/FileSystem/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/rwlib/output/linux/$(TARGET_NAME)/" />
-			<Add directory="../vendor/Qt5.9/lib/linux/" />
-			<Add directory="../vendor/Qt5.9/lib/linux/plugins/platforms/" />
+			<Add directory="../vendor/Qt5.10/lib/linux/" />
+			<Add directory="../vendor/Qt5.10/lib/linux/plugins/platforms/" />
 		</Linker>
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.cpp" />
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.h" />
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.hxx" />
 		<UnitsGlob directory="../include" recursive="1" wildcard="*.h" />
+		<UnitsGlob directory="../vendor/debugsdk" recursive="1" wildcard="*.h" />
+		<Unit filename="../vendor/debugsdk/dbgheap.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

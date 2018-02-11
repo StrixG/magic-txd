@@ -6,13 +6,16 @@
 
 #include <NativeExecutive/CExecutiveManager.h>
 
+#include <QtCore/QtPlugin>
+
 #ifdef _WIN32
 #include <Windows.h>
-#endif //_WIN32
+Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
+#elif defined(__linux__)
+Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)
+#endif //CROSS PLATFORM CODE
 
 #include <QtGui/QImageWriter>
-
-#include <QtCore/QtPlugin>
 
 struct ScopedSystemEventFilter
 {
@@ -83,7 +86,7 @@ SystemEventHandlerWidget::~SystemEventHandlerWidget(void)
 
 struct MagicTXDApplication : public QApplication
 {
-    inline MagicTXDApplication(int argc, char *argv[]) : QApplication(argc, argv)
+    inline MagicTXDApplication(int& argc, char *argv[]) : QApplication(argc, argv)
     {
         return;
     }
@@ -159,11 +162,6 @@ static void important_message( const char *msg, const char *title )
 
 int main(int argc, char *argv[])
 {
-#ifdef _WIN32
-    // Need to import here because static init order.
-    Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
-#endif //_WIN32
-
     // Initialize all main window plugins.
     InitializeRWFileSystemWrap();
     InitializeTaskCompletionWindowEnv();
