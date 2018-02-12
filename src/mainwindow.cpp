@@ -838,7 +838,7 @@ void MainWindow::UpdateExportAccessibility( void )
                         {
                             std::string ansiMethodName = qt_to_ansi( exportAction->displayName );
 
-                            if ( StringEqualToZero( ansiMethodName.c_str(), "RWTEX", false ) == 0 )
+                            if ( StringEqualToZero( ansiMethodName.c_str(), "RWTEX", false ) )
                             {
                                 hasSupport = true;
                             }
@@ -1975,6 +1975,8 @@ void MainWindow::DoAddTexture( const TexAddDialog::texAddOperation& params )
 
 QString MainWindow::requestValidImagePath( const QString *imageName )
 {
+    static const char *MULTI_ITEM_SEPERATOR = " ";
+
     // Get the name of a texture to add.
     // For that we want to construct a list of all possible image extensions.
     QString imgExtensionSelect;
@@ -1997,7 +1999,7 @@ QString MainWindow::requestValidImagePath( const QString *imageName )
     {
         if ( hasExtEntry )
         {
-            imgExtensionSelect += ";";
+            imgExtensionSelect += MULTI_ITEM_SEPERATOR;
         }
 
         bool needsExtSep = false;
@@ -2006,7 +2008,7 @@ QString MainWindow::requestValidImagePath( const QString *imageName )
         {
             if ( needsExtSep )
             {
-                imgExtensionSelect += ";";
+                imgExtensionSelect += MULTI_ITEM_SEPERATOR;
             }
 
             imgExtensionSelect += QString( "*." ) + ansi_to_qt( extName ).toLower();
@@ -2021,7 +2023,7 @@ QString MainWindow::requestValidImagePath( const QString *imageName )
     {
         if ( hasExtEntry )
         {
-            imgExtensionSelect += ";";
+            imgExtensionSelect += MULTI_ITEM_SEPERATOR;
         }
 
         imgExtensionSelect += QString( "*.rwtex" );
@@ -2046,7 +2048,7 @@ QString MainWindow::requestValidImagePath( const QString *imageName )
         {
             if ( needsExtSep )
             {
-                imgExtensionSelect += ";";
+                imgExtensionSelect += MULTI_ITEM_SEPERATOR;
             }
 
             imgExtensionSelect +=
@@ -2413,7 +2415,7 @@ void MainWindow::onExportTexture( bool checked )
                         try
                         {
                             // Directly write us.
-                            if ( StringEqualToZero( ansiExportFunction.c_str(), "RWTEX", false ) == 0 )
+                            if ( StringEqualToZero( ansiExportFunction.c_str(), "RWTEX", false ) )
                             {
                                 rwEngine->Serialize( texHandle, imageStream );
                             }

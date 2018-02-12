@@ -159,7 +159,7 @@ struct helperRuntimeEnv : public magicSerializationProvider
     {
         LIST_FOREACH_BEGIN( helper_item, this->helper_items.root, node )
 
-            if ( StringEqualToZero( item->triggerName, name, false ) == 0 )
+            if ( StringEqualToZero( item->triggerName, name, false ) )
                 return item;
 
         LIST_FOREACH_END

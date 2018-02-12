@@ -228,7 +228,7 @@ public slots:
                                                 // Now attempt the write.
                                                 try
                                                 {
-                                                    if ( StringEqualToZero( ansiFormatTarget.c_str(), "RWTEX", false ) == 0 )
+                                                    if ( StringEqualToZero( ansiFormatTarget.c_str(), "RWTEX", false ) )
                                                     {
                                                         engineInterface->Serialize( texture, rwStream );
                                                     }
