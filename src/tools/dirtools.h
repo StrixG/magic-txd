@@ -28,7 +28,7 @@ struct gtaFileProcessor
         traverse.reconstruct_archives = this->reconstruct_archives;
         traverse.use_compressed_img_archives = this->use_compressed_img_archives;
 
-        discHandle->ScanDirectory( "@", "*", true, NULL, _discFileCallback, &traverse );
+        discHandle->ScanDirectory( "@", "*", true, nullptr, _discFileCallback, &traverse );
     }
 
     inline void setArchiveReconstruction( bool doReconstruct )
@@ -77,8 +77,8 @@ private:
         // We do a massive shortcut here in midst of reality.
         // There can only be build root conflicts if both translators are inside the OS filesystem.
         // This could change in the future; I will review this code by then.
-        if ( fileSystem->GetArchiveTranslator( info->discHandle ) == NULL &&
-             fileSystem->GetArchiveTranslator( buildRoot ) == NULL )
+        if ( fileSystem->GetArchiveTranslator( info->discHandle ) == nullptr &&
+             fileSystem->GetArchiveTranslator( buildRoot ) == nullptr )
         {
             filePath buildRootRelative;
 
@@ -107,7 +107,7 @@ private:
 
             filePath extention;
 
-            filePath fileName = FileSystem::GetFileNameItem( discFilePathAbs, false, NULL, &extention );
+            filePath fileName = FileSystem::GetFileNameItem( discFilePathAbs, false, nullptr, &extention );
 
             if ( extention.size() != 0 )
             {
@@ -116,7 +116,7 @@ private:
                     module->OnMessage( L"processing " + relPathFromRoot.convert_unicode() + L" ...\n" );
 
                     // Open the IMG archive.
-                    CIMGArchiveTranslatorHandle *srcIMGRoot = NULL;
+                    CIMGArchiveTranslatorHandle *srcIMGRoot = nullptr;
 
                     if ( info->use_compressed_img_archives )
                     {
@@ -132,8 +132,8 @@ private:
                         try
                         {
                             // If we have found an IMG archive, we perform the same stuff for files inside of it.
-                            CFileTranslator *outputRoot = NULL;
-                            CArchiveTranslator *outputRoot_archive = NULL;
+                            CFileTranslator *outputRoot = nullptr;
+                            CArchiveTranslator *outputRoot_archive = nullptr;
 
                             if ( info->reconstruct_archives )
                             {
@@ -142,7 +142,7 @@ private:
                                 eIMGArchiveVersion imgVersion = srcIMGRoot->GetVersion();
 
                                 // We copy the files into a new IMG archive tho.
-                                CArchiveTranslator *newIMGRoot = NULL;
+                                CArchiveTranslator *newIMGRoot = nullptr;
 
                                 if ( info->use_compressed_img_archives )
                                 {
@@ -195,14 +195,14 @@ private:
                                     traverse.module = info->module;
                                     traverse.discHandle = srcIMGRoot;
                                     traverse.buildRoot = outputRoot;
-                                    traverse.isInArchive = ( outputRoot_archive != NULL ) || info->isInArchive;
+                                    traverse.isInArchive = ( outputRoot_archive != nullptr ) || info->isInArchive;
                                     traverse.sentry = info->sentry;
                                     traverse.reconstruct_archives = info->reconstruct_archives;
                                     traverse.use_compressed_img_archives = info->use_compressed_img_archives;
 
-                                    srcIMGRoot->ScanDirectory( "@", "*", true, NULL, _discFileCallback, &traverse );
+                                    srcIMGRoot->ScanDirectory( "@", "*", true, nullptr, _discFileCallback, &traverse );
 
-                                    if ( outputRoot_archive != NULL )
+                                    if ( outputRoot_archive != nullptr )
                                     {
                                         module->OnMessage( "writing " );
 
@@ -264,7 +264,7 @@ private:
             {
                 // Do special logic for certain files.
                 // Copy all files into the build root.
-                CFile *sourceStream = NULL;
+                CFile *sourceStream = nullptr;
                 {
                     sourceStream = info->discHandle->Open( discFilePathAbs, L"rb" );
                 }
@@ -282,7 +282,7 @@ private:
                         throw;
                     }
                 }
-                
+
                 if ( sourceStream )
                 {
                     try
@@ -317,9 +317,9 @@ private:
 inline bool obtainAbsolutePath( const wchar_t *path, CFileTranslator*& transOut, bool createDir, bool hasToBeDirectory = true )
 {
     bool hasTranslator = false;
-    
+
     bool newTranslator = false;
-    CFileTranslator *translator = NULL;
+    CFileTranslator *translator = nullptr;
     filePath thePath;
 
     // Check whether the file path has a trailing slash.

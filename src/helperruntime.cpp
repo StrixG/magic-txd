@@ -16,7 +16,7 @@ struct helper_item
 {
     inline helper_item( void )
     {
-        this->activeWidget = NULL;
+        this->activeWidget = nullptr;
         this->triggerName = "";
         this->locale_item_name = "";
         this->helperType = eHelperTextType::DIALOG_WITH_TICK;
@@ -30,7 +30,7 @@ struct helper_item
         {
             delete curWidget;
 
-            this->activeWidget = NULL;
+            this->activeWidget = nullptr;
         }
     }
 
@@ -164,7 +164,7 @@ struct helperRuntimeEnv : public magicSerializationProvider
 
         LIST_FOREACH_END
 
-        return NULL;
+        return nullptr;
     }
 
     RwList <helper_item> helper_items;
@@ -183,7 +183,7 @@ bool RegisterHelperWidget(MainWindow *mainWnd, const char *triggerName, eHelperT
     if ( helperEnv )
     {
         // Make sure no item by that name exists already.
-        if ( helperEnv->FindHelperItemByName( triggerName ) == NULL )
+        if ( helperEnv->FindHelperItemByName( triggerName ) == nullptr )
         {
             // Register us.
             helper_item *new_item = new helper_item;
@@ -368,9 +368,9 @@ void TriggerHelperWidget( MainWindow *mainWnd, const char *triggerName, QWidget 
             if ( item->isAllowedToDisplay )
 #endif //_DEBUG_HELPER_TEXT
             {
-                if ( item->activeWidget == NULL )
+                if ( item->activeWidget == nullptr )
                 {
-                    QWidget *showedWidget = NULL;
+                    QWidget *showedWidget = nullptr;
 
                     if ( item->helperType == eHelperTextType::DIALOG_SHOW_ONCE )
                     {

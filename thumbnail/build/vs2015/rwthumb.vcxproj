@@ -181,6 +181,8 @@
       <AdditionalDependencies>kernel32.lib;advapi32.lib;gdi32.lib;user32.lib;rwlib.lib</AdditionalDependencies>
       <ModuleDefinitionFile>GlobalExportFunctions.def</ModuleDefinitionFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>_native_executive_fep@12</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_legacy|Win32'">
@@ -202,6 +204,8 @@
       <AdditionalDependencies>kernel32.lib;advapi32.lib;gdi32.lib;user32.lib;rwlib.lib</AdditionalDependencies>
       <ModuleDefinitionFile>GlobalExportFunctions.def</ModuleDefinitionFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>_native_executive_fep@12</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -223,6 +227,8 @@
       <AdditionalDependencies>kernel32.lib;advapi32.lib;gdi32.lib;user32.lib;rwlib.lib</AdditionalDependencies>
       <ModuleDefinitionFile>GlobalExportFunctions.def</ModuleDefinitionFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_legacy|x64'">
@@ -244,6 +250,8 @@
       <AdditionalDependencies>kernel32.lib;advapi32.lib;gdi32.lib;user32.lib;rwlib.lib</AdditionalDependencies>
       <ModuleDefinitionFile>GlobalExportFunctions.def</ModuleDefinitionFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -269,6 +277,8 @@
       <AdditionalDependencies>kernel32.lib;advapi32.lib;gdi32.lib;user32.lib;rwlib.lib</AdditionalDependencies>
       <ModuleDefinitionFile>GlobalExportFunctions.def</ModuleDefinitionFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>_native_executive_fep@12</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_legacy|Win32'">
@@ -294,6 +304,8 @@
       <AdditionalDependencies>kernel32.lib;advapi32.lib;gdi32.lib;user32.lib;rwlib.lib</AdditionalDependencies>
       <ModuleDefinitionFile>GlobalExportFunctions.def</ModuleDefinitionFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>_native_executive_fep@12</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -319,6 +331,8 @@
       <AdditionalDependencies>kernel32.lib;advapi32.lib;gdi32.lib;user32.lib;rwlib.lib</AdditionalDependencies>
       <ModuleDefinitionFile>GlobalExportFunctions.def</ModuleDefinitionFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_legacy|x64'">
@@ -344,6 +358,8 @@
       <AdditionalDependencies>kernel32.lib;advapi32.lib;gdi32.lib;user32.lib;rwlib.lib</AdditionalDependencies>
       <ModuleDefinitionFile>GlobalExportFunctions.def</ModuleDefinitionFile>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

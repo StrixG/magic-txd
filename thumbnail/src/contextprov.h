@@ -9,6 +9,8 @@ using namespace Microsoft::WRL;
 #include <map>
 #include <functional>
 
+#include <sdk/UniChar.h>
+
 struct RenderWareContextHandlerProvider : public IShellExtInit, public IContextMenu, public IObjectWithSite
 {
     // IUnknown
@@ -64,13 +66,13 @@ private:
 
     menuCmdMap_t cmdMap;
 
-    typedef std::map <UINT, std::string> verbMap_t;
+    typedef std::map <UINT, rw::rwStaticString <char>> verbMap_t;
 
     verbMap_t verbMap;
 
     inline bool findCommandANSI( const char *cmdName, UINT& idOut ) const
     {
-        for ( const std::pair <UINT, std::string>& verbPair : this->verbMap )
+        for ( const std::pair <UINT, rw::rwStaticString <char>>& verbPair : this->verbMap )
         {
             if ( verbPair.second == cmdName )
             {
@@ -83,9 +85,9 @@ private:
 
     inline bool findCommandUnicode( const wchar_t *cmdName, UINT& idOut ) const
     {
-        for ( const std::pair <UINT, std::string>& verbPair : this->verbMap )
+        for ( const std::pair <UINT, rw::rwStaticString <char>>& verbPair : this->verbMap )
         {
-            std::wstring wideVerb( verbPair.second.begin(), verbPair.second.end() );
+            auto wideVerb = CharacterUtil::ConvertStrings <char, wchar_t> ( verbPair.second );
 
             if ( wideVerb == cmdName )
             {

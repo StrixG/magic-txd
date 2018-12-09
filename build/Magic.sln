@@ -59,11 +59,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileSystem", "..\vendor\Fil
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtaconfig", "..\vendor\gtaconfig\build\gtaconfig.vcxproj", "{8A99E697-80DE-4F63-81ED-86DB648A3F6B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rwshell", "..\thumbnail\build\vs2015\rwthumb.vcxproj", "{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3D409405-B557-4BB6-B9E1-43215019E381} = {3D409405-B557-4BB6-B9E1-43215019E381}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Compressonator", "..\vendor\rwlib\vendor\amdtc\Compressonator\VS2015\CompressonatorLib.vcxproj", "{B439F755-9F29-480A-BB3E-C055C682E796}"
 EndProject
 Global
@@ -318,18 +313,6 @@ Global
 		{8A99E697-80DE-4F63-81ED-86DB648A3F6B}.Release|Win32.Build.0 = Release|Win32
 		{8A99E697-80DE-4F63-81ED-86DB648A3F6B}.Release|x64.ActiveCfg = Release|x64
 		{8A99E697-80DE-4F63-81ED-86DB648A3F6B}.Release|x64.Build.0 = Release|x64
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Debug_legacy|Win32.ActiveCfg = Debug_legacy|Win32
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Debug_legacy|x64.ActiveCfg = Debug_legacy|x64
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Debug|Win32.Build.0 = Debug|Win32
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Debug|x64.ActiveCfg = Debug|x64
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Debug|x64.Build.0 = Debug|x64
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Release_legacy|Win32.ActiveCfg = Release_legacy|Win32
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Release_legacy|x64.ActiveCfg = Release_legacy|x64
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Release|Win32.ActiveCfg = Release|Win32
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Release|Win32.Build.0 = Release|Win32
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Release|x64.ActiveCfg = Release|x64
-		{4D925CF6-B64D-4AD7-8614-D8872CFE3F90}.Release|x64.Build.0 = Release|x64
 		{B439F755-9F29-480A-BB3E-C055C682E796}.Debug_legacy|Win32.ActiveCfg = Debug_legacy|Win32
 		{B439F755-9F29-480A-BB3E-C055C682E796}.Debug_legacy|Win32.Build.0 = Debug_legacy|Win32
 		{B439F755-9F29-480A-BB3E-C055C682E796}.Debug_legacy|x64.ActiveCfg = Debug_legacy|x64
@@ -366,5 +349,8 @@ Global
 		{6E793DA8-5641-4BBB-BCB0-43BF10682E14} = {C11221A6-2A83-474F-B84F-83A229178005}
 		{8A99E697-80DE-4F63-81ED-86DB648A3F6B} = {C11221A6-2A83-474F-B84F-83A229178005}
 		{B439F755-9F29-480A-BB3E-C055C682E796} = {C11221A6-2A83-474F-B84F-83A229178005}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B10E2BF-CF96-431D-91B9-5E1B6F491FE5}
 	EndGlobalSection
 EndGlobal

@@ -404,7 +404,7 @@ static void convThreadEntryPoint( rw::thread_t threadHandle, rw::Interface *engi
 
     massconvWnd->convConsistencyLock->enter_write();
 
-    massconvWnd->conversionThread = NULL;
+    massconvWnd->conversionThread = nullptr;
 
     // Close our handle.
     rw::CloseThread( engineInterface, threadHandle );

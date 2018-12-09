@@ -6,6 +6,8 @@
 
 #include "rwutils.hxx"
 
+#include <sdk/NumericFormat.h>
+
 using namespace Microsoft::WRL;
 
 RenderWareContextHandlerProvider::RenderWareContextHandlerProvider( void ) : refCount( 1 )
@@ -235,13 +237,15 @@ inline std::wstring RenderWareContextHandlerProvider::getContextDirectory( void 
 
     if ( !dirPath.empty() )
     {
-        filePath dirOut;
+        eir::MultiString <rw::RwStaticMemAllocator> dirOut;
 
         bool hasDirectory = FileSystem::GetFileNameDirectory( dirPath.c_str(), dirOut );
 
         if ( hasDirectory )
         {
-            dirPath = dirOut.convert_unicode();
+            dirOut.transform_to <wchar_t> ();
+
+            dirPath = dirOut.to_char <wchar_t> ();
         }
     }
 
@@ -649,12 +653,12 @@ static void TexObj_exportAs( const wchar_t *txdFileName, const wchar_t *ext, con
     TexObj_forAllTextures_ser( txdFileName,
         [=]( rw::TextureBase *texHandle )
     {
-        std::wstring targetFilePath( targetDir );
+        rw::rwStaticString <wchar_t> targetFilePath( targetDir );
 
         // Make a file path, with the proper extension.
-        const std::string& ansiName = texHandle->GetName();
+        rw::rwStaticString <char> ansiName = texHandle->GetName();
 
-        std::wstring wideTexName( ansiName.begin(), ansiName.end() );   // NO UTF-8 SHIT.
+        auto wideTexName = CharacterUtil::ConvertStrings <char, wchar_t> ( ansiName );
 
         targetFilePath += L"\\";
         targetFilePath += wideTexName;
@@ -664,7 +668,7 @@ static void TexObj_exportAs( const wchar_t *txdFileName, const wchar_t *ext, con
         // Do it!
         try
         {
-            rw::streamConstructionFileParamW_t fileParam( targetFilePath.c_str() );
+            rw::streamConstructionFileParamW_t fileParam( targetFilePath.GetConstString() );
 
             rw::Stream *chunkStream = rwEngine->CreateStream( rw::RWSTREAMTYPE_FILE_W, rw::RWSTREAMMODE_WRITEONLY, &fileParam );
 
@@ -806,7 +810,7 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
             }
 
         public:
-            inline void AddCommandEntryW( const wchar_t *displayName, std::string&& verbName, std::function <bool ( void )>&& cb, HBITMAP bmpRes = NULL )
+            inline void AddCommandEntryW( const wchar_t *displayName, rw::rwStaticString <char>&& verbName, std::function <bool ( void )>&& cb, HBITMAP bmpRes = NULL )
             {
                 const UINT usedID = this->manager->curMenuID++;
 
@@ -847,7 +851,7 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
                 this->manager->provider->cmdMap[ usedID ] = cb;
 
                 // Add the natural verb.
-                this->manager->provider->verbMap[ usedID ] = std::string( "rwshell." ) + verbName;
+                this->manager->provider->verbMap[ usedID ] = "rwshell." + verbName;
             }
 
             inline node AddSubmenuEntryW( const wchar_t *displayName, HBITMAP bmpRes = NULL )
@@ -1020,11 +1024,11 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
                         }
                         catch( rw::RwException& except )
                         {
-                            std::string errorMsg( "failed to build TXD: " );
+                            rw::rwStaticString <char> errorMsg( "failed to build TXD: " );
 
                             errorMsg += except.message;
 
-                            MessageBoxA( NULL, errorMsg.c_str(), "Build Error", MB_OK );
+                            MessageBoxA( NULL, errorMsg.GetConstString(), "Build Error", MB_OK );
 
                             throw;
                         }
@@ -1070,9 +1074,13 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
                         {
                             rw::registered_image_formats_t regFormats;
                             rw::GetRegisteredImageFormats( rwEngine, regFormats );
+                            
+                            size_t numFormats = regFormats.GetCount();
 
-                            for ( const rw::registered_image_format& format : regFormats )
+                            for ( size_t n = 0; n < numFormats; n++ )
                             {
+                                const rw::registered_image_format& format = regFormats[ n ];
+
                                 // Make a nice display string.
                                 const char *niceExt = rw::GetLongImagingFormatExtension( format.num_ext, format.ext_array );
 
@@ -1083,7 +1091,7 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
                                     displayString += ansi_to_unicode( format.formatName );
                                     displayString += L")";
 
-                                    extractNode.AddCommandEntryW( displayString.c_str(), std::string( "extr_" ) + niceExt,
+                                    extractNode.AddCommandEntryW( displayString.c_str(), rw::rwStaticString <char> ( "extr_" ) + niceExt,
                                         [=]( void )
                                     {
                                         // TODO: actually use a good extention instead of the default.
@@ -1140,13 +1148,15 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
                         // Fill it with entries of platforms that we can target.
                         rw::platformTypeNameList_t availPlatforms = rw::GetAvailableNativeTextureTypes( rwEngine );
 
-                        availPlatforms.reverse();
-
                         UINT cur_index = 0;
 
-                        for ( const std::string& name : availPlatforms )
+                        size_t numPlatforms = availPlatforms.GetCount();
+
+                        for ( size_t n = 0; n < numPlatforms; n++ )
                         {
-                            std::wstring displayString = ansi_to_unicode( name.c_str() );
+                            const rw::rwStaticString <char>& name = availPlatforms[ numPlatforms - 1 - n ];
+
+                            std::wstring displayString = ansi_to_unicode( name.GetConstString() );
 
                             convertNode.AddCommandEntryW( displayString.c_str(), "setPlat_" + name,
                                 [=]( void )
@@ -1163,7 +1173,7 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
                                             // We only want to suceed with stuff if we actually wrote everything.
                                             if ( rw::Raster *texRaster = texHandle->GetRaster() )
                                             {
-                                                rw::ConvertRasterTo( texRaster, name.c_str() );
+                                                rw::ConvertRasterTo( texRaster, name.GetConstString() );
                                             }
                                         });
                                     });
@@ -1171,11 +1181,11 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
                                 catch( rw::RwException& except )
                                 {
                                     // We should display a message box.
-                                    std::string errorMessage( "failed to convert to platform: " );
+                                    rw::rwStaticString <char> errorMessage( "failed to convert to platform: " );
 
                                     errorMessage += except.message;
 
-                                    MessageBoxA( NULL, errorMessage.c_str(), "Conversion Error", MB_OK );
+                                    MessageBoxA( NULL, errorMessage.GetConstString(), "Conversion Error", MB_OK );
 
                                     // Throw further.
                                     throw;
@@ -1203,7 +1213,7 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
                         // Add game versions.
                         for ( const std::pair <std::wstring, rw::KnownVersions::eGameVersion>& verPair : gameVerMap )
                         {
-                            versionNode.AddCommandEntryW( verPair.first.c_str(), std::string( "gameVer_" ) + std::to_string( verPair.second ),
+                            versionNode.AddCommandEntryW( verPair.first.c_str(), "gameVer_" + eir::to_string <char, rw::RwStaticMemAllocator> ( (unsigned int)verPair.second ),
                                 [=]( void )
                             {
                                 try
@@ -1228,11 +1238,11 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::QueryContextMenu(
                                 catch( rw::RwException& except )
                                 {
                                     // We want to inform about this aswell.
-                                    std::string errorMsg( "failed to set game version: " );
+                                    rw::rwStaticString <char> errorMsg( "failed to set game version: " );
 
                                     errorMsg += except.message;
 
-                                    MessageBoxA( NULL, errorMsg.c_str(), "Error", MB_OK );
+                                    MessageBoxA( NULL, errorMsg.GetConstString(), "Error", MB_OK );
 
                                     // Pass on the error.
                                     throw;
@@ -1424,25 +1434,25 @@ IFACEMETHODIMP RenderWareContextHandlerProvider::GetCommandString(
 
             if ( verbIter != this->verbMap.end() )
             {
-                const std::string& theVerb = verbIter->second;
+                const auto& theVerb = verbIter->second;
 
                 if ( uFlags == GCS_VERBA )
                 {
-                    if ( cchMax >= theVerb.size() + 1 )
+                    if ( cchMax >= theVerb.GetLength() + 1 )
                     {
                         // Write the string.
-                        strcpy( pszName, theVerb.c_str() );
+                        strcpy( pszName, theVerb.GetConstString() );
 
                         res = S_OK;
                     }
                 }
                 else if ( uFlags == GCS_VERBW )
                 {
-                    std::wstring wideVerb( theVerb.begin(), theVerb.end() );
+                    auto wideVerb = CharacterUtil::ConvertStrings <char, wchar_t> ( theVerb );
 
-                    if ( cchMax >= wideVerb.size() + 1 )
+                    if ( cchMax >= wideVerb.GetLength() + 1 )
                     {
-                        wcscpy( (wchar_t*)pszName, wideVerb.c_str() );
+                        wcscpy( (wchar_t*)pszName, wideVerb.GetConstString() );
 
                         res = S_OK;
                     }

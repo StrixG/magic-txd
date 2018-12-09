@@ -54,7 +54,7 @@ CreateTxdDialog::CreateTxdDialog(MainWindow *mainWnd) : QDialog(mainWnd), versio
 
     // Initiate the ready dialog.
     this->versionGUI.InitializeVersionSelect();
-    
+
     this->UpdateAccessibility();
 
     RegisterTextLocalizationItem( this );

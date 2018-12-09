@@ -18,7 +18,14 @@ struct lzoStreamCompressionManager final : public compressionManager
 
     bool IsStreamCompressed( CFile *stream ) const override
     {
-        return mainWnd->fileSystem->IsStreamLZOCompressed( stream );
+        try
+        {
+            return mainWnd->fileSystem->IsStreamLZOCompressed( stream );
+        }
+        catch( FileSystem::filesystem_exception& )
+        {
+            return false;
+        }
     }
 
     struct fsysProviderWrap final : public compressionProvider
@@ -43,14 +50,21 @@ struct lzoStreamCompressionManager final : public compressionManager
 
     compressionProvider* CreateProvider( void ) override
     {
-        CIMGArchiveCompressionHandler *lzo = mainWnd->fileSystem->CreateLZOCompressor();
-
-        if ( lzo )
+        try
         {
-            return new fsysProviderWrap( lzo );
-        }
+            CIMGArchiveCompressionHandler *lzo = mainWnd->fileSystem->CreateLZOCompressor();
 
-        return NULL;
+            if ( lzo )
+            {
+                return new fsysProviderWrap( lzo );
+            }
+
+            return nullptr;
+        }
+        catch( FileSystem::filesystem_exception& )
+        {
+            return nullptr;
+        }
     }
 
     void DestroyProvider( compressionProvider *prov ) override
