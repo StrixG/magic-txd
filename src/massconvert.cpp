@@ -314,8 +314,8 @@ void MassConvertWindow::serialize( void )
     // game version.
     gameToNaturalList.getCurrent( this->selGameBox, massconv->txdgenConfig.c_gameType );
 
-    massconv->txdgenConfig.c_outputRoot = this->editOutputRoot->text().toStdWString();
-    massconv->txdgenConfig.c_gameRoot = this->editGameRoot->text().toStdWString();
+    massconv->txdgenConfig.c_outputRoot = qt_to_widerw( this->editOutputRoot->text() );
+    massconv->txdgenConfig.c_gameRoot = qt_to_widerw( this->editGameRoot->text() );
 
     platformToNaturalList.getCurrent( this->selPlatformBox, massconv->txdgenConfig.c_targetPlatform );
 
@@ -348,14 +348,14 @@ struct MassConvertTxdGenModule : public TxdGenModule
         this->massconvWnd = massconvWnd;
     }
 
-    void OnMessage( const std::string& msg ) override
+    void OnMessage( const rw::rwStaticString <char>& msg ) override
     {
         massconvWnd->postLogMessage( ansi_to_qt( msg ) );
     }
 
-    void OnMessage( const std::wstring& msg ) override
+    void OnMessage( const rw::rwStaticString <wchar_t>& msg ) override
     {
-        massconvWnd->postLogMessage( QString::fromStdWString( msg ) );
+        massconvWnd->postLogMessage( wide_to_qt( msg ) );
     }
 
     CFile* WrapStreamCodec( CFile *compressed ) override

@@ -51,9 +51,37 @@ inline std::string qt_to_ansi( const QString& str )
     return std::string( charBuf.data(), charBuf.size() );
 }
 
+inline rw::rwStaticString <char> qt_to_ansirw( const QString& str )
+{
+    QByteArray charBuf = str.toLatin1();
+
+    return rw::rwStaticString <char> ( charBuf.data(), charBuf.size() );
+}
+
+inline rw::rwStaticString <wchar_t> qt_to_widerw( const QString& str )
+{
+    QByteArray charBuf = str.toUtf8();
+
+    return CharacterUtil::ConvertStringsLength <char8_t, wchar_t, rw::RwStaticMemAllocator> ( (const char8_t*)charBuf.data(), charBuf.size() );
+}
+
 inline QString ansi_to_qt( const std::string& str )
 {
     return QString::fromLatin1( str.c_str(), str.size() );
+}
+
+template <typename allocatorType>
+inline QString ansi_to_qt( const eir::String <char, allocatorType>& str )
+{
+    return QString::fromLatin1( str.GetConstString(), str.GetLength() );
+}
+
+template <typename allocatorType>
+inline QString wide_to_qt( const eir::String <wchar_t, allocatorType>& str )
+{
+    eir::String <char8_t, allocatorType> utf8String = CharacterUtil::ConvertStrings <wchar_t, char8_t, allocatorType> ( str, str.GetAllocData() );
+
+    return QString::fromUtf8( (const char*)utf8String.GetConstString(), utf8String.GetLength() );
 }
 
 // The editor may have items that depend on a certain theme.
@@ -243,7 +271,7 @@ private:
             this->mainWnd = theWindow;
         }
 
-        void OnWarning(std::string&& msg) override
+        void OnWarning(rw::rwStaticString <char>&& msg) override
         {
             this->mainWnd->txdLog->addLogMessage(ansi_to_qt(msg), LOGMSG_WARNING);
         }
@@ -442,11 +470,11 @@ public:
     QString lastLanguageFileName;
 
     // ExportAllWindow
-    std::string lastUsedAllExportFormat;
-    std::wstring lastAllExportTarget;
+    rw::rwStaticString <char> lastUsedAllExportFormat;
+    rw::rwStaticString <wchar_t> lastAllExportTarget;
 };
 
-typedef StaticPluginClassFactory <MainWindow> mainWindowFactory_t;
+typedef StaticPluginClassFactory <MainWindow, rw::RwStaticMemAllocator> mainWindowFactory_t;
 
 extern mainWindowFactory_t mainWindowFactory;
 

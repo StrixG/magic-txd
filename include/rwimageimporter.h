@@ -21,16 +21,16 @@ inline eImportExpectation getRecommendedImageImportExpectation( const filePath& 
 
 inline eImportExpectation getActualImageImportExpectation( rw::Interface *rwEngine, const filePath& extention )
 {
-    std::string ansi_ext = extention.convert_ansi();
+    auto ansi_ext = extention.convert_ansi();
 
     // Is it a generic imaging extension?
-    if ( rw::IsImagingFormatAvailable( rwEngine, ansi_ext.c_str() ) )
+    if ( rw::IsImagingFormatAvailable( rwEngine, ansi_ext.GetConstString() ) )
     {
         return IMPORTE_IMAGE;
     }
         
     // We could still be a native imaging format.
-    if ( rw::IsNativeImageFormatAvailable( rwEngine, ansi_ext.c_str() ) )
+    if ( rw::IsNativeImageFormatAvailable( rwEngine, ansi_ext.GetConstString() ) )
     {
         return IMPORTE_IMAGE;
     }
@@ -58,12 +58,12 @@ struct imageImportMethods abstract
             {
                 texHandle->engineInterface->DeleteRwObject( texHandle );
 
-                this->texHandle = NULL;
+                this->texHandle = nullptr;
             }
 
             rw::DeleteRaster( this->texRaster );
 
-            this->texRaster = NULL;
+            this->texRaster = nullptr;
         }
     };
 
@@ -82,8 +82,8 @@ struct imageImportMethods abstract
     void RegisterImportMethod( const char *name, importMethod_t meth, eImportExpectation expImp );
 
 protected:
-    virtual void OnWarning( std::string&& msg ) const = 0;
-    virtual void OnError( std::string&& msg ) const = 0;
+    virtual void OnWarning( rw::rwStaticString <char>&& msg ) const = 0;
+    virtual void OnError( rw::rwStaticString <char>&& msg ) const = 0;
 
     // We need to be able to create a special raster.
     virtual rw::Raster* MakeRaster( void ) const = 0;

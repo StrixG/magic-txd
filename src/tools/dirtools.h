@@ -107,7 +107,7 @@ private:
 
             filePath extention;
 
-            filePath fileName = FileSystem::GetFileNameItem( discFilePathAbs, false, nullptr, &extention );
+            filePath fileName = FileSystem::GetFileNameItem <FileSysCommonAllocator> ( discFilePathAbs, false, nullptr, &extention );
 
             if ( extention.size() != 0 )
             {

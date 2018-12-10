@@ -208,7 +208,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.9/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.11/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -221,8 +221,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Userenv.lib;Netapi32.lib;Version.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;Qt5WindowsUIAutomationSupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre2.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.11\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.11\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -239,7 +239,7 @@
       <ProfileGuidedDatabase>$(OutDir)$(TargetName)_$(PlatformToolset).pgd</ProfileGuidedDatabase>
       <Version>1</Version>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-      <EntryPointSymbol>_DebugInit</EntryPointSymbol>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
@@ -271,7 +271,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.9/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.11/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -284,8 +284,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Userenv.lib;Netapi32.lib;Version.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;Qt5WindowsUIAutomationSupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre2.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.11\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.11\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -302,7 +302,7 @@
       <ProfileGuidedDatabase>$(OutDir)$(TargetName)_$(PlatformToolset).pgd</ProfileGuidedDatabase>
       <Version>1</Version>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-      <EntryPointSymbol>_DebugInit</EntryPointSymbol>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
@@ -334,7 +334,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.9/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.11/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -347,8 +347,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Userenv.lib;Netapi32.lib;Version.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;Qt5WindowsUIAutomationSupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre2.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.11\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.11\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -365,7 +365,7 @@
       <ProfileGuidedDatabase>$(OutDir)$(TargetName)_$(PlatformToolset).pgd</ProfileGuidedDatabase>
       <Version>1</Version>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-      <EntryPointSymbol>_DebugInit</EntryPointSymbol>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
@@ -397,7 +397,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.9/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.11/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -410,8 +410,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Userenv.lib;Netapi32.lib;Version.lib;Qt5PlatformCompositorSupport.lib;Qt5ThemeSupport.lib;Qt5FontDatabaseSupport.lib;Qt5EventDispatcherSupport.lib;Qt5AccessibilitySupport.lib;Qt5WindowsUIAutomationSupport.lib;qwindows.lib;qtmain.lib;Ws2_32.lib;qtpcre2.lib;qtfreetype.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;qtharfbuzz.lib;qtlibpng.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.11\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.11\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -428,7 +428,7 @@
       <ProfileGuidedDatabase>$(OutDir)$(TargetName)_$(PlatformToolset).pgd</ProfileGuidedDatabase>
       <Version>1</Version>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-      <EntryPointSymbol>_DebugInit</EntryPointSymbol>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
@@ -460,7 +460,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.9/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.11/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -468,8 +468,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcred.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Userenv.lib;Netapi32.lib;Version.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;Qt5WindowsUIAutomationSupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcre2d.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.11\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.11\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -485,7 +485,7 @@
       <ProfileGuidedDatabase>$(OutDir)$(TargetName)_$(PlatformToolset).pgd</ProfileGuidedDatabase>
       <Version>1</Version>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-      <EntryPointSymbol>_DebugInit</EntryPointSymbol>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
@@ -515,7 +515,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.9/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.11/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -523,8 +523,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcred.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Userenv.lib;Netapi32.lib;Version.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;Qt5WindowsUIAutomationSupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcre2d.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.11\lib\vs2017\x86\plugins\platforms;..\vendor\Qt5.11\lib\vs2017\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -540,7 +540,7 @@
       <ProfileGuidedDatabase>$(OutDir)$(TargetName)_$(PlatformToolset).pgd</ProfileGuidedDatabase>
       <Version>1</Version>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-      <EntryPointSymbol>_DebugInit</EntryPointSymbol>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
@@ -570,7 +570,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.9/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.11/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -578,8 +578,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcred.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Userenv.lib;Netapi32.lib;Version.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;Qt5WindowsUIAutomationSupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcre2d.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.11\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.11\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -595,7 +595,7 @@
       <ProfileGuidedDatabase>$(OutDir)$(TargetName)_$(PlatformToolset).pgd</ProfileGuidedDatabase>
       <Version>1</Version>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-      <EntryPointSymbol>_DebugInit</EntryPointSymbol>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
@@ -625,7 +625,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.9/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt5.11/include/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -633,8 +633,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcred.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.10\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.10\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;user32.lib;gdi32.lib;advapi32.lib;glu32.lib;opengl32.lib;imm32.lib;winmm.lib;Dwmapi.lib;UxTheme.lib;Userenv.lib;Netapi32.lib;Version.lib;Qt5PlatformCompositorSupportd.lib;Qt5ThemeSupportd.lib;Qt5FontDatabaseSupportd.lib;Qt5EventDispatcherSupportd.lib;Qt5AccessibilitySupportd.lib;Qt5WindowsUIAutomationSupportd.lib;qwindowsd.lib;qtmaind.lib;Ws2_32.lib;qtpcre2d.lib;qtfreetyped.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;qtharfbuzzd.lib;qtlibpngd.lib;rwlib.lib;libfs.lib;gtaconfig.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\gtaconfig\lib\$(Platform)\$(Configuration)\;..\vendor\FileSystem\lib\$(Platform)\$(Configuration)\;..\vendor\rwlib\output\$(Platform)\$(Configuration)\;..\vendor\Qt5.11\lib\vs2017\x64\plugins\platforms;..\vendor\Qt5.11\lib\vs2017\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -650,7 +650,7 @@
       <ProfileGuidedDatabase>$(OutDir)$(TargetName)_$(PlatformToolset).pgd</ProfileGuidedDatabase>
       <Version>1</Version>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-      <EntryPointSymbol>_DebugInit</EntryPointSymbol>
+      <EntryPointSymbol>_native_executive_fep</EntryPointSymbol>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>

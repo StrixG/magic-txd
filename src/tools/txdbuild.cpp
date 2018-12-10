@@ -55,15 +55,15 @@ struct txdBuildImageImportMethods : public makeRasterImageImportMethods
         this->targetPlatform = rwkind::PLATFORM_PC;
         this->targetGame = rwkind::GAME_GTASA;
 
-        this->cfgNode = NULL;
+        this->cfgNode = nullptr;
     }
 
-    void OnWarning( std::string&& msg ) const override
+    void OnWarning( rw::rwStaticString <char>&& msg ) const override
     {
         this->module->OnMessage( "import warning: " + std::move( msg ) );
     }
 
-    void OnError( std::string&& msg ) const override
+    void OnError( rw::rwStaticString <char>&& msg ) const override
     {
         this->module->OnMessage( "import error: " + msg );
     }
@@ -294,14 +294,14 @@ void BuildSingleTexture(
             // Give the texture a name based on the original filename.
             filePath texName = FileSystem::GetFileNameItem( texturePath, false );
 
-            std::string ansiTexName = texName.convert_ansi();
+            auto ansiTexName = texName.convert_ansi();
 
             // Tell the runtime that we process a texture.
             {
-                module->OnMessage( std::string( "*** " ) + ansiTexName + " ...\n" );
+                module->OnMessage( "*** " + ansiTexName + " ...\n" );
             }
 
-            imgTex->SetName( ansiTexName.c_str() );
+            imgTex->SetName( ansiTexName.GetConstString() );
 
             // Set some default rendering properties.
             imgTex->SetFilterMode(
@@ -417,7 +417,7 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
             }
             else
             {
-                module->OnMessage( std::string( "not a platform: " ) + cfg.value + '\n' );
+                module->OnMessage( rw::rwStaticString <char> ( "not a platform: " ) + cfg.value + '\n' );
             }
         }
         else if ( strieq( cfg.key, "rwversion" ) ||
@@ -471,16 +471,18 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
                 // If we have a version, set it as current.
                 if ( hasVersion )
                 {
-                    txdConfigNode.SetString( "rwver", libVer.toString( false ) );
+                    auto verStr = libVer.toString( false );
+
+                    txdConfigNode.SetString( "rwver", verStr.GetConstString() );
                 }
                 else
                 {
-                    module->OnMessage( std::string( "failed to map gameVer: " ) + cfg.value + '\n' );
+                    module->OnMessage( rw::rwStaticString <char> ( "failed to map gameVer: " ) + cfg.value + '\n' );
                 }
             }
             else
             {
-                module->OnMessage( std::string( "failed to parse gameVer: " ) + cfg.value + '\n' );
+                module->OnMessage( rw::rwStaticString <char> ( "failed to parse gameVer: " ) + cfg.value + '\n' );
             }
         }
         else if ( strieq( cfg.key, "game" ) )
@@ -534,22 +536,24 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
                 // If we have a version, set it as current.
                 if ( hasVersion )
                 {
-                    txdConfigNode.SetString( "rwver", libVer.toString( false ) );
+                    auto verStr = libVer.toString( false );
+
+                    txdConfigNode.SetString( "rwver", verStr.GetConstString() );
                 }
 
-                if ( targetNativeName != NULL )
+                if ( targetNativeName != nullptr )
                 {
                     txdConfigNode.SetString( "platform", targetNativeName );
                 }
 
-                if ( !hasVersion && targetNativeName == NULL )
+                if ( !hasVersion && targetNativeName == nullptr )
                 {
-                    module->OnMessage( std::string( "failed to map game: " ) + cfg.value + '\n' );
+                    module->OnMessage( rw::rwStaticString <char> ( "failed to map game: " ) + cfg.value + '\n' );
                 }
             }
             else
             {
-                module->OnMessage( std::string( "failed to parse game: " ) + cfg.value + '\n' );
+                module->OnMessage( rw::rwStaticString <char> ( "failed to parse game: " ) + cfg.value + '\n' );
             }
         }
         else if ( strieq( cfg.key, "size" ) )
@@ -567,7 +571,7 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
             }
             else
             {
-                module->OnMessage( std::string( "not a filterMode: " ) + cfg.value + '\n' );
+                module->OnMessage( rw::rwStaticString <char> ( "not a filterMode: " ) + cfg.value + '\n' );
             }
         }
         else if ( strieq( cfg.key, "uAddress" ) ||
@@ -582,7 +586,7 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
             }
             else
             {
-                module->OnMessage( std::string( "not a uAddress: " ) + cfg.value + '\n' );
+                module->OnMessage( rw::rwStaticString <char> ( "not a uAddress: " ) + cfg.value + '\n' );
             }
         }
         else if ( strieq( cfg.key, "vAddress" ) ||
@@ -597,7 +601,7 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
             }
             else
             {
-                module->OnMessage( std::string( "not a vAddress: " ) + cfg.value + '\n' );
+                module->OnMessage( rw::rwStaticString <char> ( "not a vAddress: " ) + cfg.value + '\n' );
             }
         }
         else if ( strieq( cfg.key, "compressed" ) )
@@ -624,7 +628,7 @@ inline void InstrumentConfigKeys( rw::Interface *rwEngine, TxdBuildModule *modul
             }
             else
             {
-                module->OnMessage( std::string( "not a palType: " ) + cfg.value + '\n' );
+                module->OnMessage( rw::rwStaticString <char> ( "not a palType: " ) + cfg.value + '\n' );
             }
         }
         else if ( strieq( cfg.key, "genMipmaps" ) ||
@@ -701,7 +705,7 @@ void BuildTXDArchives(
             if ( hasTXDWritePath )
             {
                 // Send a status message about our build process.
-                module->OnMessage( std::wstring( L"building '" ) + txdWritePath.convert_unicode() + L"'...\n" );
+                module->OnMessage( L"building '" + txdWritePath.convert_unicode() + L"'...\n" );
 
                 rw::TexDictionary *texDict = rw::CreateTexDictionary( rwEngine );
 
@@ -770,7 +774,7 @@ void BuildTXDArchives(
                                                 {
                                                     filePath extOut;
 
-                                                    filePath fileNameItem = FileSystem::GetFileNameItem( texturePath, false, NULL, &extOut );
+                                                    filePath fileNameItem = FileSystem::GetFileNameItem <FileSysCommonAllocator> ( texturePath, false, nullptr, &extOut );
 
                                                     // Ignore some extensions.
                                                     // Those are used for meta-properties of textures.
@@ -817,7 +821,7 @@ void BuildTXDArchives(
                                     catch( rw::RwException& except )
                                     {
                                         // Tell the runtime about any errors.
-                                        module->OnMessage( std::string( "failed to build texture: " ) + except.message + '\n' );
+                                        module->OnMessage( "failed to build texture: " + except.message + '\n' );
 
                                         // Continue. This is just one of many textures.
                                     }
@@ -833,7 +837,7 @@ void BuildTXDArchives(
                             }
                             else
                             {
-                                module->OnMessage( std::wstring( L"failed to open texture: " ) + texturePath.convert_unicode() + L'\n' );
+                                module->OnMessage( L"failed to open texture: " + texturePath.convert_unicode() + L'\n' );
                             }
 
                             // Allow termination per texture.
@@ -896,7 +900,7 @@ void BuildTXDArchives(
                         }
                         else
                         {
-                            module->OnMessage( std::wstring( L"failed to open TXD for writing\n" ) );
+                            module->OnMessage( L"failed to open TXD for writing\n" );
                         }
                     }
                 }
@@ -916,7 +920,7 @@ void BuildTXDArchives(
         catch( rw::RwException& except )
         {
             // Ignore any errors we encounter at processing a TXD, so other TXDs can try processing.
-            module->OnMessage( std::string( "failed to build TXD: " ) + except.message + '\n' );
+            module->OnMessage( "failed to build TXD: " + except.message + '\n' );
         }
     };
 
@@ -976,17 +980,17 @@ bool TxdBuildModule::RunApplication( const run_config& config )
             }
 
             // Get handles to the input and output directories.
-            CFileTranslator *gameRootTranslator = NULL;
+            CFileTranslator *gameRootTranslator = nullptr;
 
-            bool hasGameRoot = obtainAbsolutePath( config.gameRoot.c_str(), gameRootTranslator, false );
+            bool hasGameRoot = obtainAbsolutePath( config.gameRoot.GetConstString(), gameRootTranslator, false );
 
             if ( hasGameRoot )
             {
                 try
                 {
-                    CFileTranslator *outputRootTranslator = NULL;
+                    CFileTranslator *outputRootTranslator = nullptr;
 
-                    bool hasOutputRoot = obtainAbsolutePath( config.outputRoot.c_str(), outputRootTranslator, true );
+                    bool hasOutputRoot = obtainAbsolutePath( config.outputRoot.GetConstString(), outputRootTranslator, true );
 
                     if ( hasOutputRoot )
                     {
@@ -1039,7 +1043,7 @@ bool TxdBuildModule::RunApplication( const run_config& config )
     }
     catch( std::exception& err )
     {
-        this->OnMessage( std::string( "\n\nSTL exception in builder: " ) + err.what() );
+        this->OnMessage( rw::rwStaticString <char> ( "\n\nSTL exception in builder: " ) + err.what() );
 
         throw;
     }
@@ -1053,7 +1057,7 @@ bool TxdBuildModule::RunApplication( const run_config& config )
     return true;
 }
 
-void TxdBuildModule::OnWarning( std::string&& msg )
+void TxdBuildModule::OnWarning( rw::rwStaticString <char>&& msg )
 {
     // Forward things to the management.
     this->OnMessage( "warning: " + msg + '\n' );

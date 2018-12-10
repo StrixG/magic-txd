@@ -81,7 +81,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
         this->showLogOnWarning = true;
         this->showGameIcon = true;
         this->lastUsedAllExportFormat = "PNG";
-        this->lastAllExportTarget = this->makeAppPath( "" ).toStdWString();
+        this->lastAllExportTarget = qt_to_widerw( this->makeAppPath( "" ) );
     }
 
     this->wasTXDModified = false;
@@ -381,10 +381,8 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
 
             rw::GetRegisteredImageFormats( this->rwEngine, regFormats );
 
-            for ( rw::registered_image_formats_t::const_iterator iter = regFormats.cbegin(); iter != regFormats.cend(); iter++ )
+            for ( const rw::registered_image_format& theFormat : regFormats )
             {
-                const rw::registered_image_format& theFormat = *iter;
-
                 rw::uint32 num_ext = theFormat.num_ext;
                 const rw::imaging_filename_ext *ext_array = theFormat.ext_array;
 
@@ -393,11 +391,11 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
                 const char *displayName =
                     rw::GetLongImagingFormatExtension( num_ext, ext_array );
 
-                const char *defaultExt = NULL;
+                const char *defaultExt = nullptr;
 
                 bool gotDefaultExt = rw::GetDefaultImagingFormatExtension( theFormat.num_ext, theFormat.ext_array, defaultExt );
 
-                if ( gotDefaultExt && displayName != NULL )
+                if ( gotDefaultExt && displayName != nullptr )
                 {
                     if ( !StringEqualToZero( defaultExt, "PNG", false ) &&
                          !StringEqualToZero( defaultExt, "DDS", false ) &&
@@ -431,7 +429,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
 
             for ( const rw::registered_image_format& info : regNatImgTypes )
             {
-                const char *defaultExt = NULL;
+                const char *defaultExt = nullptr;
 
                 if ( rw::GetDefaultImagingFormatExtension( info.num_ext, info.ext_array, defaultExt ) )
                 {
@@ -931,7 +929,7 @@ void MainWindow::dragEnterEvent( QDragEnterEvent *evt )
 
                 filePath extention;
 
-                FileSystem::GetFileNameItem( widePath.c_str(), false, NULL, &extention );
+                FileSystem::GetFileNameItem <FileSysCommonAllocator> ( widePath.c_str(), false, nullptr, &extention );
 
                 if ( extention.size() != 0 )
                 {
@@ -1027,7 +1025,7 @@ void MainWindow::dropEvent( QDropEvent *evt )
 
                 filePath extention;
 
-                filePath nameItem = FileSystem::GetFileNameItem( widePath.c_str(), false, NULL, &extention );
+                filePath nameItem = FileSystem::GetFileNameItem <FileSysCommonAllocator> ( widePath.c_str(), false, NULL, &extention );
 
                 bool hasHandledFile = false;
 
@@ -1083,12 +1081,12 @@ void MainWindow::dropEvent( QDropEvent *evt )
                                                 return qt_to_ansi( mainWnd->GetCurrentPlatform() );
                                             }
 
-                                            void OnWarning( std::string&& msg ) const override
+                                            void OnWarning( rw::rwStaticString <char>&& msg ) const override
                                             {
                                                 this->mainWnd->txdLog->addLogMessage( ansi_to_qt( msg ), LOGMSG_WARNING );
                                             }
 
-                                            void OnError( std::string&& msg ) const override
+                                            void OnError( rw::rwStaticString <char>&& msg ) const override
                                             {
                                                 this->mainWnd->txdLog->showError( ansi_to_qt( msg ) );
                                             }
@@ -1109,9 +1107,9 @@ void MainWindow::dropEvent( QDropEvent *evt )
 
                                                 // Give the texture an ANSI name.
                                                 // NOTE that we overwrite any original name that the texture chunk might have come with.
-                                                std::string ansiTexName = nameItem.convert_ansi();
+                                                auto ansiTexName = nameItem.convert_ansi();
 
-                                                DefaultTextureAddAndPrepare( rwtex, ansiTexName.c_str(), "" );
+                                                DefaultTextureAddAndPrepare( rwtex, ansiTexName.GetConstString(), "" );
                                             }
                                             catch( ... )
                                             {
@@ -1574,7 +1572,7 @@ void MainWindow::updateTextureView( void )
             }
             catch( rw::RwException& except )
             {
-				this->txdLog->addLogMessage(QString("failed to get bitmap from texture: ") + except.message.c_str(), LOGMSG_WARNING);
+				this->txdLog->addLogMessage(QString("failed to get bitmap from texture: ") + except.message.GetConstString(), LOGMSG_WARNING);
 
                 // We hide the image widget.
                 this->clearViewImage();
@@ -1795,7 +1793,7 @@ bool MainWindow::saveCurrentTXDAt( QString txdFullPath )
             }
             catch( rw::RwException& except )
             {
-				this->txdLog->addLogMessage(QString("failed to save the TXD archive: %1").arg(except.message.c_str()), LOGMSG_ERROR);
+				this->txdLog->addLogMessage(QString("failed to save the TXD archive: %1").arg(except.message.GetConstString()), LOGMSG_ERROR);
             }
 
             // Close the stream.
@@ -2386,7 +2384,7 @@ void MainWindow::onExportTexture( bool checked )
                 const QString actualExt = defaultExt.toLower();
 
                 // Construct a default filename for the object.
-                QString defaultFileName = QString( texHandle->GetName().c_str() ) + "." + actualExt;
+                QString defaultFileName = ansi_to_qt( texHandle->GetName() ) + "." + actualExt;
 
                 // Request a filename and do the export.
                 QString caption;
@@ -2454,7 +2452,7 @@ void MainWindow::onExportTexture( bool checked )
             }
             catch( rw::RwException& except )
             {
-                this->txdLog->showError( QString( "error during image output: " ) + except.message.c_str() );
+                this->txdLog->showError( QString( "error during image output: " ) + except.message.GetConstString() );
 
                 // We proceed.
             }
@@ -2608,7 +2606,7 @@ void MainWindow::ChangeTXDPlatform( rw::TexDictionary *txd, QString platform )
             }
             catch( rw::RwException& except )
             {
-                this->txdLog->showError( ansi_to_qt( std::string( "failed to change platform of texture '" ) + texHandle->GetName() + "': " + except.message ) );
+                this->txdLog->showError( ansi_to_qt( "failed to change platform of texture '" + texHandle->GetName() + "': " + except.message ) );
 
                 // Continue changing platform.
             }

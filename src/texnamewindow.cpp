@@ -113,7 +113,7 @@ void TexNameWindow::UpdateAccessibility( void )
             if ( rw::TextureBase *texHandle = texInfo->GetTextureHandle() )
             {
                 // Setting an already set texture name makes no sense.
-                std::string ansiCurTexName = qt_to_ansi( curTexName );
+                auto ansiCurTexName = qt_to_ansirw( curTexName );
 
                 if ( ansiCurTexName == texHandle->GetName() )
                 {

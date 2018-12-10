@@ -97,12 +97,12 @@ MassExportWindow::MassExportWindow( MainWindow *mainWnd ) : QDialog( mainWnd )
 
     pathRootForm->addRow(
         CreateLabelL( "Tools.GameRt" ),
-        qtshared::createPathSelectGroup( QString::fromStdWString( env->config.gameRoot ), this->editGameRoot )
+        qtshared::createPathSelectGroup( wide_to_qt( env->config.gameRoot ), this->editGameRoot )
     );
 
     pathRootForm->addRow(
         CreateLabelL( "Tools.Output" ),
-        qtshared::createPathSelectGroup( QString::fromStdWString( env->config.outputRoot ), this->editOutputRoot )
+        qtshared::createPathSelectGroup( wide_to_qt( env->config.outputRoot ), this->editOutputRoot )
    );
 
     layout.top->addLayout( pathRootForm );
@@ -122,9 +122,13 @@ MassExportWindow::MassExportWindow( MainWindow *mainWnd ) : QDialog( mainWnd )
         rw::registered_image_formats_t formats;
         rw::GetRegisteredImageFormats( rwEngine, formats );
 
-        for ( const rw::registered_image_format& format : formats )
+        size_t numFormats = formats.GetCount();
+
+        for ( size_t n = 0; n < numFormats; n++ )
         {
-            const char *defaultExt = NULL;
+            const rw::registered_image_format& format = formats[n];
+
+            const char *defaultExt = nullptr;
 
             bool gotDefaultExt = rw::GetDefaultImagingFormatExtension( format.num_ext, format.ext_array, defaultExt );
 
@@ -322,9 +326,9 @@ void MassExportWindow::serialize( void )
 {
     massexportEnv *env = massexportEnvRegister.GetPluginStruct( this->mainWnd );
 
-    env->config.gameRoot = this->editGameRoot->text().toStdWString();
-    env->config.outputRoot = this->editOutputRoot->text().toStdWString();
-    env->config.recImgFormat = qt_to_ansi( this->boxRecomImageFormat->currentText() );
+    env->config.gameRoot = qt_to_widerw( this->editGameRoot->text() );
+    env->config.outputRoot = qt_to_widerw( this->editOutputRoot->text() );
+    env->config.recImgFormat = qt_to_ansirw( this->boxRecomImageFormat->currentText() );
 
     MassExportModule::eOutputType outputType = MassExportModule::OUTPUT_TXDNAME;
 

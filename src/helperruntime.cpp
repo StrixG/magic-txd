@@ -95,12 +95,12 @@ struct helperRuntimeEnv : public magicSerializationProvider
             try
             {
                 // Read the string.
-                std::string triggerName;
+                rw::rwStaticString <char> triggerName;
 
                 RwReadANSIString( itemBlock, triggerName );
 
                 // Get the related info.
-                if ( helper_item *item = this->FindHelperItemByName( triggerName.c_str() ) )
+                if ( helper_item *item = this->FindHelperItemByName( triggerName.GetConstString() ) )
                 {
                     // Alright, we should read on.
                     helper_item_serialized ser_info;

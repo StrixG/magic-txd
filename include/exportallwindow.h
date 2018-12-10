@@ -19,9 +19,9 @@
 struct ExportAllWindow : public QDialog, public magicTextLocalizationItem
 {
 private:
-    inline static std::vector <std::string> GetAllSupportedImageFormats( rw::TexDictionary *texDict )
+    inline static rw::rwStaticVector <rw::rwStaticString <char>> GetAllSupportedImageFormats( rw::TexDictionary *texDict )
     {
-        std::vector <std::string> formatsOut;
+        rw::rwStaticVector <rw::rwStaticString <char>> formatsOut;
 
         rw::Interface *engineInterface = texDict->GetEngine();
 
@@ -48,9 +48,11 @@ private:
 
                 if ( isFirstRaster )
                 {
-                    for ( const std::string& nativeFormat : reg_natTex )
+                    size_t numFormats = reg_natTex.GetCount();
+
+                    for ( size_t n = 0; n < numFormats; n++ )
                     {
-                        formatsOut.push_back( nativeFormat );
+                        formatsOut.AddToBack( reg_natTex[n] );
                     }
 
                     isFirstRaster = false;
@@ -58,21 +60,23 @@ private:
                 else
                 {
                     // If we have no more formats, we quit.
-                    if ( formatsOut.empty() )
+                    if ( formatsOut.GetCount() == 0 )
                     {
                         break;
                     }
 
                     // Remove anything thats not part of the supported.
-                    std::vector <std::string> newList;
+                    rw::rwStaticVector <rw::rwStaticString <char>> newList;
 
-                    for ( const std::string& nativeFormat : reg_natTex )
+                    size_t numFormats = reg_natTex.GetCount();
+
+                    for ( const auto& nativeFormat : reg_natTex )
                     {
-                        for ( const std::string& formstr : formatsOut )
+                        for ( const auto& formstr : formatsOut )
                         {
                             if ( formstr == nativeFormat )
                             {
-                                newList.push_back( nativeFormat );
+                                newList.AddToBack( nativeFormat );
                                 break;
                             }
                         }
@@ -90,18 +94,18 @@ private:
 
         for ( const rw::registered_image_format& format : availImageFormats )
         {
-            const char *defaultExt = NULL;
+            const char *defaultExt = nullptr;
 
             bool gotDefaultExt = rw::GetDefaultImagingFormatExtension( format.num_ext, format.ext_array, defaultExt );
 
             if ( gotDefaultExt )
             {
-                formatsOut.push_back( defaultExt );
+                formatsOut.AddToBack( defaultExt );
             }
         }
 
         // And of course, the texture chunk, that is always supported.
-        formatsOut.push_back( "RWTEX" );
+        formatsOut.AddToBack( "RWTEX" );
 
         return formatsOut;
     }
@@ -120,9 +124,11 @@ public:
         QComboBox *formatSelBox = new QComboBox();
         // List formats that are supported by every raster in a TXD.
         {
-            std::vector <std::string> formatsSupported = GetAllSupportedImageFormats( texDict );
-            for ( const std::string& format : formatsSupported )
+            auto formatsSupported = GetAllSupportedImageFormats( texDict );
+            for ( const auto& format : formatsSupported )
+            {
                 formatSelBox->addItem( ansi_to_qt( format ) );
+            }
         }
 
         // Select the last used format, if it exists.
@@ -174,17 +180,17 @@ public slots:
 
         if ( formatTarget.isEmpty() == false )
         {
-            std::string ansiFormatTarget = qt_to_ansi( formatTarget );
+            auto ansiFormatTarget = qt_to_ansirw( formatTarget );
 
             // We need a directory to export to, so ask the user.
             QString folderExportTarget = QFileDialog::getExistingDirectory(
                 this, getLanguageItemByKey("Main.ExpAll.ExpTarg"),
-                QString::fromStdWString( this->mainWnd->lastAllExportTarget )
+                wide_to_qt( this->mainWnd->lastAllExportTarget )
             );
 
             if ( folderExportTarget.isEmpty() == false )
             {
-                std::wstring wFolderExportTarget = folderExportTarget.toStdWString();
+                auto wFolderExportTarget = qt_to_widerw( folderExportTarget );
 
                 // Remember this path.
                 this->mainWnd->lastAllExportTarget = wFolderExportTarget;
@@ -192,7 +198,7 @@ public slots:
                 wFolderExportTarget += L'/';
 
                 // Attempt to get a translator handle into that directory.
-                CFileTranslator *dstTranslator = mainWnd->fileSystem->CreateTranslator( wFolderExportTarget.c_str() );
+                CFileTranslator *dstTranslator = mainWnd->fileSystem->CreateTranslator( wFolderExportTarget.GetConstString() );
 
                 if ( dstTranslator )
                 {
@@ -211,9 +217,9 @@ public slots:
                             if ( texRaster )
                             {
                                 // Create a path to put the image at.
-                                std::string imgExportPath = texture->GetName() + '.' + qt_to_ansi( formatTarget.toLower() );
+                                auto imgExportPath = texture->GetName() + '.' + qt_to_ansirw( formatTarget.toLower() );
 
-                                CFile *targetStream = dstTranslator->Open( imgExportPath.c_str(), "wb" );
+                                CFile *targetStream = dstTranslator->Open( imgExportPath.GetConstString(), "wb" );
 
                                 if ( targetStream )
                                 {
@@ -228,13 +234,13 @@ public slots:
                                                 // Now attempt the write.
                                                 try
                                                 {
-                                                    if ( StringEqualToZero( ansiFormatTarget.c_str(), "RWTEX", false ) )
+                                                    if ( StringEqualToZero( ansiFormatTarget.GetConstString(), "RWTEX", false ) )
                                                     {
                                                         engineInterface->Serialize( texture, rwStream );
                                                     }
                                                     else
                                                     {
-                                                        texRaster->writeImage( rwStream, ansiFormatTarget.c_str() );
+                                                        texRaster->writeImage( rwStream, ansiFormatTarget.GetConstString() );
                                                     }
 
                                                     hasExportedAnything = true;
@@ -244,7 +250,7 @@ public slots:
                                                     // Nope.
                                                     this->mainWnd->txdLog->addLogMessage(
                                                         ansi_to_qt(
-                                                            std::string( "failed to export texture '" ) + texture->GetName() + "': " + except.message
+                                                            "failed to export texture '" + texture->GetName() + "': " + except.message
                                                         ), LOGMSG_WARNING
                                                     );
                                                 }
@@ -262,7 +268,7 @@ public slots:
                                         {
                                             this->mainWnd->txdLog->addLogMessage(
                                                 ansi_to_qt(
-                                                    std::string( "failed to create RW translation stream for texture " ) + texture->GetName()
+                                                    "failed to create RW translation stream for texture " + texture->GetName()
                                                 ), LOGMSG_WARNING
                                             );
                                         }
@@ -280,7 +286,7 @@ public slots:
                                 {
                                     this->mainWnd->txdLog->addLogMessage(
                                         ansi_to_qt(
-                                            std::string( "failed to create export stream for texture " ) + texture->GetName()
+                                            "failed to create export stream for texture " + texture->GetName()
                                         ), LOGMSG_WARNING
                                     );
                                 }

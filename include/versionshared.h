@@ -4,13 +4,15 @@
 #include <QtCore/QCoreApplication>
 #include <QtWidgets/qlineedit.h>
 
-static inline std::string rwVersionToString( const rw::LibraryVersion& version )
+#include <sdk/NumericFormat.h>
+
+static inline rw::rwStaticString <char> rwVersionToString( const rw::LibraryVersion& version )
 {
     return
-        std::to_string(version.rwLibMajor) + "." +
-        std::to_string(version.rwLibMinor) + "." +
-        std::to_string(version.rwRevMajor) + "." +
-        std::to_string(version.rwRevMinor);
+        eir::to_string <char, rw::RwStaticMemAllocator> (version.rwLibMajor) + "." +
+        eir::to_string <char, rw::RwStaticMemAllocator> (version.rwLibMinor) + "." +
+        eir::to_string <char, rw::RwStaticMemAllocator> (version.rwRevMajor) + "." +
+        eir::to_string <char, rw::RwStaticMemAllocator> (version.rwRevMinor);
 }
 
 struct VersionSetSelection abstract : public QObject
@@ -350,16 +352,12 @@ private slots:
             // in letting the user play around with it.
             this->dataTypeSelectBox->setDisabled( nativeItemCount < 2 );
 
-            std::string verString = rwVersionToString( platformOfSet.version );
-            std::string buildString;
+            rw::rwStaticString <char> verString = rwVersionToString( platformOfSet.version );
+            rw::rwStaticString <char> buildString;
 
             if (platformOfSet.version.buildNumber != 0xFFFF)
             {
-                std::stringstream hex_stream;
-
-                hex_stream << std::hex << platformOfSet.version.buildNumber;
-
-                buildString = hex_stream.str();
+                buildString = eir::to_string <char, rw::RwStaticMemAllocator> ( platformOfSet.version.buildNumber, 16 );
             }
 
             this->versionLineEdit->setText(ansi_to_qt(verString));

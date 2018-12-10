@@ -13,9 +13,9 @@ struct MassExportModule abstract : public MessageReceiver
 
     struct run_config
     {
-        std::wstring gameRoot = L"export_in/";
-        std::wstring outputRoot = L"export_out/";
-        std::string recImgFormat = "PNG";
+        rw::rwStaticString <wchar_t> gameRoot = L"export_in/";
+        rw::rwStaticString <wchar_t> outputRoot = L"export_out/";
+        rw::rwStaticString <char> recImgFormat = "PNG";
         eOutputType outputType = OUTPUT_TXDNAME;
     };
 
@@ -32,11 +32,11 @@ struct MassExportModule abstract : public MessageReceiver
     bool ApplicationMain( const run_config& cfg );
 
     // We do not care about messages.
-    void OnMessage( const std::string& msg ) override
+    void OnMessage( const rw::rwStaticString <char>& msg ) override
     {
         return;
     }
-    void OnMessage( const std::wstring& msg ) override
+    void OnMessage( const rw::rwStaticString <wchar_t>& msg ) override
     {
         return;
     }

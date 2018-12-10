@@ -104,12 +104,12 @@ namespace qtshared
         return genMipGroup;
     }
 
-    inline QLayout* createGameRootInputOutputForm( const std::wstring& curGameRoot, const std::wstring& curOutputRoot, MagicLineEdit*& editGameRootOut, MagicLineEdit*& editOutputRootOut )
+    inline QLayout* createGameRootInputOutputForm( const rw::rwStaticString <wchar_t>& curGameRoot, const rw::rwStaticString <wchar_t>& curOutputRoot, MagicLineEdit*& editGameRootOut, MagicLineEdit*& editOutputRootOut )
     {
         QFormLayout *basicPathForm = new QFormLayout();
 
-        QLayout *gameRootLayout = qtshared::createPathSelectGroup( QString::fromStdWString( curGameRoot ), editGameRootOut );
-        QLayout *outputRootLayout = qtshared::createPathSelectGroup( QString::fromStdWString( curOutputRoot ), editOutputRootOut );
+        QLayout *gameRootLayout = qtshared::createPathSelectGroup( wide_to_qt( curGameRoot ), editGameRootOut );
+        QLayout *outputRootLayout = qtshared::createPathSelectGroup( wide_to_qt( curOutputRoot ), editOutputRootOut );
 
         basicPathForm->addRow( CreateLabelL("Tools.GameRt"), gameRootLayout );
         basicPathForm->addRow( CreateLabelL("Tools.Output"), outputRootLayout );

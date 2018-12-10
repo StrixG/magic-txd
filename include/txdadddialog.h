@@ -200,8 +200,8 @@ private:
             this->dialog = texAdd;
         }
 
-        void OnWarning( std::string&& msg ) const override;
-        void OnError( std::string&& msg ) const override;
+        void OnWarning( rw::rwStaticString <char>&& msg ) const override;
+        void OnError( rw::rwStaticString <char>&& msg ) const override;
 
         rw::Raster* MakeRaster( void ) const override;
 

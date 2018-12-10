@@ -147,14 +147,14 @@ rw::Raster* TexAddDialog::MakeRaster( void )
     return platOrig;
 }
 
-void TexAddDialog::texAddImageImportMethods::OnWarning( std::string&& msg ) const
+void TexAddDialog::texAddImageImportMethods::OnWarning( rw::rwStaticString <char>&& msg ) const
 {
-    this->dialog->mainWnd->txdLog->addLogMessage( QString::fromStdString( msg ), LOGMSG_WARNING );
+    this->dialog->mainWnd->txdLog->addLogMessage( ansi_to_qt( msg ), LOGMSG_WARNING );
 }
 
-void TexAddDialog::texAddImageImportMethods::OnError( std::string&& msg ) const
+void TexAddDialog::texAddImageImportMethods::OnError( rw::rwStaticString <char>&& msg ) const
 {
-    this->dialog->mainWnd->txdLog->showError( QString::fromStdString( msg ) );
+    this->dialog->mainWnd->txdLog->showError( ansi_to_qt( msg ) );
 }
 
 rw::Raster* TexAddDialog::texAddImageImportMethods::MakeRaster( void ) const
@@ -505,15 +505,14 @@ QComboBox* TexAddDialog::createPlatformSelectComboBox(MainWindow *mainWnd)
     {
         rw::platformTypeNameList_t unsortedPlatforms = rw::GetAvailableNativeTextureTypes(mainWnd->rwEngine);
 
-        // We want to reverse our list.
-        std::reverse( unsortedPlatforms.begin(), unsortedPlatforms.end() );
-
         // We want to sort the platforms by importance.
-        std::vector <std::string> platforms = PlatformImportanceSort( mainWnd, unsortedPlatforms );
+        rw::rwStaticVector <rw::rwStaticString <char>> platforms = PlatformImportanceSort( mainWnd, unsortedPlatforms );
 
-        for (auto iter = platforms.cbegin(); iter != platforms.cend(); iter++)
+        size_t numPlatforms = platforms.GetCount();
+
+        for ( size_t n = 0; n < numPlatforms; n++ )
         {
-            const std::string& platName = *iter;
+            const rw::rwStaticString <char>& platName = platforms[ numPlatforms - 1 - n ];
 
             platformComboBox->addItem( ansi_to_qt( platName ) );
         }
@@ -576,7 +575,7 @@ TexAddDialog::TexAddDialog(MainWindow *mainWnd, const dialogCreateParams& create
 
             filePath extension;
 
-            FileSystem::GetFileNameItem( wImgPath.c_str(), true, NULL, &extension );
+            FileSystem::GetFileNameItem <FileSysCommonAllocator> ( wImgPath.c_str(), true, nullptr, &extension );
 
             this->img_exp = getRecommendedImageImportExpectation( extension );
         }

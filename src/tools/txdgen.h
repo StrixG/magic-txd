@@ -17,8 +17,8 @@ public:
         // By default, we create San Andreas files.
         rwkind::eTargetGame c_gameType = rwkind::GAME_GTASA;
 
-        std::wstring c_outputRoot = L"txdgen_out/";
-        std::wstring c_gameRoot = L"txdgen/";
+        rw::rwStaticString <wchar_t> c_outputRoot = L"txdgen_out/";
+        rw::rwStaticString <wchar_t> c_gameRoot = L"txdgen/";
 
         rwkind::eTargetPlatform c_targetPlatform = rwkind::PLATFORM_PC;
 
@@ -68,7 +68,7 @@ public:
         bool doCompress, float compressionQuality,
         bool outputDebug, CFileTranslator *debugRoot,
         const rw::LibraryVersion& gameVersion,
-        std::string& errMsg
+        rw::rwStaticString <char>& errMsg
     ) const;
 
     rw::Interface* GetEngine( void ) const
@@ -79,12 +79,12 @@ public:
     struct RwWarningBuffer : public rw::WarningManagerInterface
     {
         TxdGenModule *module;
-        std::string buffer;
+        rw::rwStaticString <char> buffer;
 
         void Purge( void )
         {
             // Output the content to the stream.
-            if ( !buffer.empty() )
+            if ( buffer.GetLength() > 0 )
             {
                 module->OnMessage( "- Warnings:\n" );
 
@@ -92,13 +92,13 @@ public:
 
                 module->OnMessage( buffer );
 
-                buffer.clear();
+                buffer.Clear();
             }
         }
 
-        virtual void OnWarning( std::string&& message ) override
+        virtual void OnWarning( rw::rwStaticString <char>&& message ) override
         {
-            if ( !buffer.empty() )
+            if ( buffer.GetLength() > 0 )
             {
                 buffer += '\n';
             }

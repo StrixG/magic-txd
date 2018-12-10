@@ -119,19 +119,6 @@ struct mainWindowConstructor
     }
 };
 
-struct defaultMemAlloc
-{
-    static void* Allocate(size_t memSize)
-    {
-        return malloc(memSize);
-    }
-
-    static void Free(void *mem, size_t memSize)
-    {
-        free(mem);
-    }
-};
-
 // Main window plugin entry points.
 extern void InitializeRWFileSystemWrap(void);
 extern void InitializeTaskCompletionWindowEnv( void );
@@ -147,8 +134,6 @@ extern void InitializeMassExportToolEnvironment( void );
 extern void InitializeMassBuildEnvironment( void );
 extern void InitializeGUISerialization(void);
 extern void InitializeStreamCompressionEnvironment( void );
-
-static defaultMemAlloc _factMemAlloc;
 
 extern void DbgHeap_Validate( void );
 
@@ -262,7 +247,9 @@ int main(int argc, char *argv[])
                 }
                 mainWindowConstructor wnd_constr(a.applicationDirPath(), rwEngine, fsHandle);
 
-                MainWindow *w = mainWindowFactory.ConstructTemplate(_factMemAlloc, wnd_constr);
+                rw::RwStaticMemAllocator memAlloc;
+
+                MainWindow *w = mainWindowFactory.ConstructTemplate(memAlloc, wnd_constr);
 
                 try
                 {
@@ -291,10 +278,10 @@ int main(int argc, char *argv[])
                     }
                     catch( rw::RwException& except )
                     {
-                        std::string errMsg = "uncaught RenderWare exception: " + except.message;
+                        auto errMsg = "uncaught RenderWare exception: " + except.message;
 
                         important_message(
-                            errMsg.c_str(),
+                            errMsg.GetConstString(),
                             "Uncaught C++ Exception"
                         );
 
@@ -316,12 +303,12 @@ int main(int argc, char *argv[])
                 }
                 catch( ... )
                 {
-                    mainWindowFactory.Destroy( _factMemAlloc, w );
+                    mainWindowFactory.Destroy( memAlloc, w );
 
                     throw;
                 }
 
-                mainWindowFactory.Destroy(_factMemAlloc, w);
+                mainWindowFactory.Destroy(memAlloc, w);
             }
             catch( ... )
             {
@@ -343,10 +330,10 @@ int main(int argc, char *argv[])
     }
     catch( rw::RwException& except )
     {
-        std::string errMsg = "uncaught RenderWare error during init: " + except.message;
+        auto errMsg = "uncaught RenderWare error during init: " + except.message;
 
         important_message(
-            errMsg.c_str(),
+            errMsg.GetConstString(),
             "Uncaught C++ Exception"
         );
 

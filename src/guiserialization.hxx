@@ -16,7 +16,7 @@ enum magic_serializer_ids
 };
 
 // Our string blocks.
-inline void RwWriteUnicodeString( rw::BlockProvider& prov, const std::wstring& in )
+inline void RwWriteUnicodeString( rw::BlockProvider& prov, const rw::rwStaticString <wchar_t>& in )
 {
     rw::BlockProvider stringBlock( &prov, false );
 
@@ -29,7 +29,7 @@ inline void RwWriteUnicodeString( rw::BlockProvider& prov, const std::wstring& i
         stringBlock.setBlockID( MAGICTXD_UNICODE_STRING_ID );
 
         // Simply write stuff, without zero termination.
-        stringBlock.write( in.c_str(), in.length() * sizeof( wchar_t ) );
+        stringBlock.write( in.GetConstString(), in.GetLength() * sizeof( wchar_t ) );
 
         // Done.
     }
@@ -43,7 +43,7 @@ inline void RwWriteUnicodeString( rw::BlockProvider& prov, const std::wstring& i
     stringBlock.LeaveContext();
 }
 
-inline bool RwReadUnicodeString( rw::BlockProvider& prov, std::wstring& out )
+inline bool RwReadUnicodeString( rw::BlockProvider& prov, rw::rwStaticString <wchar_t>& out )
 {
     bool gotString = false;
 
@@ -63,10 +63,10 @@ inline bool RwReadUnicodeString( rw::BlockProvider& prov, std::wstring& out )
 
             rw::int64 unicodeDataLength = ( unicodeLength * sizeof( wchar_t ) );
 
-            out.resize( unicodeLength );
+            out.Resize( unicodeLength );
 
             // Read into the unicode string implementation.
-            stringBlock.read( (wchar_t*)out.data(), unicodeDataLength );
+            stringBlock.read( (wchar_t*)out.GetConstString(), unicodeDataLength );
 
             // Skip the remainder.
             stringBlock.skip( blockLength - unicodeDataLength );
@@ -87,7 +87,7 @@ inline bool RwReadUnicodeString( rw::BlockProvider& prov, std::wstring& out )
 }
 
 // ANSI string stuff.
-inline void RwWriteANSIString( rw::BlockProvider& parentBlock, const std::string& str )
+inline void RwWriteANSIString( rw::BlockProvider& parentBlock, const rw::rwStaticString <char>& str )
 {
     rw::BlockProvider stringBlock( &parentBlock );
 
@@ -97,7 +97,7 @@ inline void RwWriteANSIString( rw::BlockProvider& parentBlock, const std::string
     {
         stringBlock.setBlockID( MAGICTXD_ANSI_STRING_ID );
 
-        stringBlock.write( str.c_str(), str.size() );
+        stringBlock.write( str.GetConstString(), str.GetLength() );
     }
     catch( ... )
     {
@@ -109,7 +109,7 @@ inline void RwWriteANSIString( rw::BlockProvider& parentBlock, const std::string
     stringBlock.LeaveContext();
 }
 
-inline bool RwReadANSIString( rw::BlockProvider& parentBlock, std::string& stringOut )
+inline bool RwReadANSIString( rw::BlockProvider& parentBlock, rw::rwStaticString <char>& stringOut )
 {
     bool gotString = false;
 
@@ -126,9 +126,9 @@ inline bool RwReadANSIString( rw::BlockProvider& parentBlock, std::string& strin
 
             size_t ansiStringLength = (size_t)blockSize;
 
-            stringOut.resize( ansiStringLength );
+            stringOut.Resize( ansiStringLength );
 
-            stringBlock.read( (void*)stringOut.data(), ansiStringLength );
+            stringBlock.read( (void*)stringOut.GetConstString(), ansiStringLength );
 
             // Skip the rest.
             stringBlock.skip( blockSize - ansiStringLength );

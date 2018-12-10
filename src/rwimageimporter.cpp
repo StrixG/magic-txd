@@ -67,7 +67,7 @@ bool imageImportMethods::impMeth_loadTexChunk( rw::Stream *chunkStream, loadActi
             }
             else
             {
-                rwEngine->PushWarning( std::string( "tried parsing a texture, got " ) + rwEngine->GetObjectTypeName( rwObj ) + " instead" );
+                rwEngine->PushWarning( rw::rwStaticString <char> ( "tried parsing a texture, got " ) + rwEngine->GetObjectTypeName( rwObj ) + " instead" );
             }
         }
         catch( ... )
@@ -95,8 +95,8 @@ bool imageImportMethods::LoadImage( rw::Stream *stream, eImportExpectation imp_e
     // - print internal warnings only if the image data was expected
 
     rw::utils::bufferedWarningManager exp_format_warnings;
-    std::string exp_format_error;
-    const char *exp_name = NULL;
+    rw::rwStaticString <char> exp_format_error;
+    const char *exp_name = nullptr;
 
     bool foundExpectedFormat = false;
 
@@ -107,7 +107,7 @@ bool imageImportMethods::LoadImage( rw::Stream *stream, eImportExpectation imp_e
     // First try the expected image data type, if available.
     if ( imp_exp != IMPORTE_NONE )
     {
-        importMethod_t loader = NULL;
+        importMethod_t loader = nullptr;
 
         for ( const meth_reg& reg : this->methods )
         {
@@ -184,7 +184,7 @@ bool imageImportMethods::LoadImage( rw::Stream *stream, eImportExpectation imp_e
                         if ( foundExpectedFormat )
                         {
                             this->OnWarning(
-                                std::string( "tried parsing \"" ) + std::string( exp_name ) + "\" but found \"" + reg.name + "\"\n"
+                                rw::rwStaticString <char> ( "tried parsing \"" ) + exp_name + "\" but found \"" + reg.name + "\"\n"
                             );
                         }
 
@@ -206,9 +206,9 @@ bool imageImportMethods::LoadImage( rw::Stream *stream, eImportExpectation imp_e
     {
         exp_format_warnings.forward( rwEngine );
 
-        if ( exp_format_error.empty() == false )
+        if ( exp_format_error.GetLength() > 0 )
         {
-            this->OnError( std::string( "error while loading image data: " ) + exp_format_error + "\n" );
+            this->OnError( "error while loading image data: " + exp_format_error + "\n" );
         }
     }
 

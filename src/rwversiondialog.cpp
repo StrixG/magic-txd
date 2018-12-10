@@ -213,16 +213,12 @@ void RwVersionDialog::updateVersionConfig()
             {
                 const rw::LibraryVersion& txdVersion = currentTXD->GetEngineVersion();
 
-                std::string verString = rwVersionToString( txdVersion );
-                std::string buildString;
+                rw::rwStaticString <char> verString = rwVersionToString( txdVersion );
+                rw::rwStaticString <char> buildString;
 
                 if (txdVersion.buildNumber != 0xFFFF)
                 {
-                    std::stringstream hex_stream;
-
-                    hex_stream << std::hex << txdVersion.buildNumber;
-
-                    buildString = hex_stream.str();
+                    buildString = eir::to_string <char, rw::RwStaticMemAllocator> ( txdVersion.buildNumber, 16 );
                 }
 
                 this->versionGUI.versionLineEdit->setText(ansi_to_qt(verString));

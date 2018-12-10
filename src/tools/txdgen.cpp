@@ -8,6 +8,8 @@
 
 #include "dirtools.h"
 
+#include <sdk/NumericFormat.h>
+
 using namespace rwkind;
 
 
@@ -29,7 +31,7 @@ bool TxdGenModule::ProcessTXDArchive(
     bool doCompress, float compressionQuality,
     bool outputDebug, CFileTranslator *debugRoot,
     const rw::LibraryVersion& gameVersion,
-    std::string& errMsg
+    rw::rwStaticString <char>& errMsg
 ) const
 {
     rw::Interface *rwEngine = this->rwEngine;
@@ -41,9 +43,9 @@ bool TxdGenModule::ProcessTXDArchive(
 
     try
     {
-        rw::TexDictionary *txd = NULL;
+        rw::TexDictionary *txd = nullptr;
 
-        if ( txd_stream != NULL )
+        if ( txd_stream != nullptr )
         {
             try
             {
@@ -53,7 +55,7 @@ bool TxdGenModule::ProcessTXDArchive(
                 {
                     txd = rw::ToTexDictionary( rwEngine, rwObj );
 
-                    if ( txd == NULL )
+                    if ( txd == nullptr )
                     {
                         errMsg = "not a texture dictionary (";
                         errMsg += rwEngine->GetObjectTypeName( rwObj );
@@ -129,27 +131,27 @@ bool TxdGenModule::ProcessTXDArchive(
                             }
 
                             // Output debug stuff.
-                            if ( outputDebug && debugRoot != NULL )
+                            if ( outputDebug && debugRoot != nullptr )
                             {
                                 // We want to debug mipmap generation, so output debug textures only using mipmaps.
                                 //if ( _meetsDebugCriteria( tex ) )
                                 {
-                                    std::wstring srcPath = srcStream->GetPath().convert_unicode();
+                                    auto srcPath = srcStream->GetPath().convert_unicode();
 
                                     filePath relSrcPath;
 
-                                    bool hasRelSrcPath = srcRoot->GetRelativePathFromRoot( srcPath.c_str(), true, relSrcPath );
+                                    bool hasRelSrcPath = srcRoot->GetRelativePathFromRoot( srcPath.GetConstString(), true, relSrcPath );
 
                                     if ( hasRelSrcPath )
                                     {
                                         // Create a unique filename for this texture.
                                         filePath directoryPart;
 
-                                        filePath fileNamePart = FileSystem::GetFileNameItem( relSrcPath.c_str(), false, &directoryPart, NULL );
+                                        filePath fileNamePart = FileSystem::GetFileNameItem <FileSysCommonAllocator> ( relSrcPath.c_str(), false, &directoryPart, nullptr );
 
                                         if ( fileNamePart.size() != 0 )
                                         {
-                                            filePath uniqueTextureNameTGA = directoryPart + fileNamePart + "_" + filePath( theTexture->GetName().c_str() ) + ".tga";
+                                            filePath uniqueTextureNameTGA = directoryPart + fileNamePart + "_" + filePath( theTexture->GetName() ) + ".tga";
 
                                             CFile *debugOutputStream = debugRoot->Open( uniqueTextureNameTGA, "wb" );
 
@@ -403,7 +405,7 @@ struct _discFileSentry_txdgen
                 {
                     module->OnMessage( "*** " + relPathFromRoot.convert_ansi() + " ..." );
 
-                    std::string errorMessage;
+                    rw::rwStaticString <char> errorMessage;
 
                     bool couldProcessTXD = this->module->ProcessTXDArchive(
                         sourceRoot, sourceStream, targetStream, this->targetPlatform, this->targetGame,
@@ -495,13 +497,13 @@ TxdGenModule::run_config TxdGenModule::ParseConfig( CFileTranslator *root, const
                 // Output root.
                 if ( const char *newOutputRoot = mainEntry->Get( "outputRoot" ) )
                 {
-                    cfg.c_outputRoot = CharacterUtil::ConvertStrings <char8_t, wchar_t> ( (const char8_t*)newOutputRoot );
+                    cfg.c_outputRoot = CharacterUtil::ConvertStrings <char8_t, wchar_t, rw::RwStaticMemAllocator> ( (const char8_t*)newOutputRoot );
                 }
 
                 // Game root.
                 if ( const char *newGameRoot = mainEntry->Get( "gameRoot" ) )
                 {
-                    cfg.c_gameRoot = CharacterUtil::ConvertStrings <char8_t, wchar_t> ( (const char8_t*)newGameRoot );
+                    cfg.c_gameRoot = CharacterUtil::ConvertStrings <char8_t, wchar_t, rw::RwStaticMemAllocator> ( (const char8_t*)newGameRoot );
                 }
 
                 // Target Platform.
@@ -732,7 +734,7 @@ bool TxdGenModule::ApplicationMain( const run_config& cfg )
         }
 
         this->OnMessage(
-            std::string( "* targetVersion: " ) + strTargetVersion + " [rwver: " + targetVersion.toString() + "]\n"
+            rw::rwStaticString <char> ( "* targetVersion: " ) + strTargetVersion + " [rwver: " + targetVersion.toString() + "]\n"
         );
 
         const char *strTargetPlatform = "unknown";
@@ -771,15 +773,15 @@ bool TxdGenModule::ApplicationMain( const run_config& cfg )
         }
 
         this->OnMessage(
-            std::string( "* targetPlatform: " ) + strTargetPlatform + "\n"
+            rw::rwStaticString <char> ( "* targetPlatform: " ) + strTargetPlatform + "\n"
         );
 
         this->OnMessage(
-            std::string( "* clearMipmaps: " ) + ( cfg.c_clearMipmaps ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* clearMipmaps: " ) + ( cfg.c_clearMipmaps ? "true" : "false" ) + "\n"
         );
 
         this->OnMessage(
-            std::string( "* generateMipmaps: " ) + ( cfg.c_generateMipmaps ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* generateMipmaps: " ) + ( cfg.c_generateMipmaps ? "true" : "false" ) + "\n"
         );
 
         const char *mipGenModeString = "unknown";
@@ -806,24 +808,27 @@ bool TxdGenModule::ApplicationMain( const run_config& cfg )
         }
 
         this->OnMessage(
-            std::string( "* mipGenMode: " ) + mipGenModeString + "\n"
+            rw::rwStaticString <char> ( "* mipGenMode: " ) + mipGenModeString + "\n"
         );
 
         this->OnMessage(
-            std::string( "* mipGenMaxLevel: " ) + std::to_string( cfg.c_mipGenMaxLevel ) + "\n"
+            "* mipGenMaxLevel: " + eir::to_string <char, rw::RwStaticMemAllocator> ( cfg.c_mipGenMaxLevel ) + "\n"
         );
 
         this->OnMessage(
-            std::string( "* improveFiltering: " ) + ( cfg.c_improveFiltering ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* improveFiltering: " ) + ( cfg.c_improveFiltering ? "true" : "false" ) + "\n"
         );
 
         this->OnMessage(
-            std::string( "* compressTextures: " ) + ( cfg.compressTextures ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* compressTextures: " ) + ( cfg.compressTextures ? "true" : "false" ) + "\n"
         );
 
+        // TODO.
+#if 0
         this->OnMessage(
-            std::string( "* compressionQuality: " ) + std::to_string( cfg.c_compressionQuality ) + "\n"
+            "* compressionQuality: " + eir::to_string <char, rw::RwStaticMemAllocator> ( cfg.c_compressionQuality ) + "\n"
         );
+#endif 
 
         const char *strPalRuntimeType = "unknown";
 
@@ -839,7 +844,7 @@ bool TxdGenModule::ApplicationMain( const run_config& cfg )
         }
 
         this->OnMessage(
-            std::string( "* palRuntimeType: " ) + strPalRuntimeType + "\n"
+            rw::rwStaticString <char> ( "* palRuntimeType: " ) + strPalRuntimeType + "\n"
         );
 
         rw::eDXTCompressionMethod actualDXTRuntimeType = rwEngine->GetDXTRuntime();
@@ -856,35 +861,35 @@ bool TxdGenModule::ApplicationMain( const run_config& cfg )
         }
 
         this->OnMessage(
-            std::string( "* dxtRuntimeType: " ) + strDXTRuntimeType + "\n"
+            rw::rwStaticString <char> ( "* dxtRuntimeType: " ) + strDXTRuntimeType + "\n"
         );
 
         this->OnMessage(
-            std::string( "* warningLevel: " ) + std::to_string( rwEngine->GetWarningLevel() ) + "\n"
+            "* warningLevel: " + eir::to_string <char, rw::RwStaticMemAllocator> ( rwEngine->GetWarningLevel() ) + "\n"
         );
 
         this->OnMessage(
-            std::string( "* ignoreSecureWarnings: " ) + ( rwEngine->GetIgnoreSecureWarnings() ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* ignoreSecureWarnings: " ) + ( rwEngine->GetIgnoreSecureWarnings() ? "true" : "false" ) + "\n"
         );
 
         this->OnMessage(
-            std::string( "* reconstructIMGArchives: " ) + ( cfg.c_reconstructIMGArchives ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* reconstructIMGArchives: " ) + ( cfg.c_reconstructIMGArchives ? "true" : "false" ) + "\n"
         );
 
         this->OnMessage(
-            std::string( "* fixIncompatibleRasters: " ) + ( rwEngine->GetFixIncompatibleRasters() ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* fixIncompatibleRasters: " ) + ( rwEngine->GetFixIncompatibleRasters() ? "true" : "false" ) + "\n"
         );
 
         this->OnMessage(
-            std::string( "* dxtPackedDecompression: " ) + ( rwEngine->GetDXTPackedDecompression() ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* dxtPackedDecompression: " ) + ( rwEngine->GetDXTPackedDecompression() ? "true" : "false" ) + "\n"
         );
 
         this->OnMessage(
-            std::string( "* imgArchivesCompressed: " ) + ( cfg.c_imgArchivesCompressed ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* imgArchivesCompressed: " ) + ( cfg.c_imgArchivesCompressed ? "true" : "false" ) + "\n"
         );
 
         this->OnMessage(
-            std::string( "* ignoreSerializationRegions: " ) + ( rwEngine->GetIgnoreSerializationBlockRegions() ? "true" : "false" ) + "\n"
+            rw::rwStaticString <char> ( "* ignoreSerializationRegions: " ) + ( rwEngine->GetIgnoreSerializationBlockRegions() ? "true" : "false" ) + "\n"
         );
 
         // Finish with a newline.
@@ -895,8 +900,8 @@ bool TxdGenModule::ApplicationMain( const run_config& cfg )
             CFileTranslator *absGameRootTranslator = nullptr;
             CFileTranslator *absOutputRootTranslator = nullptr;
 
-            bool hasGameRoot = obtainAbsolutePath( cfg.c_gameRoot.c_str(), absGameRootTranslator, false, true );
-            bool hasOutputRoot = obtainAbsolutePath( cfg.c_outputRoot.c_str(), absOutputRootTranslator, true, true );
+            bool hasGameRoot = obtainAbsolutePath( cfg.c_gameRoot.GetConstString(), absGameRootTranslator, false, true );
+            bool hasOutputRoot = obtainAbsolutePath( cfg.c_outputRoot.GetConstString(), absOutputRootTranslator, true, true );
 
             // Create a debug directory if we want to output debug.
             CFileTranslator *absDebugOutputTranslator = nullptr;

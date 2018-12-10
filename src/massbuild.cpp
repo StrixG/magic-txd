@@ -14,6 +14,8 @@
 #include "qtutils.h"
 #include "languages.h"
 
+#include <sstream>
+
 using namespace toolshare;
 
 struct massbuildEnv : public magicSerializationProvider
@@ -364,8 +366,8 @@ void MassBuildWindow::serialize( void )
 {
     massbuildEnv *env = massbuildEnvRegister.GetPluginStruct( this->mainWnd );
 
-    env->config.gameRoot = this->editGameRoot->text().toStdWString();
-    env->config.outputRoot = this->editOutputRoot->text().toStdWString();
+    env->config.gameRoot = qt_to_widerw( this->editGameRoot->text() );
+    env->config.outputRoot = qt_to_widerw( this->editOutputRoot->text() );
 
     platformToNaturalList.getCurrent( this->selPlatformBox, env->config.targetPlatform );
     gameToNaturalList.getCurrent( this->selGameBox, env->config.targetGame );
@@ -408,14 +410,14 @@ struct MassBuildModule : public TxdBuildModule
         this->taskWnd = taskWnd;
     }
 
-    void OnMessage( const std::string& msg ) override
+    void OnMessage( const rw::rwStaticString <char>& msg ) override
     {
-        taskWnd->updateStatusMessage( QString::fromStdString( msg ) );
+        taskWnd->updateStatusMessage( ansi_to_qt( msg ) );
     }
 
-    void OnMessage( const std::wstring& msg ) override
+    void OnMessage( const rw::rwStaticString <wchar_t>& msg ) override
     {
-        taskWnd->updateStatusMessage( QString::fromStdWString( msg ) );
+        taskWnd->updateStatusMessage( wide_to_qt( msg ) );
     }
 
     // Redirect every file access to the global stream function.

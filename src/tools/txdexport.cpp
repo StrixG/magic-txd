@@ -51,7 +51,7 @@ static void ExportImagesFromDictionary(
     rw::TexDictionary *texDict, CFileTranslator *outputRoot,
     const filePath& txdFileName, const filePath& relPathFromRoot,
     MassExportModule::eOutputType outputType,
-    const std::string& imgFormat
+    const rw::rwStaticString <char>& imgFormat
 )
 {
     rw::Interface *rwEngine = texDict->GetEngine();
@@ -85,10 +85,10 @@ static void ExportImagesFromDictionary(
             targetFileName += texHandle->GetName();
             targetFileName += ".";
 
-            std::string lower_ext = imgFormat;
+            std::string lower_ext( imgFormat.GetConstString(), imgFormat.GetLength() );
             std::transform( lower_ext.begin(), lower_ext.end(), lower_ext.begin(), ::tolower );
 
-            targetFileName += lower_ext;
+            targetFileName.append( lower_ext.c_str() );
 
             // Create the target stream.
             CFile *targetStream = outputRoot->Open( targetFileName, "wb" );
@@ -106,13 +106,13 @@ static void ExportImagesFromDictionary(
                             // Write it!
                             try
                             {
-                                if ( strieq( imgFormat.c_str(), "RWTEX" ) )
+                                if ( strieq( imgFormat.GetConstString(), "RWTEX" ) )
                                 {
                                     rwEngine->Serialize( texHandle, rwStream );
                                 }
                                 else
                                 {
-                                    texRaster->writeImage( rwStream, imgFormat.c_str() );
+                                    texRaster->writeImage( rwStream, imgFormat.GetConstString() );
                                 }
                             }
                             catch( rw::RwException& )
@@ -175,7 +175,9 @@ struct _discFileSentry_txdexport
                         statusFileName += L"$";
                     }
 
-                    statusFileName += relPathFromRoot.convert_unicode();
+                    auto wideRelPathFromRoot = relPathFromRoot.convert_unicode();
+
+                    statusFileName.append( wideRelPathFromRoot.GetConstString() );
 
                     module->OnProcessingFile( statusFileName );
                 }
@@ -229,14 +231,14 @@ struct _discFileSentry_txdexport
 bool MassExportModule::ApplicationMain( const run_config& cfg )
 {
     // We run through all TXD files we find and put them into the output root.
-    CFileTranslator *gameRootTranslator = NULL;
-    CFileTranslator *outputRootTranslator = NULL;
+    CFileTranslator *gameRootTranslator = nullptr;
+    CFileTranslator *outputRootTranslator = nullptr;
 
-    bool gotGameRoot = obtainAbsolutePath( cfg.gameRoot.c_str(), gameRootTranslator, false );
+    bool gotGameRoot = obtainAbsolutePath( cfg.gameRoot.GetConstString(), gameRootTranslator, false );
 
     try
     {
-        bool gotOutputRoot = obtainAbsolutePath( cfg.outputRoot.c_str(), outputRootTranslator, true );
+        bool gotOutputRoot = obtainAbsolutePath( cfg.outputRoot.GetConstString(), outputRootTranslator, true );
 
         try
         {

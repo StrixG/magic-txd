@@ -31,7 +31,7 @@ public:
 
     void clearText();
 
-    QString getText(QString key, bool *found = NULL);
+    QString getText(QString key, bool *found = nullptr);
 };
 
 class MagicLanguages
@@ -39,7 +39,7 @@ class MagicLanguages
 public:
     unsigned int getNumberOfLanguages();
 
-    QString getByKey(QString key, bool *found = NULL);
+    QString getByKey(QString key, bool *found = nullptr);
 
     void scanForLanguages(QString languagesFolder);
 
@@ -57,7 +57,7 @@ public:
     {
         this->isInitialized = false;
 
-        this->mainWnd = NULL;
+        this->mainWnd = nullptr;
 
         this->currentLanguage = -1;
     }
@@ -113,16 +113,16 @@ public:
     {
         this->isInitialized = false;
 
-        this->mainWnd = NULL;
+        this->mainWnd = nullptr;
     }
 
     void Load( MainWindow *mainWnd, rw::BlockProvider& configBlock )
     {
-        std::wstring langfile_str;
+        rw::rwStaticString <wchar_t> langfile_str;
 
         RwReadUnicodeString( configBlock, langfile_str );
 
-        mainWnd->lastLanguageFileName = QString::fromStdWString( langfile_str );
+        mainWnd->lastLanguageFileName = wide_to_qt( langfile_str );
 
         // Load the language.
         bool loadedLanguage = selectLanguageByFileName( mainWnd->lastLanguageFileName );
@@ -133,7 +133,7 @@ public:
 
     void Save( const MainWindow *mainWnd, rw::BlockProvider& configBlock ) const
     {
-        RwWriteUnicodeString( configBlock, mainWnd->lastLanguageFileName.toStdWString() );
+        RwWriteUnicodeString( configBlock, qt_to_widerw( mainWnd->lastLanguageFileName ) );
     }
 
     bool isInitialized;

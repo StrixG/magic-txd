@@ -132,7 +132,7 @@ struct CTemporaryFile : public CFile
         actualFile->Flush();
     }
 
-    const filePath& GetPath( void ) const override
+    filePath GetPath( void ) const override
     {
         return actualFile->GetPath();
     }

@@ -50,25 +50,25 @@ struct mainWindowSerializationEnv : public magicSerializationProvider
     {
         // last directory we were in to save TXD file.
         {
-            std::wstring lastTXDSaveDir;
+            rw::rwStaticString <wchar_t> lastTXDSaveDir;
 
             bool gotDir = RwReadUnicodeString( mtxdConfig, lastTXDSaveDir );
 
             if ( gotDir )
             {
-                mainwnd->lastTXDSaveDir = QString::fromStdWString( lastTXDSaveDir );
+                mainwnd->lastTXDSaveDir = wide_to_qt( lastTXDSaveDir );
             }
         }
 
         // last directory we were in to add an image file.
         {
-            std::wstring lastImageFileOpenDir;
+            rw::rwStaticString <wchar_t> lastImageFileOpenDir;
 
             bool gotDir = RwReadUnicodeString( mtxdConfig, lastImageFileOpenDir );
 
             if ( gotDir )
             {
-                mainwnd->lastImageFileOpenDir = QString::fromStdWString( lastImageFileOpenDir );
+                mainwnd->lastImageFileOpenDir = wide_to_qt( lastImageFileOpenDir );
             }
         }
 
@@ -167,8 +167,8 @@ struct mainWindowSerializationEnv : public magicSerializationProvider
 
     void Save( const MainWindow *mainwnd, rw::BlockProvider& mtxdConfig ) const override
     {
-        RwWriteUnicodeString( mtxdConfig, mainwnd->lastTXDSaveDir.toStdWString() );
-        RwWriteUnicodeString( mtxdConfig, mainwnd->lastImageFileOpenDir.toStdWString() );
+        RwWriteUnicodeString( mtxdConfig, qt_to_widerw( mainwnd->lastTXDSaveDir ) );
+        RwWriteUnicodeString( mtxdConfig, qt_to_widerw( mainwnd->lastImageFileOpenDir ) );
 
         mtxd_cfg_struct cfgStruct;
         cfgStruct.addImageGenMipmaps = mainwnd->addImageGenMipmaps;

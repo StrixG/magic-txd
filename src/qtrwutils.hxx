@@ -41,13 +41,13 @@ inline QPixmap convertRWBitmapToQPixmap( const rw::Bitmap& rasterBitmap )
 
 // Returns a sorted list of TXD platform names by importance.
 template <typename stringListType>
-inline std::vector <std::string> PlatformImportanceSort( MainWindow *mainWnd, const stringListType& platformNames )
+inline rw::rwStaticVector <rw::rwStaticString <char>> PlatformImportanceSort( MainWindow *mainWnd, const stringListType& platformNames )
 {
     // Set up a weighted container of platform strings.
     struct weightedNode
     {
         double weight;
-        std::string platName;
+        rw::rwStaticString <char> platName;
 
         inline bool operator < ( const weightedNode& right ) const
         {
@@ -55,100 +55,77 @@ inline std::vector <std::string> PlatformImportanceSort( MainWindow *mainWnd, co
         }
     };
 
-    size_t platCount = platformNames.size();
+    size_t platCount = platformNames.GetCount();
 
-    // The result container.
-    std::vector <std::string> sortedResult( platCount );
-
-    weightedNode *nodes = new weightedNode[ platCount ];
-
-    try
+    // Cache some things we are going to need.
+    const char *rwRecTXDPlatform = nullptr;
+    QString rwActualPlatform;
+    rw::LibraryVersion txdVersion;
     {
-        // Initialize the nodes.
+        if ( rw::TexDictionary *currentTXD = mainWnd->getCurrentTXD() )
         {
-            auto iter = platformNames.begin();
+            rwRecTXDPlatform = currentTXD->GetRecommendedDriverPlatform();
+            rwActualPlatform = mainWnd->GetCurrentPlatform();
 
-            for ( size_t n = 0; n < platCount; n++ )
-            {
-                const auto& curPlatName = *iter++;
-
-                weightedNode& curNode = nodes[ n ];
-
-                curNode.platName = curPlatName;
-                curNode.weight = 0;
-            }
-        }
-
-        // Cache some things we are going to need.
-        const char *rwRecTXDPlatform = NULL;
-        QString rwActualPlatform;
-        rw::LibraryVersion txdVersion;
-        {
-            if ( rw::TexDictionary *currentTXD = mainWnd->getCurrentTXD() )
-            {
-                rwRecTXDPlatform = currentTXD->GetRecommendedDriverPlatform();
-                rwActualPlatform = mainWnd->GetCurrentPlatform();
-
-                txdVersion = currentTXD->GetEngineVersion();
-            }
-        }
-
-        // Process all platforms and store their rating.
-        for ( size_t n = 0; n < platCount; n++ )
-        {
-            weightedNode& platNode = nodes[ n ];
-
-            const std::string& name = platNode.platName;
-
-            // If the platform is recommended by the internal RW toolchain, we want to put it up front.
-            if ( rwRecTXDPlatform && name == rwRecTXDPlatform )
-            {
-                platNode.weight += 0.9;
-            }
-
-            // If the platform makes sense in the TXD's version configuration, it is kinda important.
-            RwVersionSets::eDataType curDataType = RwVersionSets::dataIdFromEnginePlatformName( ansi_to_qt( name ) );
-
-            if ( curDataType != RwVersionSets::RWVS_DT_NOT_DEFINED )
-            {
-                // Check whether this version makes sense in this platform.
-                int setIndex, platIndex, dataTypeIndex;
-
-                bool makesSense = mainWnd->versionSets.matchSet( txdVersion, curDataType, setIndex, platIndex, dataTypeIndex );
-
-                if ( makesSense )
-                {
-                    // Honor it.
-                    platNode.weight += 0.7;
-                }
-            }
-
-            // If we match the current platform of the TXD, we are uber important!
-            if ( rwActualPlatform.isEmpty() == false && rwActualPlatform == name.c_str() )
-            {
-                platNode.weight += 1.0;
-            }
-        }
-
-        // Make the sorted thing.
-        {
-            std::sort( nodes, nodes + platCount );
-
-            for ( size_t n = 0; n < platCount; n++ )
-            {
-                const weightedNode& curItem = nodes[ n ];
-
-                sortedResult[ n ] = curItem.platName;
-            }
-
-            delete [] nodes;
+            txdVersion = currentTXD->GetEngineVersion();
         }
     }
-    catch( ... )
-    {
-        delete [] nodes;
 
-        throw;
+    // The result container.
+    rw::rwStaticSet <weightedNode> nodeContainer;
+
+    // Process all platforms and store their rating.
+    for ( size_t n = 0; n < platCount; n++ )
+    {
+        const rw::rwStaticString <char>& name = platformNames[ n ];
+
+        weightedNode platNode;
+        platNode.platName = name;
+        platNode.weight = 0;
+
+        // If the platform is recommended by the internal RW toolchain, we want to put it up front.
+        if ( rwRecTXDPlatform && name == rwRecTXDPlatform )
+        {
+            platNode.weight += 0.9;
+        }
+
+        // If the platform makes sense in the TXD's version configuration, it is kinda important.
+        RwVersionSets::eDataType curDataType = RwVersionSets::dataIdFromEnginePlatformName( ansi_to_qt( name ) );
+
+        if ( curDataType != RwVersionSets::RWVS_DT_NOT_DEFINED )
+        {
+            // Check whether this version makes sense in this platform.
+            int setIndex, platIndex, dataTypeIndex;
+
+            bool makesSense = mainWnd->versionSets.matchSet( txdVersion, curDataType, setIndex, platIndex, dataTypeIndex );
+
+            if ( makesSense )
+            {
+                // Honor it.
+                platNode.weight += 0.7;
+            }
+        }
+
+        // If we match the current platform of the TXD, we are uber important!
+        if ( rwActualPlatform.isEmpty() == false && rwActualPlatform == name.GetConstString() )
+        {
+            platNode.weight += 1.0;
+        }
+
+        nodeContainer.Insert( std::move( platNode ) );
+    }
+
+    // Make the sorted thing.
+    rw::rwStaticVector <rw::rwStaticString <char>> sortedResult;
+    {
+        size_t n = 0;
+
+        for ( decltype(nodeContainer)::iterator iter( nodeContainer ); !iter.IsEnd(); iter.Increment(), n++ )
+        {
+            const weightedNode& curItem = iter.Resolve()->GetValue();
+
+            sortedResult[ n ] = std::move( curItem.platName );
+        }
     }
 
     return sortedResult;

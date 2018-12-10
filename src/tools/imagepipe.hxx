@@ -63,7 +63,7 @@ static rw::TextureBase* RwMakeTextureFromStream(
     {
         rw::Raster *texRaster = load_result.texRaster;
 
-        rw::TextureBase *texReturn = NULL;
+        rw::TextureBase *texReturn = nullptr;
 
         try
         {
@@ -80,7 +80,7 @@ static rw::TextureBase* RwMakeTextureFromStream(
 
                     if ( !couldConvert )
                     {
-                        rwEngine->PushWarning( "failed to convert raster to platform '" + nativeName + "'\n" );
+                        rwEngine->PushWarning( "failed to convert raster to platform '" + rw::rwStaticString <char> ( nativeName.c_str(), nativeName.size() ) + "'\n" );
                     }
                 }
 

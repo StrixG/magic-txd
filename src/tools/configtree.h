@@ -9,7 +9,7 @@ struct ConfigNode
 {
     inline ConfigNode( void )
     {
-        this->parent = NULL;
+        this->parent = nullptr;
     }
 
     inline ~ConfigNode( void )

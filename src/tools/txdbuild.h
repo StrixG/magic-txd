@@ -11,8 +11,8 @@ struct TxdBuildModule abstract : public MessageReceiver, public rw::WarningManag
 
     struct run_config
     {
-        std::wstring gameRoot = L"massbuild_in/";
-        std::wstring outputRoot = L"massbuild_out/";
+        rw::rwStaticString <wchar_t> gameRoot = L"massbuild_in/";
+        rw::rwStaticString <wchar_t> outputRoot = L"massbuild_out/";
 
         rwkind::eTargetPlatform targetPlatform = rwkind::PLATFORM_PC;
         rwkind::eTargetGame targetGame = rwkind::GAME_GTASA;
@@ -29,7 +29,7 @@ struct TxdBuildModule abstract : public MessageReceiver, public rw::WarningManag
     bool RunApplication( const run_config& cfg );
 
 protected:
-    void OnWarning( std::string&& msg ) override;
+    void OnWarning( rw::rwStaticString <char>&& msg ) override;
 
 private:
     rw::Interface *rwEngine;
