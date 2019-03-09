@@ -120,6 +120,9 @@ struct magicThemeAwareItem abstract
 
 #include "MagicExport.h"
 
+// Global app-root system translator in jail-mode.
+extern CFileTranslator *sysAppRoot;
+
 #define _FEATURES_NOT_IN_CURRENT_RELEASE
 
 class MainWindow : public QMainWindow, public magicTextLocalizationItem

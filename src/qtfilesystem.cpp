@@ -81,15 +81,30 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         this->_closeDataFile();
     }
 
+    static inline filePath get_app_path( const filePath& input )
+    {
+        filePath relpath_appRoot;
+
+        if ( sysAppRoot != nullptr && sysAppRoot->GetRelativePathFromRoot( input, true, relpath_appRoot ) )
+        {
+            // Prepend the global translator root descriptor.
+            return "//" + relpath_appRoot;
+        }
+
+        return input;
+    }
+
     inline CFile* open_first_translator_file( const filePath& thePath, const filesysOpenMode& mode )
     {
+        filePath appPath = get_app_path( thePath );
+
         size_t transCount = translators.GetCount();
 
         for ( size_t n = 0; n < transCount; n++ )
         {
             CFileTranslator *trans = translators[ n ];
 
-            CFile *openFile = trans->Open( thePath, mode );
+            CFile *openFile = trans->Open( appPath, mode );
 
             if ( openFile != nullptr )
             {
@@ -194,7 +209,9 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
             return dataFile->GetSizeNative();
         }
 
-        return (qint64)fileRoot->Size( this->location );
+        filePath appPath = get_app_path( this->location );
+
+        return (qint64)fileRoot->Size( appPath );
     }
 
     qint64 pos( void ) const override
@@ -229,11 +246,13 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         size_t numTranslators = translators.GetCount();
 
+        filePath appPath = get_app_path( this->location );
+
         for ( size_t n = 0; n < numTranslators; n++ )
         {
             CFileTranslator *trans = translators[ n ];
 
-            bool couldRemove = trans->Delete( this->location );
+            bool couldRemove = trans->Delete( appPath );
 
             if ( couldRemove )
             {
@@ -270,11 +289,14 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
     {
         size_t transCount = translators.GetCount();
 
+        filePath srcAppPath = get_app_path( this->location );
+        filePath dstAppPath = get_app_path( qt_to_filePath( newName ) );
+
         for ( size_t n = 0; n < transCount; n++ )
         {
             CFileTranslator *trans = translators[ n ];
 
-            if ( trans->Rename( this->location, qt_to_filePath( newName ) ) )
+            if ( trans->Rename( srcAppPath, dstAppPath ) )
             {
                 return true;
             }
@@ -304,7 +326,9 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         CFileTranslator *first = translators[ 0 ];
 
-        return first->CreateDir( qt_to_filePath( dirName ) + "/" );
+        filePath appPath = get_app_path( qt_to_filePath( dirName ) ) + "/";
+
+        return first->CreateDir( appPath );
     }
 
     bool rmdir( const QString& dirName, bool recurseParentDirectories ) const override
@@ -316,7 +340,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         size_t transCount = translators.GetCount();
 
-        filePath fsDirName = ( qt_to_filePath( dirName ) + "/" );
+        filePath fsDirName = get_app_path( qt_to_filePath( dirName ) + "/" );
 
         for ( size_t n = 0; n < transCount; n++ )
         {
@@ -416,7 +440,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         size_t transCount = translators.GetCount(); 
 
-        filePath dirPath = ( this->location + "/" );
+        filePath dirPath = get_app_path( this->location + "/" );
 
         for ( size_t n = 0; n < transCount; n++ )
         {
@@ -482,17 +506,19 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         size_t numTrans = translators.GetCount();
 
+        filePath appPath = get_app_path( this->location );
+
         for ( size_t n = 0; n < numTrans; n++ )
         {
             CFileTranslator *trans = translators[ n ];
 
-            if ( trans->QueryStats( this->location, objStats ) )
+            if ( trans->QueryStats( appPath, objStats ) )
             {
                 gotStats = true;
                 break;
             }
 
-            if ( trans->QueryStats( this->location + "/", objStats ) )
+            if ( trans->QueryStats( appPath + "/", objStats ) )
             {
                 gotStats = true;
                 break;
@@ -619,9 +645,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
             }
         }
 
+        filePath appPath = get_app_path( this->location );
+
         filesysStats fileStats;
 
-        if ( fileRoot->QueryStats( this->location, fileStats ) )
+        if ( fileRoot->QueryStats( appPath, fileStats ) )
         {
             return QDateTime::fromTime_t( fileStats.ctime );
         }

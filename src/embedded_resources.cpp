@@ -9,7 +9,7 @@ struct embedded_data
 };
 
 #ifdef _WIN32
-__declspec(dllexport) extern volatile const embedded_data _export_embedded_resources = { 0 };
+extern "C" __declspec(dllexport) volatile const embedded_data _export_embedded_resources = { 0 };
 #endif //_WIN32
 
 static CFileTranslator *embedded_archive = nullptr;
@@ -19,15 +19,22 @@ void initialize_embedded_resources( void )
     assert( fileSystem != nullptr );
 
 #ifdef _WIN32
-    CFile *bufFile = fileSystem->CreateUserBufferFile( (void*)_export_embedded_resources.dataptr, _export_embedded_resources.datasize );
-
-    if ( bufFile != nullptr )
+    if ( _export_embedded_resources.dataptr != nullptr )
     {
-        embedded_archive = fileSystem->OpenZIPArchive( *bufFile );
+        CFile *bufFile = fileSystem->CreateUserBufferFile( (void*)_export_embedded_resources.dataptr, _export_embedded_resources.datasize );
 
-        if ( embedded_archive != nullptr )
+        if ( bufFile != nullptr )
         {
-            register_file_translator( embedded_archive );
+            embedded_archive = fileSystem->OpenZIPArchive( *bufFile );
+
+            if ( embedded_archive != nullptr )
+            {
+                register_file_translator( embedded_archive );
+            }
+            else
+            {
+                delete bufFile;
+            }
         }
     }
 #endif //_WIN32

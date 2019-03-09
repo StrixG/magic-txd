@@ -153,6 +153,9 @@ static void important_message( const char *msg, const char *title )
 #endif //CROSS PLATFORM CODE
 }
 
+// Global app-root-only system file translator.
+CFileTranslator *sysAppRoot = nullptr;
+
 int main(int argc, char *argv[])
 {
     // Initialize global plugins.
@@ -223,6 +226,7 @@ int main(int argc, char *argv[])
             // Initialize the filesystem.
             fs_construction_params fsParams;
             fsParams.nativeExecMan = nativeExec;
+            fsParams.fileRootPath = "//";
 
             CFileSystem *fsHandle = CFileSystem::Create( fsParams );
 
@@ -233,6 +237,16 @@ int main(int argc, char *argv[])
 
             try
             {
+                // Create a translator whose root is placed in the application's directory.
+                FileSystem::fileTrans sysAppRoot = fsHandle->CreateTranslator( fsParams.fileRootPath );
+
+                if ( !sysAppRoot.is_good() )
+                {
+                    throw std::exception();
+                }
+
+                ::sysAppRoot = sysAppRoot;
+
                 if ( fileRoot == nullptr )
                 {
                     throw std::exception();
