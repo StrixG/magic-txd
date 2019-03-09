@@ -113,7 +113,7 @@ private:
             {
                 if ( extention.equals( "IMG", false ) )
                 {
-                    module->OnMessage( L"processing " + relPathFromRoot.convert_unicode() + L" ...\n" );
+                    module->OnMessage( L"processing " + relPathFromRoot.convert_unicode <FileSysCommonAllocator> () + L" ...\n" );
 
                     // Open the IMG archive.
                     CIMGArchiveTranslatorHandle *srcIMGRoot = nullptr;

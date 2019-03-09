@@ -21,7 +21,7 @@ inline eImportExpectation getRecommendedImageImportExpectation( const filePath& 
 
 inline eImportExpectation getActualImageImportExpectation( rw::Interface *rwEngine, const filePath& extention )
 {
-    auto ansi_ext = extention.convert_ansi();
+    auto ansi_ext = extention.convert_ansi <rw::RwStaticMemAllocator> ();
 
     // Is it a generic imaging extension?
     if ( rw::IsImagingFormatAvailable( rwEngine, ansi_ext.GetConstString() ) )

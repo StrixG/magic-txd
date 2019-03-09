@@ -75,14 +75,14 @@ struct rwFileSystemStreamWrapEnv
         {
             eirFileSystemMetaInfo *meta = (eirFileSystemMetaInfo*)memBuf;
 
-            return meta->theStream->Read( out_buf, 1, readCount );
+            return meta->theStream->Read( out_buf, readCount );
         }
 
         size_t Write( void *memBuf, const void *in_buf, size_t writeCount ) const override
         {
             eirFileSystemMetaInfo *meta = (eirFileSystemMetaInfo*)memBuf;
 
-            return meta->theStream->Write( in_buf, 1, writeCount );
+            return meta->theStream->Write( in_buf, writeCount );
         }
 
         void Skip( void *memBuf, rw::int64 skipCount ) const override
@@ -159,14 +159,14 @@ struct rwFileSystemStreamWrapEnv
         {
             CFile *theFile = (CFile*)ptr;
 
-            return theFile->Read( outBuf, 1, readCount );
+            return theFile->Read( outBuf, readCount );
         }
 
         size_t WriteStream( filePtr_t ptr, const void *outBuf, size_t writeCount ) override
         {
             CFile *theFile = (CFile*)ptr;
 
-            return theFile->Write( outBuf, 1, writeCount );
+            return theFile->Write( outBuf, writeCount );
         }
 
         bool SeekStream( filePtr_t ptr, long streamOffset, int type ) override

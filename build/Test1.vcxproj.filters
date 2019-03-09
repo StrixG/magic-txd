@@ -53,6 +53,8 @@
       <Filter>debugsdk</Filter>
     </ClCompile>
     <ClCompile Include="..\src/mainwindow.cpp" />
+    <ClCompile Include="..\src\qtfilesystem.cpp" />
+    <ClCompile Include="..\src\embedded_resources.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../include/styles.h">
@@ -219,6 +221,12 @@
     </ClInclude>
     <ClInclude Include="..\src\config\debugsdk_config.h">
       <Filter>config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\qtfilesystem.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\embedded_resources.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

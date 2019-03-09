@@ -8,6 +8,8 @@
 
 #include <QtCore/QtPlugin>
 
+#include <exception>
+
 #ifdef _WIN32
 #include <Windows.h>
 Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
@@ -24,10 +26,10 @@ struct ScopedSystemEventFilter
     {
         _currentFilter = this;
 
-        QWidget *theWidget = NULL;
+        QWidget *theWidget = nullptr;
 
-        this->evt = NULL;
-        this->handlerWidget = NULL;
+        this->evt = nullptr;
+        this->handlerWidget = nullptr;
 
         if ( receiver )
         {
@@ -60,7 +62,7 @@ struct ScopedSystemEventFilter
             handlerWidget->endSystemEvent(evt);
         }
 
-        _currentFilter = NULL;
+        _currentFilter = nullptr;
     }
 
     static ScopedSystemEventFilter *_currentFilter;
@@ -69,7 +71,7 @@ struct ScopedSystemEventFilter
     SystemEventHandlerWidget *handlerWidget;
 };
 
-ScopedSystemEventFilter* ScopedSystemEventFilter::_currentFilter = NULL;
+ScopedSystemEventFilter* ScopedSystemEventFilter::_currentFilter = nullptr;
 
 SystemEventHandlerWidget::~SystemEventHandlerWidget(void)
 {
@@ -79,8 +81,8 @@ SystemEventHandlerWidget::~SystemEventHandlerWidget(void)
     {
         if (sysEvtFilter->handlerWidget == this)
         {
-            sysEvtFilter->handlerWidget = NULL;
-            sysEvtFilter->evt = NULL;
+            sysEvtFilter->handlerWidget = nullptr;
+            sysEvtFilter->evt = nullptr;
         }
     }
 }
@@ -119,6 +121,11 @@ struct mainWindowConstructor
     }
 };
 
+// Global plugins.
+extern void registerQtFileSystem( void );
+
+extern void unregisterQtFileSystem( void );
+
 // Main window plugin entry points.
 extern void InitializeRWFileSystemWrap(void);
 extern void InitializeTaskCompletionWindowEnv( void );
@@ -148,6 +155,9 @@ static void important_message( const char *msg, const char *title )
 
 int main(int argc, char *argv[])
 {
+    // Initialize global plugins.
+    registerQtFileSystem();
+
     // Initialize all main window plugins.
     InitializeRWFileSystemWrap();
     InitializeTaskCompletionWindowEnv();
@@ -180,7 +190,7 @@ int main(int argc, char *argv[])
 
         rw::Interface *rwEngine = rw::CreateEngine( engineVersion );
 
-        if ( rwEngine == NULL )
+        if ( rwEngine == nullptr )
         {
             throw std::exception(); // "failed to initialize the RenderWare engine"
         }
@@ -223,92 +233,118 @@ int main(int argc, char *argv[])
 
             try
             {
-                // removed library path stuff, because we statically link.
-
-                MagicTXDApplication a(argc, argv);
+                if ( fileRoot == nullptr )
                 {
-                    QString styleSheet = styles::get(a.applicationDirPath(), "resources/dark.shell");
-
-                    if ( styleSheet.isEmpty() )
-                    {
-                        important_message(
-                            "Failed to load stylesheet resource \"resources/dark.shell\".\n" \
-                            "Please verify whether you have installed Magic.TXD correctly!",
-                            "Error"
-                        );
-
-                        // Even without stylesheet, we allow launching Magic.TXD.
-                        // The user gets what he asked for.
-                    }
-                    else
-                    {
-                        a.setStyleSheet(styleSheet);
-                    }
+                    throw std::exception();
                 }
-                mainWindowConstructor wnd_constr(a.applicationDirPath(), rwEngine, fsHandle);
 
-                rw::RwStaticMemAllocator memAlloc;
+                // Set our application root translator to outbreak mode.
+                // This is important because we need full access to the machine.
+                fileRoot->SetOutbreakEnabled( true );
 
-                MainWindow *w = mainWindowFactory.ConstructTemplate(memAlloc, wnd_constr);
+                // Put our application path as first source of fresh files.
+                register_file_translator( fileRoot );
+
+                // Register embedded resources if present.
+                initialize_embedded_resources();
 
                 try
                 {
-                    w->setWindowIcon(QIcon(w->makeAppPath("resources/icons/stars.png")));
-                    w->show();
+                    // removed library path stuff, because we statically link.
 
-                    w->launchDetails();
+                    MagicTXDApplication a(argc, argv);
+                    {
+                        QString styleSheet = styles::get(a.applicationDirPath(), "resources/dark.shell");
 
-                    QApplication::processEvents();
+                        if ( styleSheet.isEmpty() )
+                        {
+                            important_message(
+                                "Failed to load stylesheet resource \"resources/dark.shell\".\n" \
+                                "Please verify whether you have installed Magic.TXD correctly!",
+                                "Error"
+                            );
 
-                    QStringList appargs = a.arguments();
-
-                    if (appargs.size() >= 2) {
-                        QString txdFileToBeOpened = appargs.at(1);
-                        if (!txdFileToBeOpened.isEmpty()) {
-                            w->openTxdFile(txdFileToBeOpened);
-
-                            w->adjustDimensionsByViewport();
+                            // Even without stylesheet, we allow launching Magic.TXD.
+                            // The user gets what he asked for.
+                        }
+                        else
+                        {
+                            a.setStyleSheet(styleSheet);
                         }
                     }
+                    mainWindowConstructor wnd_constr(a.applicationDirPath(), rwEngine, fsHandle);
 
-                    // Try to catch some known C++ exceptions and display things for them.
+                    rw::RwStaticMemAllocator memAlloc;
+
+                    MainWindow *w = mainWindowFactory.ConstructTemplate(memAlloc, wnd_constr);
+
                     try
                     {
-                        iRet = a.exec();
+                        w->setWindowIcon(QIcon(w->makeAppPath("resources/icons/stars.png")));
+                        w->show();
+
+                        w->launchDetails();
+
+                        QApplication::processEvents();
+
+                        QStringList appargs = a.arguments();
+
+                        if (appargs.size() >= 2) {
+                            QString txdFileToBeOpened = appargs.at(1);
+                            if (!txdFileToBeOpened.isEmpty()) {
+                                w->openTxdFile(txdFileToBeOpened);
+
+                                w->adjustDimensionsByViewport();
+                            }
+                        }
+
+                        // Try to catch some known C++ exceptions and display things for them.
+                        try
+                        {
+                            iRet = a.exec();
+                        }
+                        catch( rw::RwException& except )
+                        {
+                            auto errMsg = "uncaught RenderWare exception: " + except.message;
+
+                            important_message(
+                                errMsg.GetConstString(),
+                                "Uncaught C++ Exception"
+                            );
+
+                            // Continue execution.
+                            iRet = -1;
+                        }
+                        catch( std::exception& except )
+                        {
+                            std::string errMsg = std::string( "uncaught C++ STL exception: " ) + except.what();
+
+                            important_message(
+                                errMsg.c_str(),
+                                "Uncaught C++ Exception"
+                            );
+
+                            // Continue execution.
+                            iRet = -2;
+                        }
                     }
-                    catch( rw::RwException& except )
+                    catch( ... )
                     {
-                        auto errMsg = "uncaught RenderWare exception: " + except.message;
+                        mainWindowFactory.Destroy( memAlloc, w );
 
-                        important_message(
-                            errMsg.GetConstString(),
-                            "Uncaught C++ Exception"
-                        );
-
-                        // Continue execution.
-                        iRet = -1;
+                        throw;
                     }
-                    catch( std::exception& except )
-                    {
-                        std::string errMsg = std::string( "uncaught C++ STL exception: " ) + except.what();
 
-                        important_message(
-                            errMsg.c_str(),
-                            "Uncaught C++ Exception"
-                        );
-
-                        // Continue execution.
-                        iRet = -2;
-                    }
+                    mainWindowFactory.Destroy(memAlloc, w);
                 }
                 catch( ... )
                 {
-                    mainWindowFactory.Destroy( memAlloc, w );
+                    shutdown_embedded_resources();
 
                     throw;
                 }
 
-                mainWindowFactory.Destroy(memAlloc, w);
+                shutdown_embedded_resources();
             }
             catch( ... )
             {
@@ -352,15 +388,28 @@ int main(int argc, char *argv[])
     }
     catch( ... )
     {
+#ifdef _DEBUG
+        auto cur_except = std::current_exception();
+#endif //_DEBUG
+
+#ifdef _DEBUG
+        // We want to be notified about any uncaught exceptions in DEBUG mode.
+        throw;
+#else
         important_message(
             "Magic.TXD has encountered an unknown C++ exception and was forced to close. Please report this to the developers with appropriate steps to reproduce.",
             "Uncaught C++ Exception"
         );
 
         // Continue for safe quit.
+
+#endif //_DEBUG
     }
 
     DbgHeap_Validate();
+
+    // Unregister main plugins.
+    unregisterQtFileSystem();
 
     return iRet;
 }

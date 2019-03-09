@@ -175,7 +175,7 @@ struct _discFileSentry_txdexport
                         statusFileName += L"$";
                     }
 
-                    auto wideRelPathFromRoot = relPathFromRoot.convert_unicode();
+                    auto wideRelPathFromRoot = relPathFromRoot.convert_unicode <rw::RwStaticMemAllocator> ();
 
                     statusFileName.append( wideRelPathFromRoot.GetConstString() );
 

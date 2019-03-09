@@ -30,6 +30,9 @@
 
 class MainWindow;
 
+#include "qtfilesystem.h"
+#include "embedded_resources.h"
+
 #include "versionsets.h"
 #include "textureViewport.h"
 
@@ -65,6 +68,13 @@ inline rw::rwStaticString <wchar_t> qt_to_widerw( const QString& str )
     return CharacterUtil::ConvertStringsLength <char8_t, wchar_t, rw::RwStaticMemAllocator> ( (const char8_t*)charBuf.data(), charBuf.size() );
 }
 
+inline filePath qt_to_filePath( const QString& str )
+{
+    QByteArray charBuf = str.toUtf8();
+
+    return filePath( (const char8_t*)charBuf.data(), charBuf.size() );
+}
+
 inline QString ansi_to_qt( const std::string& str )
 {
     return QString::fromLatin1( str.c_str(), str.size() );
@@ -82,6 +92,13 @@ inline QString wide_to_qt( const eir::String <wchar_t, allocatorType>& str )
     eir::String <char8_t, allocatorType> utf8String = CharacterUtil::ConvertStrings <wchar_t, char8_t, allocatorType> ( str, str.GetAllocData() );
 
     return QString::fromUtf8( (const char*)utf8String.GetConstString(), utf8String.GetLength() );
+}
+
+inline QString filePath_to_qt( const filePath& path )
+{
+    auto widePath = path.convert_unicode <FileSysCommonAllocator> ();
+
+    return wide_to_qt( widePath );
 }
 
 // The editor may have items that depend on a certain theme.

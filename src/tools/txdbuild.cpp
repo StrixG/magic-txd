@@ -294,7 +294,7 @@ void BuildSingleTexture(
             // Give the texture a name based on the original filename.
             filePath texName = FileSystem::GetFileNameItem( texturePath, false );
 
-            auto ansiTexName = texName.convert_ansi();
+            auto ansiTexName = texName.convert_ansi <rw::RwStaticMemAllocator> ();
 
             // Tell the runtime that we process a texture.
             {
@@ -705,7 +705,7 @@ void BuildTXDArchives(
             if ( hasTXDWritePath )
             {
                 // Send a status message about our build process.
-                module->OnMessage( L"building '" + txdWritePath.convert_unicode() + L"'...\n" );
+                module->OnMessage( L"building '" + txdWritePath.convert_unicode <rw::RwStaticMemAllocator> () + L"'...\n" );
 
                 rw::TexDictionary *texDict = rw::CreateTexDictionary( rwEngine );
 
@@ -837,14 +837,14 @@ void BuildTXDArchives(
                             }
                             else
                             {
-                                module->OnMessage( L"failed to open texture: " + texturePath.convert_unicode() + L'\n' );
+                                module->OnMessage( L"failed to open texture: " + texturePath.convert_unicode <rw::RwStaticMemAllocator> () + L'\n' );
                             }
 
                             // Allow termination per texture.
                             rw::CheckThreadHazards( rwEngine );
                         };
 
-                        gameRoot->ScanDirectory( dirPath, "*", false, NULL, std::move( per_dir_file_cb ), NULL );
+                        gameRoot->ScanDirectory( dirPath, "*", false, nullptr, std::move( per_dir_file_cb ), nullptr );
                     }
 
                     // If we have at least one texture in this texture dictionary, we can initialize it and write away.

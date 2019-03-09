@@ -135,7 +135,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
 		imageWidget->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
 		imageView->setWidget(imageWidget);
 		imageView->setAlignment(Qt::AlignCenter);
-
+        
 	    /* --- Splitter --- */
         mainSplitter = new QSplitter;
 	    mainSplitter->addWidget(listWidget);
@@ -1107,7 +1107,7 @@ void MainWindow::dropEvent( QDropEvent *evt )
 
                                                 // Give the texture an ANSI name.
                                                 // NOTE that we overwrite any original name that the texture chunk might have come with.
-                                                auto ansiTexName = nameItem.convert_ansi();
+                                                auto ansiTexName = nameItem.convert_ansi <rw::RwStaticMemAllocator> ();
 
                                                 DefaultTextureAddAndPrepare( rwtex, ansiTexName.GetConstString(), "" );
                                             }

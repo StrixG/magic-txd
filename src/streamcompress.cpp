@@ -7,7 +7,7 @@ struct streamCompressionEnv
     inline void Initialize( MainWindow *mainWnd )
     {
         // Only establish the temporary root on demand.
-        this->tmpRoot = NULL;
+        this->tmpRoot = nullptr;
 
         this->lockRootConsistency = rw::CreateReadWriteLock( mainWnd->GetEngine() );
     }
@@ -67,14 +67,14 @@ struct CTemporaryFile : public CFile
         sourceTrans->Delete( pathOfFile );
     }
 
-    size_t Read( void *buffer, size_t sElement, size_t iNumElements ) override
+    size_t Read( void *buffer, size_t readCount ) override
     {
-        return actualFile->Read( buffer, sElement, iNumElements );
+        return actualFile->Read( buffer, readCount );
     }
 
-    size_t Write( const void *buffer, size_t sElement, size_t iNumElements ) override
+    size_t Write( const void *buffer, size_t writeCount ) override
     {
-        return actualFile->Write( buffer, sElement, iNumElements );
+        return actualFile->Write( buffer, writeCount );
     }
 
     int Seek( long iOffset, int iType ) override
@@ -102,14 +102,14 @@ struct CTemporaryFile : public CFile
         return actualFile->IsEOF();
     }
 
-    bool Stat( struct stat *stats ) const override
+    bool QueryStats( filesysStats& statsOut ) const noexcept override
     {
-        return actualFile->Stat( stats );
+        return actualFile->QueryStats( statsOut );
     }
 
-    void PushStat( const struct stat *stats ) override
+    void SetFileTimes( time_t atime, time_t ctime, time_t mtime ) override
     {
-        actualFile->PushStat( stats );
+        actualFile->SetFileTimes( atime, ctime, mtime );
     }
 
     void SetSeekEnd( void ) override
@@ -162,7 +162,7 @@ CFile* CreateDecompressedStream( MainWindow *mainWnd, CFile *compressed )
     {
         bool needsStreamReset = false;
 
-        compressionManager *theManager = NULL;
+        compressionManager *theManager = nullptr;
 
         for ( compressionManager *manager : env->compressors )
         {
@@ -227,7 +227,7 @@ CFile* CreateDecompressedStream( MainWindow *mainWnd, CFile *compressed )
                                     // We can free the other handle.
                                     delete compressed;
 
-                                    compressed = NULL;
+                                    compressed = nullptr;
                                 }
                                 else
                                 {

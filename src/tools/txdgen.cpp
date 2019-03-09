@@ -136,7 +136,7 @@ bool TxdGenModule::ProcessTXDArchive(
                                 // We want to debug mipmap generation, so output debug textures only using mipmaps.
                                 //if ( _meetsDebugCriteria( tex ) )
                                 {
-                                    auto srcPath = srcStream->GetPath().convert_unicode();
+                                    auto srcPath = srcStream->GetPath().convert_unicode <rw::RwStaticMemAllocator> ();
 
                                     filePath relSrcPath;
 
@@ -403,7 +403,7 @@ struct _discFileSentry_txdgen
             {
                 if ( extention.equals( "TXD", false ) == true )
                 {
-                    module->OnMessage( "*** " + relPathFromRoot.convert_ansi() + " ..." );
+                    module->OnMessage( "*** " + relPathFromRoot.convert_ansi <rw::RwStaticMemAllocator> () + " ..." );
 
                     rw::rwStaticString <char> errorMessage;
 
