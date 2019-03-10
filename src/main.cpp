@@ -15,8 +15,10 @@
 Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #elif defined(__linux__)
 Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)
-Q_IMPORT_PLUGIN(QGifPlugin)
 #endif //CROSS PLATFORM CODE
+
+// Import all required image formats.
+Q_IMPORT_PLUGIN(QGifPlugin)
 
 #include <QtGui/QImageWriter>
 
