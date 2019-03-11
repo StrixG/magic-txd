@@ -373,7 +373,7 @@ int main(int argc, char *argv[])
         }
         catch( ... )
         {
-            rw::DeleteEngine( rwEngine );
+            //rw::DeleteEngine( rwEngine );
 
             throw;
         }

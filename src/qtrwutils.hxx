@@ -51,7 +51,17 @@ inline rw::rwStaticVector <rw::rwStaticString <char>> PlatformImportanceSort( Ma
 
         inline bool operator < ( const weightedNode& right ) const
         {
-            return ( this->weight > right.weight );
+            if ( this->weight > right.weight )
+            {
+                return true;
+            }
+
+            if ( FixedStringCompare( this->platName.GetConstString(), this->platName.GetLength(), right.platName.GetConstString(), right.platName.GetLength(), true ) == eir::eCompResult::LEFT_GREATER )
+            {
+                return true;
+            }
+
+            return false;
         }
     };
 
@@ -124,7 +134,7 @@ inline rw::rwStaticVector <rw::rwStaticString <char>> PlatformImportanceSort( Ma
         {
             const weightedNode& curItem = iter.Resolve()->GetValue();
 
-            sortedResult[ n ] = std::move( curItem.platName );
+            sortedResult.AddToBack( std::move( curItem.platName ) );
         }
     }
 

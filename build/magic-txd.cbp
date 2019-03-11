@@ -91,6 +91,7 @@
 			<Add option="-lXrender" />
 			<Add option="-lfontconfig" />
 			<Add option="-lqgif" />
+			<Add option="-lxkbcommon" />
 			<Add directory="../vendor/gtaconfig/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/FileSystem/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/rwlib/output/linux/$(TARGET_NAME)/" />

@@ -687,7 +687,7 @@ MainWindow::~MainWindow()
     {
         this->rwEngine->DeleteRwObject( this->currentTXD );
 
-        this->currentTXD = NULL;
+        this->currentTXD = nullptr;
     }
 
     // DELETE ALL SUB DIALOGS THAT DEPEND ON MAINWINDOW HERE.
@@ -815,7 +815,7 @@ void MainWindow::addTextureFormatExportLinkToMenu( QMenu *theMenu, const char *d
 void MainWindow::UpdateExportAccessibility( void )
 {
     // Export options are available depending on what texture has been selected.
-    bool has_txd = ( this->currentTXD != NULL );
+    bool has_txd = ( this->currentTXD != nullptr );
 
     for ( TextureExportAction *exportAction : this->actionsExportItems )
     {
@@ -870,7 +870,7 @@ void MainWindow::UpdateExportAccessibility( void )
 void MainWindow::UpdateAccessibility( void )
 {
     // If we have no TXD available, we should not allow the user to pick TXD related options.
-    bool has_txd = ( this->currentTXD != NULL );
+    bool has_txd = ( this->currentTXD != nullptr );
 
     this->actionSaveTXD->setDisabled( !has_txd );
     this->actionSaveTXDAs->setDisabled( !has_txd );
@@ -1147,7 +1147,7 @@ void MainWindow::setCurrentTXD( rw::TexDictionary *txdObj )
     if ( this->currentTXD == txdObj )
         return;
 
-    if ( this->currentTXD != NULL )
+    if ( this->currentTXD != nullptr )
     {
         // Make sure we have no more texture in our viewport.
 		clearViewImage();
@@ -1155,11 +1155,11 @@ void MainWindow::setCurrentTXD( rw::TexDictionary *txdObj )
         // Since we have no selected texture, we can hide the friendly icons.
         // this->hideFriendlyIcons();
 
-        this->currentSelectedTexture = NULL;
+        this->currentSelectedTexture = nullptr;
 
         this->rwEngine->DeleteRwObject( this->currentTXD );
 
-        this->currentTXD = NULL;
+        this->currentTXD = nullptr;
 
         this->ClearModifiedState();
 
@@ -1167,7 +1167,7 @@ void MainWindow::setCurrentTXD( rw::TexDictionary *txdObj )
         this->textureListWidget->clear();
     }
 
-    if ( txdObj != NULL )
+    if ( txdObj != nullptr )
     {
         this->currentTXD = txdObj;
 
@@ -1187,13 +1187,13 @@ void MainWindow::updateTextureList( bool selectLastItemInList )
     listWidget->clear();
 
     // We have no more selected texture item.
-    this->currentSelectedTexture = NULL;
+    this->currentSelectedTexture = nullptr;
 
     // this->hideFriendlyIcons();
 
     if ( txdObj )
     {
-        TexInfoWidget *texInfoToSelect = NULL;
+        TexInfoWidget *texInfoToSelect = nullptr;
 
 	    for ( rw::TexDictionary::texIter_t iter( txdObj->GetTextureIterator() ); iter.IsEnd() == false; iter.Increment() )
 	    {
@@ -1397,7 +1397,7 @@ bool MainWindow::openTxdFile(QString fileName, bool silent)
                     }
 
                     // Parse the input file.
-                    rw::RwObject *parsedObject = NULL;
+                    rw::RwObject *parsedObject = nullptr;
 
                     try
                     {
@@ -1498,13 +1498,13 @@ void MainWindow::onCloseCurrent( bool checked )
     this->ModifiedStateBarrier( false,
         [=]( void )
     {
-        this->currentSelectedTexture = NULL;
+        this->currentSelectedTexture = nullptr;
         this->hasOpenedTXDFileInfo = false;
 
 	    clearViewImage();
 
         // Make sure we got no TXD active.
-        this->setCurrentTXD( NULL );
+        this->setCurrentTXD( nullptr );
 
         this->updateWindowTitle();
 
@@ -1540,7 +1540,7 @@ void MainWindow::updateTextureView( void )
 {
     TexInfoWidget *texItem = this->currentSelectedTexture;
 
-    if ( texItem != NULL )
+    if ( texItem != nullptr )
     {
 		// Get the actual texture we are associated with and present it on the output pane.
 		rw::TextureBase *theTexture = texItem->GetTextureHandle();
@@ -1812,7 +1812,7 @@ bool MainWindow::performSaveTXD( void )
 {
     bool didSave = false;
 
-    if ( this->currentTXD != NULL )
+    if ( this->currentTXD != nullptr )
     {
         if ( this->hasOpenedTXDFileInfo )
         {
@@ -1841,7 +1841,7 @@ bool MainWindow::performSaveAsTXD( void )
 {
     bool didSave = false;
 
-    if ( this->currentTXD != NULL )
+    if ( this->currentTXD != nullptr )
     {
         QString txdSavePath;
 
@@ -2162,7 +2162,7 @@ void MainWindow::onAddTexture( bool checked )
     // Allow importing of a texture.
     rw::TexDictionary *currentTXD = this->currentTXD;
 
-    if ( currentTXD != NULL )
+    if ( currentTXD != nullptr )
     {
         QString fileName = this->requestValidImagePath();
 
@@ -2200,7 +2200,7 @@ void MainWindow::onReplaceTexture( bool checked )
                     // We just take the texture and replace our existing texture with it.
                     if ( rw::TextureBase *curTex = curSelTexItem->GetTextureHandle() )
                     {
-                        curSelTexItem->SetTextureHandle( NULL );
+                        curSelTexItem->SetTextureHandle( nullptr );
 
                         rwEngine->DeleteRwObject( curTex );
                     }
@@ -2258,7 +2258,7 @@ void MainWindow::onRemoveTexture( bool checked )
     if ( TexInfoWidget *curSelTexItem = this->currentSelectedTexture )
     {
         // Forget about this selected item.
-        this->currentSelectedTexture = NULL;
+        this->currentSelectedTexture = nullptr;
 
         // We kill the texture in this item.
         rw::TextureBase *tex = curSelTexItem->GetTextureHandle();
@@ -2484,7 +2484,7 @@ void MainWindow::clearViewImage()
 void MainWindow::NotifyChange( void )
 {
     // Call this function if there has been a change in the currently open TXD.
-    if ( this->currentTXD == NULL )
+    if ( this->currentTXD == nullptr )
         return;
 
     bool isTXDChanged = this->wasTXDModified;
@@ -2577,7 +2577,7 @@ const char* MainWindow::GetTXDPlatform(rw::TexDictionary *txd)
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 void MainWindow::launchDetails( void )
@@ -2709,7 +2709,8 @@ void MainWindow::onAboutUs(bool checked)
     }
 }
 
-QString MainWindow::makeAppPath(QString subPath) {
+QString MainWindow::makeAppPath(QString subPath)
+{
     return m_appPath + "/" + subPath;
 }
 

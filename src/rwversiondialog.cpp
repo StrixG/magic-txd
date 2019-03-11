@@ -37,7 +37,7 @@ RwVersionDialog::~RwVersionDialog( void )
     UnregisterTextLocalizationItem( this );
 
     // There can only be one version dialog.
-    this->mainWnd->verDlg = NULL;
+    this->mainWnd->verDlg = nullptr;
 }
 
 void RwVersionDialog::updateContent( MainWindow *mainWnd )
