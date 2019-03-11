@@ -43,14 +43,16 @@
 			<Add directory="../include" />
 			<Add directory="../src/config" />
 			<Add directory="../vendor/FileSystem/include" />
-			<Add directory="../vendor/Qt5.10/include" />
+			<Add directory="../vendor/Qt5.12/include" />
 			<Add directory="../vendor/rwlib/include" />
 			<Add directory="../vendor/eirrepo" />
 			<Add directory="../magic_api" />
 			<Add directory="../vendor/gtaconfig/include" />
-			<Add directory="../vendor/NativeExecutive/include" />
 			<Add directory="../vendor/shextshared" />
+			<Add directory="../vendor/NativeExecutive/include" />
 			<Add directory="../src" />
+			<Add directory="../vendor/Qt5.12/include/QtCore/5.12.2" />
+			<Add directory="../vendor/Qt5.12/include/QtCore" />
 		</Compiler>
 		<Linker>
 			<Add option="-pthread" />
@@ -92,9 +94,9 @@
 			<Add directory="../vendor/gtaconfig/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/FileSystem/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/rwlib/output/linux/$(TARGET_NAME)/" />
-			<Add directory="../vendor/Qt5.10/lib/linux/" />
-			<Add directory="../vendor/Qt5.10/lib/linux/plugins/platforms/" />
-			<Add directory="../vendor/Qt5.10/lib/linux/plugins/imageformats/" />
+			<Add directory="../vendor/Qt5.12/lib/linux/" />
+			<Add directory="../vendor/Qt5.12/lib/linux/plugins/platforms/" />
+			<Add directory="../vendor/Qt5.12/lib/linux/plugins/imageformats/" />
 		</Linker>
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.cpp" />
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.h" />

@@ -12,7 +12,8 @@
 
 struct FileSystemQtFileEngineIterator final : public QAbstractFileEngineIterator
 {
-    AINLINE FileSystemQtFileEngineIterator( QDir::Filters filters, const QStringList& nameFilters, QStringList list ) : QAbstractFileEngineIterator( std::move( filters ), nameFilters ), filenames( std::move( list ) )
+    AINLINE FileSystemQtFileEngineIterator( QDir::Filters filters, const QStringList& nameFilters, QStringList list )
+        : QAbstractFileEngineIterator( std::move( filters ), nameFilters ), filenames( std::move( list ) )
     {
         return;
     }
@@ -45,7 +46,7 @@ struct FileSystemQtFileEngineIterator final : public QAbstractFileEngineIterator
     }
 
 private:
-    size_t entryIndex = 0;
+    int entryIndex = 0;
     QStringList filenames;
 };
 
@@ -71,7 +72,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         if ( CFile *dataFile = this->dataFile )
         {
             delete dataFile;
-            
+
             this->dataFile = nullptr;
         }
     }
@@ -134,7 +135,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         mode.access.allowRead = ( openMode & QIODevice::OpenModeFlag::ReadOnly );
         mode.access.allowWrite = ( openMode & QIODevice::OpenModeFlag::WriteOnly );
         mode.seekAtEnd = ( openMode & QIODevice::OpenModeFlag::Append );
-        
+
         eFileOpenDisposition openType;
 
         if ( openMode & QIODevice::OpenModeFlag::NewOnly )
@@ -159,6 +160,8 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
             }
         }
 
+        mode.openDisposition = openType;
+
         CFile *openedFile = open_first_translator_file( this->location, mode );
 
         if ( openedFile )
@@ -169,7 +172,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
             return true;
         }
-        
+
         return false;
     }
 
@@ -228,7 +231,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
     {
         if ( CFile *dataFile = this->dataFile )
         {
-            return dataFile->SeekNative( pos, SEEK_SET );
+            return ( dataFile->SeekNative( pos, SEEK_SET ) == 0 );
         }
 
         return false;
@@ -438,7 +441,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         eir::Set <filePath, FileSysCommonAllocator, _filePath_comparator> fileNameSet;
 
-        size_t transCount = translators.GetCount(); 
+        size_t transCount = translators.GetCount();
 
         filePath dirPath = get_app_path( this->location + "/" );
 
@@ -447,7 +450,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
             CFileTranslator *trans = translators[ n ];
 
             FileSystem::dirIterator dirIter = trans->BeginDirectoryListing( dirPath, "*", flags );
-            
+
             if ( !dirIter.is_good() )
                 continue;
 
@@ -526,7 +529,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         }
 
         FileFlags flagsOut = 0;
-        
+
         if ( gotStats )
         {
             flagsOut |= FileFlag::ExistsFlag;
@@ -718,7 +721,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         return 0;
     }
-    
+
     bool extension( Extension extension, const ExtensionOption *option, ExtensionReturn *output ) override
     {
         return false;

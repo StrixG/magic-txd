@@ -120,7 +120,7 @@ inline rw::rwStaticVector <rw::rwStaticString <char>> PlatformImportanceSort( Ma
     {
         size_t n = 0;
 
-        for ( decltype(nodeContainer)::iterator iter( nodeContainer ); !iter.IsEnd(); iter.Increment(), n++ )
+        for ( typename decltype(nodeContainer)::iterator iter( nodeContainer ); !iter.IsEnd(); iter.Increment(), n++ )
         {
             const weightedNode& curItem = iter.Resolve()->GetValue();
 

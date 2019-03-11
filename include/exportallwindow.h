@@ -68,8 +68,6 @@ private:
                     // Remove anything thats not part of the supported.
                     rw::rwStaticVector <rw::rwStaticString <char>> newList;
 
-                    size_t numFormats = reg_natTex.GetCount();
-
                     for ( const auto& nativeFormat : reg_natTex )
                     {
                         for ( const auto& formstr : formatsOut )

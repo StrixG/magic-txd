@@ -20,7 +20,7 @@ struct mh2zCompressionEnv : public compressionManager
 
     struct mh2zHeader
     {
-        endian::little_endian <std::uint32_t> magic_num;
+        char magic[4];
         endian::little_endian <std::uint32_t> decomp_size;
     };
 
@@ -33,7 +33,7 @@ struct mh2zCompressionEnv : public compressionManager
             return false;
         }
 
-        if ( header.magic_num != MAGIC_NUM )
+        if ( header.magic[0] != 'Z' || header.magic[1] != '2' || header.magic[2] != 'H' || header.magic[3] != 'M' )
         {
             return false;
         }
@@ -48,7 +48,10 @@ struct mh2zCompressionEnv : public compressionManager
         {
             // Write the MH2Z header.
             mh2zHeader header;
-            header.magic_num = MAGIC_NUM;
+            header.magic[0] = 'Z';
+            header.magic[1] = '2';
+            header.magic[2] = 'H';
+            header.magic[3] = 'M';
             header.decomp_size = (size_t)( input->GetSizeNative() - input->TellNative() );
 
             output->WriteStruct( header );
@@ -67,7 +70,7 @@ struct mh2zCompressionEnv : public compressionManager
                 return false;
             }
 
-            if ( header.magic_num != MAGIC_NUM )
+            if ( header.magic[0] != 'Z' || header.magic[1] != '2' || header.magic[2] != 'H' || header.magic[3] != 'M' )
             {
                 return false;
             }
