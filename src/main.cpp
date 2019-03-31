@@ -294,6 +294,11 @@ int main(int argc, char *argv[])
 
                     MainWindow *w = mainWindowFactory.ConstructTemplate(memAlloc, wnd_constr);
 
+                    if ( w == nullptr )
+                    {
+                        throw rw::RwException( "Failed to construct the Qt MainWindow" );
+                    }
+
                     try
                     {
                         w->setWindowIcon(QIcon(w->makeAppPath("resources/icons/stars.png")));
@@ -373,7 +378,7 @@ int main(int argc, char *argv[])
         }
         catch( ... )
         {
-            //rw::DeleteEngine( rwEngine );
+            rw::DeleteEngine( rwEngine );
 
             throw;
         }
