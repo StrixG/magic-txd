@@ -61,13 +61,13 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
     // accessed through strange paths, so be prepared to add-back a
     // translator member.
 
-    inline FileSystemQtFileEngine( const QString& fileName )
+    inline FileSystemQtFileEngine( const QString& fileName ) noexcept
     {
         this->location = qt_to_filePath( fileName );
         this->dataFile = nullptr;
     }
 
-    inline void _closeDataFile( void )
+    inline void _closeDataFile( void ) noexcept
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -95,7 +95,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return input;
     }
 
-    inline CFile* open_first_translator_file( const filePath& thePath, const filesysOpenMode& mode )
+    inline CFile* open_first_translator_file( const filePath& thePath, const filesysOpenMode& mode ) noexcept
     {
         filePath appPath = get_app_path( thePath );
 
@@ -116,7 +116,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return nullptr;
     }
 
-    bool open( QIODevice::OpenMode openMode ) override
+    bool open( QIODevice::OpenMode openMode ) noexcept override
     {
         // We do not support certain things.
         if ( openMode & QIODevice::OpenModeFlag::Append )
@@ -176,14 +176,14 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return false;
     }
 
-    bool close( void ) override
+    bool close( void ) noexcept override
     {
         this->_closeDataFile();
 
         return true;
     }
 
-    bool flush( void ) override
+    bool flush( void ) noexcept override
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -194,7 +194,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return false;
     }
 
-    bool syncToDisk( void ) override
+    bool syncToDisk( void ) noexcept override
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -205,7 +205,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return false;
     }
 
-    qint64 size( void ) const override
+    qint64 size( void ) const noexcept override
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -217,7 +217,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return (qint64)fileRoot->Size( appPath );
     }
 
-    qint64 pos( void ) const override
+    qint64 pos( void ) const noexcept override
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -227,7 +227,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return 0;
     }
 
-    bool seek( qint64 pos ) override
+    bool seek( qint64 pos ) noexcept override
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -237,13 +237,13 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return false;
     }
 
-    bool isSequential( void ) const override
+    bool isSequential( void ) const noexcept override
     {
         // Assumingly we will only have non-sequential streams here?
         return false;
     }
 
-    bool remove( void ) override
+    bool remove( void ) noexcept override
     {
         bool hasRemoved = false;
 
@@ -266,7 +266,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return hasRemoved;
     }
 
-    bool copy( const QString& newName ) override
+    bool copy( const QString& newName ) noexcept override
     {
         filesysOpenMode readOpen;
         FileSystem::ParseOpenMode( "rb", readOpen );
@@ -288,7 +288,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return true;
     }
 
-    bool rename( const QString& newName ) override
+    bool rename( const QString& newName ) noexcept override
     {
         size_t transCount = translators.GetCount();
 
@@ -308,19 +308,29 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return false;
     }
 
-    bool renameOverwrite( const QString& newName ) override
+    bool renameOverwrite( const QString& newName ) noexcept override
     {
         // Maybe implement this.
         return false;
     }
 
-    bool link( const QString& newName ) override
+    bool link( const QString& newName ) noexcept override
     {
         // Maybe implement this.
         return false;
     }
 
-    bool mkdir( const QString& dirName, bool createParentDirectories ) const override
+    static AINLINE filePath make_dir_path( filePath path )
+    {
+        if ( FileSystem::IsPathDirectory( path ))
+        {
+            return path;
+        }
+
+        return path + "/";
+    }
+
+    bool mkdir( const QString& dirName, bool createParentDirectories ) const noexcept override
     {
         if ( translators.GetCount() == 0 )
             return false;
@@ -329,12 +339,12 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         CFileTranslator *first = translators[ 0 ];
 
-        filePath appPath = get_app_path( qt_to_filePath( dirName ) ) + "/";
+        filePath appPath = get_app_path( make_dir_path( qt_to_filePath( dirName ) ) );
 
         return first->CreateDir( appPath );
     }
 
-    bool rmdir( const QString& dirName, bool recurseParentDirectories ) const override
+    bool rmdir( const QString& dirName, bool recurseParentDirectories ) const noexcept override
     {
         // Ignore deleting empty parent directories for now; as said above we do things on demand.
         // Also we can delete files using this function; maybe implement a switch in FileSystem?
@@ -343,7 +353,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         size_t transCount = translators.GetCount();
 
-        filePath fsDirName = get_app_path( qt_to_filePath( dirName ) + "/" );
+        filePath fsDirName = get_app_path( make_dir_path( qt_to_filePath( dirName ) ) );
 
         for ( size_t n = 0; n < transCount; n++ )
         {
@@ -358,7 +368,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return hasDeleted;
     }
 
-    bool setSize( qint64 size ) override
+    bool setSize( qint64 size ) noexcept override
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -370,13 +380,13 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return false;
     }
 
-    bool caseSensitive( void ) const override
+    bool caseSensitive( void ) const noexcept override
     {
         // Just return what the platform mandates.
         return fileRoot->IsCaseSensitive();
     }
 
-    bool isRelativePath( void ) const override
+    bool isRelativePath( void ) const noexcept override
     {
         filePath desc;
 
@@ -387,7 +397,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
             return false;
         }
 
-        // TODO: What about translator root paths?
+        // TODO: What about translator root paths?#
 
         return true;
     }
@@ -400,7 +410,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         }
     };
 
-    QStringList entryList( QDir::Filters filters, const QStringList& filterNames ) const override
+    QStringList entryList( QDir::Filters filters, const QStringList& filterNames ) const noexcept override
     {
         // First make all GLOB patterns for filename matching.
         eir::PathPatternEnv <wchar_t, FileSysCommonAllocator> patternEnv(
@@ -443,7 +453,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         size_t transCount = translators.GetCount();
 
-        filePath dirPath = get_app_path( this->location + "/" );
+        filePath dirPath = get_app_path( make_dir_path( this->location ) );
 
         for ( size_t n = 0; n < transCount; n++ )
         {
@@ -501,7 +511,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return result;
     }
 
-    FileFlags fileFlags( FileFlags type ) const override
+    FileFlags fileFlags( FileFlags type ) const noexcept override
     {
         filesysStats objStats;
 
@@ -521,7 +531,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
                 break;
             }
 
-            if ( trans->QueryStats( appPath + "/", objStats ) )
+            if ( trans->QueryStats( make_dir_path( appPath ), objStats ) )
             {
                 gotStats = true;
                 break;
@@ -558,69 +568,75 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return flagsOut;
     }
 
-    bool setPermissions( uint perms ) override
+    bool setPermissions( uint perms ) noexcept override
     {
         // Not supported because it is an unix-only permission model.
         return false;
     }
 
-    QByteArray id( void ) const override
+    QByteArray id( void ) const noexcept override
     {
         // ???
         return QByteArray();
     }
 
-    QString fileName( FileName file = DefaultName ) const override
+    QString fileName( FileName file = DefaultName ) const noexcept override
     {
+        QString result;
+
         if ( file == FileName::DefaultName )
         {
-            return filePath_to_qt( this->location );
+            result = filePath_to_qt( this->location );
         }
-        if ( file == FileName::BaseName )
+        else if ( file == FileName::BaseName )
         {
             filePath baseName = FileSystem::GetFileNameItem( this->location, true );
 
-            return filePath_to_qt( baseName );
+            result = filePath_to_qt( baseName );
         }
-        if ( file == FileName::PathName )
+        else if ( file == FileName::PathName )
         {
             filePath dirName;
 
             FileSystem::GetFileNameItem( this->location, false, &dirName );
 
-            return filePath_to_qt( dirName );
+            result = filePath_to_qt( dirName );
         }
-        if ( file == FileName::AbsoluteName )
+        else if ( file == FileName::AbsoluteName )
         {
             filePath absPath;
             fileRoot->GetFullPath( this->location, true, absPath );
 
-            return filePath_to_qt( absPath );
+            result = filePath_to_qt( absPath );
         }
-        if ( file == FileName::AbsolutePathName )
+        else if ( file == FileName::AbsolutePathName )
         {
             filePath absPath;
             fileRoot->GetFullPath( this->location, false, absPath );
 
-            return filePath_to_qt( absPath );
+            result = filePath_to_qt( absPath );
+        }
+        else
+        {
+            result = filePath_to_qt( this->location );
         }
 
-        return filePath_to_qt( this->location );
+        return result;
     }
 
-    uint ownerId( FileOwner owner ) const override
+    uint ownerId( FileOwner owner ) const noexcept override
     {
         // Some linux-only bs.
         return 0;
     }
 
-    QString owner( FileOwner owner ) const override
+    QString owner( FileOwner owner ) const noexcept override
     {
         // Some linux-only bs.
         return "";
     }
 
-    bool setFileTime( const QDateTime& newData, FileTime time ) override
+    bool setFileTime( const QDateTime& newData, FileTime time ) noexcept override
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -635,7 +651,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return false;
     }
 
-    QDateTime fileTime( FileTime time ) const override
+    QDateTime fileTime( FileTime time ) const noexcept override
     {
         // TODO: maybe allow returing a specific time instead of just the modification time?
         if ( CFile *dataFile = this->dataFile )
@@ -660,18 +676,18 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return QDateTime();
     }
 
-    void setFileName( const QString& file ) override
+    void setFileName( const QString& file ) noexcept override
     {
         this->location = qt_to_filePath( file );
     }
 
-    int handle( void ) const override
+    int handle( void ) const noexcept override
     {
         // Not supported.
         return -1;
     }
 
-    bool cloneTo( QAbstractFileEngine *target ) override
+    bool cloneTo( QAbstractFileEngine *target ) noexcept override
     {
         if ( FileSystemQtFileEngine *targetEngine = dynamic_cast <FileSystemQtFileEngine*> ( target ) )
         {
@@ -685,18 +701,18 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return false;
     }
 
-    QAbstractFileEngineIterator* beginEntryList( QDir::Filters filters, const QStringList& filterNames ) override
+    QAbstractFileEngineIterator* beginEntryList( QDir::Filters filters, const QStringList& filterNames ) noexcept override
     {
         return new FileSystemQtFileEngineIterator( filters, filterNames, this->entryList( filters, filterNames ) );
     }
 
-    QAbstractFileEngineIterator* endEntryList( void ) override
+    QAbstractFileEngineIterator* endEntryList( void ) noexcept override
     {
         // TODO: what is this?
         return nullptr;
     }
 
-    qint64 read( char *data, qint64 maxlen ) override
+    qint64 read( char *data, qint64 maxlen ) noexcept override
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -706,13 +722,13 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return 0;
     }
 
-    qint64 readLine( char *data, qint64 maxlen ) override
+    qint64 readLine( char *data, qint64 maxlen ) noexcept override
     {
         // Do we have to implement this?
         return 0;
     }
 
-    qint64 write( const char *data, qint64 len ) override
+    qint64 write( const char *data, qint64 len ) noexcept override
     {
         if ( CFile *dataFile = this->dataFile )
         {
@@ -722,12 +738,12 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return 0;
     }
 
-    bool extension( Extension extension, const ExtensionOption *option, ExtensionReturn *output ) override
+    bool extension( Extension extension, const ExtensionOption *option, ExtensionReturn *output ) noexcept override
     {
         return false;
     }
 
-    bool supportsExtension( Extension extension ) const override
+    bool supportsExtension( Extension extension ) const noexcept override
     {
         return false;
     }
