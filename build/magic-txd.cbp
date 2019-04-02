@@ -16,6 +16,7 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add option="-D_DEBUG" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -93,6 +94,7 @@
 			<Add option="-lqgif" />
 			<Add option="-lxkbcommon-x11" />
 			<Add option="-lxkbcommon" />
+			<Add option="-e_start_natexec" />
 			<Add directory="../vendor/gtaconfig/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/FileSystem/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/rwlib/output/linux/$(TARGET_NAME)/" />

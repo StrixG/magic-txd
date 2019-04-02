@@ -135,7 +135,7 @@ MainWindow::MainWindow(QString appPath, rw::Interface *engineInterface, CFileSys
 		imageWidget->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
 		imageView->setWidget(imageWidget);
 		imageView->setAlignment(Qt::AlignCenter);
-        
+
 	    /* --- Splitter --- */
         mainSplitter = new QSplitter;
 	    mainSplitter->addWidget(listWidget);
@@ -1226,7 +1226,7 @@ void MainWindow::updateWindowTitle( void )
 
     windowTitleString += "Magic.TXD";
 
-#ifdef _M_AMD64
+#if defined(_M_AMD64) || defined(__x86_x64__)
     windowTitleString += " x64";
 #endif
 

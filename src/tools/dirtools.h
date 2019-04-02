@@ -28,7 +28,7 @@ struct gtaFileProcessor
         traverse.reconstruct_archives = this->reconstruct_archives;
         traverse.use_compressed_img_archives = this->use_compressed_img_archives;
 
-        discHandle->ScanDirectory( "@", "*", true, nullptr, _discFileCallback, &traverse );
+        discHandle->ScanDirectory( "//", "*", true, nullptr, _discFileCallback, &traverse );
     }
 
     inline void setArchiveReconstruction( bool doReconstruct )
@@ -200,7 +200,7 @@ private:
                                     traverse.reconstruct_archives = info->reconstruct_archives;
                                     traverse.use_compressed_img_archives = info->use_compressed_img_archives;
 
-                                    srcIMGRoot->ScanDirectory( "@", "*", true, nullptr, _discFileCallback, &traverse );
+                                    srcIMGRoot->ScanDirectory( "//", "*", true, nullptr, _discFileCallback, &traverse );
 
                                     if ( outputRoot_archive != nullptr )
                                     {

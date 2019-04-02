@@ -925,7 +925,7 @@ void BuildTXDArchives(
     };
 
     // Let us use the kickass C++11 lambdas :)
-    gameRoot->ScanDirectory( "@", "*", true, std::move( dir_callback ), NULL, NULL );
+    gameRoot->ScanDirectory( "//", "*", true, std::move( dir_callback ), NULL, NULL );
 }
 
 bool TxdBuildModule::RunApplication( const run_config& config )
