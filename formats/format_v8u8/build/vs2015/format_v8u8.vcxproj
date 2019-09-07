@@ -174,7 +174,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\..\magic_api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -191,7 +190,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\..\magic_api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -208,7 +206,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\..\magic_api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -225,7 +222,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\..\magic_api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -244,7 +240,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\..\magic_api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -265,7 +260,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\..\magic_api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -286,7 +280,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\..\magic_api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -307,7 +300,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\..\magic_api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
