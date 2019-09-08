@@ -1336,7 +1336,7 @@ void MainWindow::updateAllTextureMetaInfo( void )
 void MainWindow::onCreateNewTXD( bool checked )
 {
     this->ModifiedStateBarrier( false,
-        [=]( void )
+        [=, this]( void )
     {
         CreateTxdDialog *createDlg = new CreateTxdDialog(this);
         createDlg->setVisible(true);
@@ -1479,7 +1479,7 @@ bool MainWindow::openTxdFile(QString fileName, bool silent)
 void MainWindow::onOpenFile( bool checked )
 {
     ModifiedStateBarrier( false,
-        [=]( void )
+        [=, this]( void )
     {
         QString fileName = QFileDialog::getOpenFileName( this, MAGIC_TEXT( "Main.Open.Desc" ), this->lastTXDOpenDir, tr( "RW Texture Archive (*.txd);;Any File (*.*)" ) );
 
@@ -1496,7 +1496,7 @@ void MainWindow::onOpenFile( bool checked )
 void MainWindow::onCloseCurrent( bool checked )
 {
     this->ModifiedStateBarrier( false,
-        [=]( void )
+        [=, this]( void )
     {
         this->currentSelectedTexture = nullptr;
         this->hasOpenedTXDFileInfo = false;
@@ -2140,7 +2140,7 @@ QString MainWindow::requestValidImagePath( const QString *imageName )
 
 void MainWindow::spawnTextureAddDialog( QString fileName )
 {
-    auto cb_lambda = [=] ( const TexAddDialog::texAddOperation& params )
+    auto cb_lambda = [=, this] ( const TexAddDialog::texAddOperation& params )
     {
         this->DoAddTexture( params );
     };
@@ -2188,7 +2188,7 @@ void MainWindow::onReplaceTexture( bool checked )
 
         if ( replaceImagePath.length() != 0 )
         {
-            auto cb_lambda = [=] ( const TexAddDialog::texAddOperation& params )
+            auto cb_lambda = [=, this] ( const TexAddDialog::texAddOperation& params )
             {
                 rw::Interface *rwEngine = this->GetEngine();
 
@@ -2324,7 +2324,7 @@ void MainWindow::onManipulateTexture( bool checked )
     // For that we need a selected texture.
     if ( TexInfoWidget *curSelTexItem = this->currentSelectedTexture )
     {
-        auto cb_lambda = [=] ( const TexAddDialog::texAddOperation& params )
+        auto cb_lambda = [=, this] ( const TexAddDialog::texAddOperation& params )
         {
             assert( params.add_type == TexAddDialog::texAddOperation::ADD_RASTER );
 

@@ -145,7 +145,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
   <PropertyGroup>
-    <QT_VERSION>5.12</QT_VERSION>
+    <QT_VERSION>5.13</QT_VERSION>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -212,7 +212,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).2/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).1/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -275,7 +275,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).2/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).1/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -338,7 +338,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).2/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).1/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -401,7 +401,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).2/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).1/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -464,7 +464,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).2/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).1/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -519,7 +519,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).2/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).1/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -574,7 +574,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).2/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).1/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
@@ -629,7 +629,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level1</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).2/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include/;../src/config/;../vendor/FileSystem/include/;../vendor/Qt$(QT_VERSION)/include/;../vendor/Qt$(QT_VERSION)/include/QtCore/;../vendor/Qt$(QT_VERSION)/include/QtCore/$(QT_VERSION).1/;../vendor/rwlib/include/;../vendor/eirrepo/;../magic_api/;../vendor/gtaconfig/include/;../vendor/NativeExecutive/include/;../vendor/shextshared/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mainwindow.h</PrecompiledHeaderFile>
