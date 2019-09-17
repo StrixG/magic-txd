@@ -372,8 +372,12 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
     {
         if ( CFile *dataFile = this->dataFile )
         {
+            fsOffsetNumber_t oldSeek = dataFile->TellNative();
+
             dataFile->SeekNative( size, SEEK_SET );
             dataFile->SetSeekEnd();
+
+            dataFile->SeekNative( oldSeek, SEEK_SET );
             return true;
         }
 
@@ -740,11 +744,28 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool extension( Extension extension, const ExtensionOption *option, ExtensionReturn *output ) noexcept override
     {
+        if ( extension == QAbstractFileEngine::AtEndExtension )
+        {
+            if ( CFile *dataFile = this->dataFile )
+            {
+                return dataFile->IsEOF();
+            }
+
+            return true;
+        }
+
         return false;
     }
 
     bool supportsExtension( Extension extension ) const noexcept override
     {
+        if ( extension == QAbstractFileEngine::AtEndExtension )
+        {
+            return true;
+        }
+        // TODO: implement the QAbstractFileEngine::MapExtension and QAbstractFileEngine::UnMapExtension
+        //  to improve performance when loading icon themes (it uses a HORRIBLE file search otherwise).
+
         return false;
     }
 
