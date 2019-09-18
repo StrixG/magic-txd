@@ -132,6 +132,11 @@ struct CTemporaryFile : public CFile
         actualFile->Flush();
     }
 
+    CFileMappingProvider* CreateMapping( void ) override
+    {
+        return nullptr;
+    }
+
     filePath GetPath( void ) const override
     {
         return actualFile->GetPath();

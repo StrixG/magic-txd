@@ -65,6 +65,17 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
     {
         this->location = qt_to_filePath( fileName );
         this->dataFile = nullptr;
+        this->mem_mappings = nullptr;
+    }
+
+    inline void _close_mem_mappings( void ) noexcept
+    {
+        if ( CFileMappingProvider *mem_mappings = this->mem_mappings )
+        {
+            delete mem_mappings;
+
+            this->mem_mappings = nullptr;
+        }
     }
 
     inline void _closeDataFile( void ) noexcept
@@ -79,6 +90,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     ~FileSystemQtFileEngine( void )
     {
+        this->_close_mem_mappings();
         this->_closeDataFile();
     }
 
@@ -166,6 +178,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         if ( openedFile )
         {
+            this->_close_mem_mappings();
             this->_closeDataFile();
 
             this->dataFile = openedFile;
@@ -753,6 +766,49 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
             return true;
         }
+        else if ( extension == QAbstractFileEngine::MapExtension )
+        {
+            if ( CFile *handle = this->dataFile )
+            {
+                // If we have no mapping object yet then try to create one.
+                if ( this->mem_mappings == nullptr )
+                {
+                    this->mem_mappings = handle->CreateMapping();
+                }
+
+                if ( CFileMappingProvider *map_prov = this->mem_mappings )
+                {
+                    const MapExtensionOption *map_option = (const MapExtensionOption*)option;
+                    MapExtensionReturn *map_output = (MapExtensionReturn*)output;
+
+                    filemapAccessMode mode;
+                    mode.allowRead = handle->IsReadable();
+                    mode.allowWrite = handle->IsWriteable();
+                    mode.makePrivate = ( map_option->flags & QFileDevice::MapPrivateOption );
+
+                    void *dataptr = map_prov->MapFileRegion( (fsOffsetNumber_t)map_option->offset, (size_t)map_option->size, mode );
+
+                    if ( dataptr == nullptr )
+                    {
+                        return false;
+                    }
+
+                    map_output->address = (uchar*)dataptr;
+                    return true;
+                }
+            }
+        }
+        else if ( extension == QAbstractFileEngine::UnMapExtension )
+        {
+            if ( CFileMappingProvider *mapProv = this->mem_mappings )
+            {
+                const UnMapExtensionOption *unmap_option = (const UnMapExtensionOption*)option;
+
+                bool couldUnmap = mapProv->UnMapFileRegion( unmap_option->address );
+
+                return couldUnmap;
+            }
+        }
 
         return false;
     }
@@ -760,6 +816,14 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
     bool supportsExtension( Extension extension ) const noexcept override
     {
         if ( extension == QAbstractFileEngine::AtEndExtension )
+        {
+            return true;
+        }
+        if ( extension == QAbstractFileEngine::MapExtension )
+        {
+            return true;
+        }
+        if ( extension == QAbstractFileEngine::UnMapExtension )
         {
             return true;
         }
@@ -772,6 +836,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 private:
     filePath location;
     CFile *dataFile;
+    CFileMappingProvider *mem_mappings;
 };
 
 void register_file_translator( CFileTranslator *source )
