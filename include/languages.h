@@ -30,7 +30,7 @@ typedef std::list <magicTextLocalizationItem*> localizations_t;
 localizations_t GetTextLocalizationItems( void );
 
 // Main Query function to request current localized text strings.
-QString getLanguageItemByKey( QString token, bool *found = NULL );
+QString getLanguageItemByKey( QString token, bool *found = nullptr );
 
 // If you want to you can use those colorful macros instead!
 #define MAGIC_TEXT( key )                       getLanguageItemByKey( key )
@@ -81,7 +81,7 @@ QLabel* CreateFixedWidthLabelL( QString systemToken, int fontSize );
 QCheckBox* CreateCheckBoxL( QString systemToken );
 QRadioButton* CreateRadioButtonL( QString systemToken );
 
-QAction* CreateMnemonicActionL( QString systemToken, QObject *parent = NULL );
+QAction* CreateMnemonicActionL( QString systemToken, QObject *parent = nullptr );
 
 // TODO: Maybe move it somewhere
 unsigned int GetTextWidthInPixels(QString &text, unsigned int fontSize);

@@ -10,6 +10,8 @@
 
 #include <sdk/GlobPattern.h>
 
+#define REPORT_DEBUG_OF_FSCALLS
+
 struct FileSystemQtFileEngineIterator final : public QAbstractFileEngineIterator
 {
     AINLINE FileSystemQtFileEngineIterator( QDir::Filters filters, const QStringList& nameFilters, QStringList list )
@@ -50,6 +52,8 @@ private:
     QStringList filenames;
 };
 
+static bool has_file_system_registered = false;
+
 // Translators that are visited in-order for files.
 static eir::Vector <CFileTranslator*, FileSysCommonAllocator> translators;
 
@@ -61,12 +65,21 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
     // accessed through strange paths, so be prepared to add-back a
     // translator member.
 
+    // We must keep track of all Qt file engines actually created.
+    static RwList <FileSystemQtFileEngine> listOfEngines;
+
+    friend struct FileSystemQtFileEngineHandler;
+
     inline FileSystemQtFileEngine( const QString& fileName ) noexcept
     {
         this->location = qt_to_filePath( fileName );
         this->dataFile = nullptr;
         this->mem_mappings = nullptr;
+
+        LIST_APPEND( this->listOfEngines.root, this->regNode );
     }
+    inline FileSystemQtFileEngine( const FileSystemQtFileEngine& ) = delete;
+    inline FileSystemQtFileEngine( FileSystemQtFileEngine&& ) = delete;
 
     inline void _close_mem_mappings( void ) noexcept
     {
@@ -88,10 +101,17 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         }
     }
 
-    ~FileSystemQtFileEngine( void )
+    inline void close_all_references( void )
     {
         this->_close_mem_mappings();
         this->_closeDataFile();
+    }
+
+    ~FileSystemQtFileEngine( void )
+    {
+        close_all_references();
+
+        LIST_REMOVE( this->regNode );
     }
 
     static inline filePath get_app_path( const filePath& input )
@@ -107,8 +127,32 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return input;
     }
 
+    static inline bool is_valid_path_for_translators( const filePath& thePath )
+    {
+        normalNodePath dirNormal;
+
+        size_t transCount = translators.GetCount();
+
+        for ( size_t n = 0; n < transCount; n++ )
+        {
+            CFileTranslator *trans = translators[ n ];
+
+            if ( trans->GetRelativePathNodesFromRoot( thePath, dirNormal ) )
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     inline CFile* open_first_translator_file( const filePath& thePath, const filesysOpenMode& mode ) noexcept
     {
+        if ( has_file_system_registered == false )
+        {
+            return nullptr;
+        }
+
         filePath appPath = get_app_path( thePath );
 
         size_t transCount = translators.GetCount();
@@ -130,6 +174,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool open( QIODevice::OpenMode openMode ) noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         // We do not support certain things.
         if ( openMode & QIODevice::OpenModeFlag::Append )
         {
@@ -258,6 +307,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool remove( void ) noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         bool hasRemoved = false;
 
         size_t numTranslators = translators.GetCount();
@@ -281,6 +335,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool copy( const QString& newName ) noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         filesysOpenMode readOpen;
         FileSystem::ParseOpenMode( "rb", readOpen );
 
@@ -303,6 +362,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool rename( const QString& newName ) noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         size_t transCount = translators.GetCount();
 
         filePath srcAppPath = get_app_path( this->location );
@@ -323,12 +387,22 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool renameOverwrite( const QString& newName ) noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         // Maybe implement this.
         return false;
     }
 
     bool link( const QString& newName ) noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         // Maybe implement this.
         return false;
     }
@@ -345,6 +419,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool mkdir( const QString& dirName, bool createParentDirectories ) const noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         if ( translators.GetCount() == 0 )
             return false;
 
@@ -359,6 +438,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool rmdir( const QString& dirName, bool recurseParentDirectories ) const noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         // Ignore deleting empty parent directories for now; as said above we do things on demand.
         // Also we can delete files using this function; maybe implement a switch in FileSystem?
 
@@ -399,12 +483,22 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool caseSensitive( void ) const noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         // Just return what the platform mandates.
         return fileRoot->IsCaseSensitive();
     }
 
     bool isRelativePath( void ) const noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         filePath desc;
 
         bool isRootPath = fileSystem->GetSystemRootDescriptor( this->location, desc );
@@ -429,6 +523,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     QStringList entryList( QDir::Filters filters, const QStringList& filterNames ) const noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return QStringList();
+        }
+
         // First make all GLOB patterns for filename matching.
         eir::PathPatternEnv <wchar_t, FileSysCommonAllocator> patternEnv(
             filters & QDir::Filter::CaseSensitive
@@ -530,6 +629,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     FileFlags fileFlags( FileFlags type ) const noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return FileFlags();
+        }
+
         filesysStats objStats;
 
         bool gotStats = false;
@@ -599,6 +703,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     QString fileName( FileName file = DefaultName ) const noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return QString();
+        }
+
         QString result;
 
         if ( file == FileName::DefaultName )
@@ -670,6 +779,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     QDateTime fileTime( FileTime time ) const noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return QDateTime();
+        }
+
         // TODO: maybe allow returing a specific time instead of just the modification time?
         if ( CFile *dataFile = this->dataFile )
         {
@@ -720,11 +834,21 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     QAbstractFileEngineIterator* beginEntryList( QDir::Filters filters, const QStringList& filterNames ) noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return nullptr;
+        }
+
         return new FileSystemQtFileEngineIterator( filters, filterNames, this->entryList( filters, filterNames ) );
     }
 
     QAbstractFileEngineIterator* endEntryList( void ) noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return nullptr;
+        }
+
         // TODO: what is this?
         return nullptr;
     }
@@ -757,6 +881,11 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     bool extension( Extension extension, const ExtensionOption *option, ExtensionReturn *output ) noexcept override
     {
+        if ( has_file_system_registered == false )
+        {
+            return false;
+        }
+
         if ( extension == QAbstractFileEngine::AtEndExtension )
         {
             if ( CFile *dataFile = this->dataFile )
@@ -827,8 +956,6 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         {
             return true;
         }
-        // TODO: implement the QAbstractFileEngine::MapExtension and QAbstractFileEngine::UnMapExtension
-        //  to improve performance when loading icon themes (it uses a HORRIBLE file search otherwise).
 
         return false;
     }
@@ -837,7 +964,12 @@ private:
     filePath location;
     CFile *dataFile;
     CFileMappingProvider *mem_mappings;
+
+    RwListEntry <FileSystemQtFileEngine> regNode;
 };
+
+// Place the list.
+RwList <FileSystemQtFileEngine> FileSystemQtFileEngine::listOfEngines;
 
 void register_file_translator( CFileTranslator *source )
 {
@@ -854,9 +986,37 @@ void unregister_file_translator( CFileTranslator *source )
 
 struct FileSystemQtFileEngineHandler : public QAbstractFileEngineHandler
 {
+    inline ~FileSystemQtFileEngineHandler( void )
+    {
+        // Must close all references from alive file engines.
+        LIST_FOREACH_BEGIN( FileSystemQtFileEngine, FileSystemQtFileEngine::listOfEngines.root, regNode )
+
+            item->close_all_references();
+
+        LIST_FOREACH_END
+    }
+
     QAbstractFileEngine* create( const QString& fileName ) const override
     {
-        return new FileSystemQtFileEngine( fileName );
+#ifdef REPORT_DEBUG_OF_FSCALLS
+        auto ansiFileName = qt_to_ansirw( fileName );
+
+        printf( "* new fs engine: %s\n", ansiFileName.GetConstString() );
+#endif //REPORT_DEBUG_OF_FSCALLS
+
+        if ( has_file_system_registered )
+        {
+            filePath fpFileName = qt_to_filePath( fileName );
+
+            // Actually check if we can service this fileName.
+            // This is done so we exclude Qt resources from handling.
+            if ( FileSystemQtFileEngine::is_valid_path_for_translators( fpFileName ) )
+            {
+                return new FileSystemQtFileEngine( fileName );
+            }
+        }
+
+        return nullptr;
     }
 };
 
@@ -865,9 +1025,13 @@ static optional_struct_space <FileSystemQtFileEngineHandler> filesys_qt_wrap;
 void registerQtFileSystem( void )
 {
     filesys_qt_wrap.Construct();
+
+    has_file_system_registered = true;
 }
 
 void unregisterQtFileSystem( void )
 {
+    has_file_system_registered = false;
+
     filesys_qt_wrap.Destroy();
 }
