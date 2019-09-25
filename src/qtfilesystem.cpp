@@ -10,7 +10,7 @@
 
 #include <sdk/GlobPattern.h>
 
-#define REPORT_DEBUG_OF_FSCALLS
+//#define REPORT_DEBUG_OF_FSCALLS
 
 struct FileSystemQtFileEngineIterator final : public QAbstractFileEngineIterator
 {
@@ -70,9 +70,9 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     friend struct FileSystemQtFileEngineHandler;
 
-    inline FileSystemQtFileEngine( const QString& fileName ) noexcept
+    inline FileSystemQtFileEngine( filePath fileName ) noexcept
     {
-        this->location = qt_to_filePath( fileName );
+        this->location = std::move( fileName );
         this->dataFile = nullptr;
         this->mem_mappings = nullptr;
 
@@ -407,16 +407,6 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         return false;
     }
 
-    static AINLINE filePath make_dir_path( filePath path )
-    {
-        if ( FileSystem::IsPathDirectory( path ))
-        {
-            return path;
-        }
-
-        return path + "/";
-    }
-
     bool mkdir( const QString& dirName, bool createParentDirectories ) const noexcept override
     {
         if ( has_file_system_registered == false )
@@ -431,7 +421,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         CFileTranslator *first = translators[ 0 ];
 
-        filePath appPath = get_app_path( make_dir_path( qt_to_filePath( dirName ) ) );
+        filePath appPath = get_app_path( qt_to_filePath( dirName ) );
 
         return first->CreateDir( appPath );
     }
@@ -450,7 +440,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         size_t transCount = translators.GetCount();
 
-        filePath fsDirName = get_app_path( make_dir_path( qt_to_filePath( dirName ) ) );
+        filePath fsDirName = get_app_path( qt_to_filePath( dirName ) );
 
         for ( size_t n = 0; n < transCount; n++ )
         {
@@ -569,7 +559,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
         size_t transCount = translators.GetCount();
 
-        filePath dirPath = get_app_path( make_dir_path( this->location ) );
+        filePath dirPath = get_app_path( this->location );
 
         for ( size_t n = 0; n < transCount; n++ )
         {
@@ -647,12 +637,6 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
             CFileTranslator *trans = translators[ n ];
 
             if ( trans->QueryStats( appPath, objStats ) )
-            {
-                gotStats = true;
-                break;
-            }
-
-            if ( trans->QueryStats( make_dir_path( appPath ), objStats ) )
             {
                 gotStats = true;
                 break;
@@ -1008,11 +992,11 @@ struct FileSystemQtFileEngineHandler : public QAbstractFileEngineHandler
         {
             filePath fpFileName = qt_to_filePath( fileName );
 
-            // Actually check if we can service this fileName.
-            // This is done so we exclude Qt resources from handling.
-            if ( FileSystemQtFileEngine::is_valid_path_for_translators( fpFileName ) )
+            // Check that it ain't internal Qt resource system access.
+            // TODO: actually check for qrc:// aswell.
+            if ( fpFileName.compareCharAt( ':', 0 ) == false )
             {
-                return new FileSystemQtFileEngine( fileName );
+                return new FileSystemQtFileEngine( std::move( fpFileName ) );
             }
         }
 

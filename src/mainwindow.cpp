@@ -1226,7 +1226,7 @@ void MainWindow::updateWindowTitle( void )
 
     windowTitleString += "Magic.TXD";
 
-#if defined(_M_AMD64) || defined(__x86_x64__)
+#if defined(_M_AMD64) || defined(__LP64__)
     windowTitleString += " x64";
 #endif
 

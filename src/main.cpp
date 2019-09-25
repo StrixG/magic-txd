@@ -151,7 +151,7 @@ static void important_message( const char *msg, const char *title )
 #ifdef _WIN32
     MessageBoxA( nullptr, msg, title, MB_OK );
 #elif defined(__linux__)
-    printf( "%s\n", msg );
+    printf( "[%s]: %s\n", title, msg );
 #endif //CROSS PLATFORM CODE
 }
 
@@ -226,6 +226,7 @@ int main(int argc, char *argv[])
             fs_construction_params fsParams;
             fsParams.nativeExecMan = nativeExec;
             fsParams.fileRootPath = "//";
+            fsParams.defaultPathProcessMode = filesysPathProcessMode::AMBIVALENT_FILE;
 
             CFileSystem *fsHandle = CFileSystem::Create( fsParams );
 
