@@ -144,8 +144,6 @@ extern void InitializeMassBuildEnvironment( void );
 extern void InitializeGUISerialization(void);
 extern void InitializeStreamCompressionEnvironment( void );
 
-extern void DbgHeap_Validate( void );
-
 static void important_message( const char *msg, const char *title )
 {
 #ifdef _WIN32
@@ -218,7 +216,7 @@ int main(int argc, char *argv[])
             rw::softwareMetaInfo metaInfo;
             metaInfo.applicationName = "Magic.TXD";
             metaInfo.applicationVersion = MTXD_VERSION_STRING;
-            metaInfo.description = "by DK22Pac and The_GTA (https://github.com/quiret/magic-txd)";
+            metaInfo.description = "by DK22Pac and The_GTA (https://osdn.net/projects/magic-txd/)";
 
             rwEngine->SetApplicationInfo( metaInfo );
 
@@ -438,8 +436,6 @@ int main(int argc, char *argv[])
 
 #endif //_DEBUG
     }
-
-    DbgHeap_Validate();
 
     return iRet;
 }

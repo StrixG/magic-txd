@@ -121,7 +121,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         if ( sysAppRoot != nullptr && sysAppRoot->GetRelativePathFromRoot( input, true, relpath_appRoot ) )
         {
             // Prepend the global translator root descriptor.
-            return "//" + relpath_appRoot;
+            return "//" + std::move( relpath_appRoot );
         }
 
         return input;
@@ -619,6 +619,12 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
 
     FileFlags fileFlags( FileFlags type ) const noexcept override
     {
+        // Qt5.13 is querying fileFlags to check if the file exists.
+        // This is not an optimal solution if you have the "access" Linux
+        // system call as candidate. It cannot be optimized to use "access"
+        // because they also specify in the "type" param to query
+        // the distinction between file or directory.
+
         if ( has_file_system_registered == false )
         {
             return FileFlags();
@@ -700,7 +706,7 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         }
         else if ( file == FileName::BaseName )
         {
-            filePath baseName = FileSystem::GetFileNameItem( this->location, true );
+            filePath baseName = FileSystem::GetFileNameItem( this->location, false );
 
             result = filePath_to_qt( baseName );
         }
@@ -730,6 +736,13 @@ struct FileSystemQtFileEngine final : public QAbstractFileEngine
         {
             result = filePath_to_qt( this->location );
         }
+
+#ifdef REPORT_DEBUG_OF_FSCALLS
+        auto result_printable = qt_to_ansirw( result );
+        auto location_printable = this->location.convert_ansi <FileSysCommonAllocator> ();
+
+        printf( "** fileName result: %s -> %s\n", location_printable.GetConstString(), result_printable.GetConstString() );
+#endif //REPORT_DEBUG_OF_FSCALLS
 
         return result;
     }

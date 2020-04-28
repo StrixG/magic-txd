@@ -108,8 +108,6 @@
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.h" />
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.hxx" />
 		<UnitsGlob directory="../include" recursive="1" wildcard="*.h" />
-		<UnitsGlob directory="../vendor/debugsdk" recursive="1" wildcard="*.h" />
-		<Unit filename="../vendor/debugsdk/dbgheap.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
