@@ -57,8 +57,6 @@
 			<Add directory="../vendor/Qt5.13/include/QtCore" />
 		</Compiler>
 		<Linker>
-			<Add option="-pthread" />
-			<Add option="-lfs -lgtaconfig -lrwlib" />
 			<Add option="-lQt5Widgets" />
 			<Add option="-lqxcb" />
 			<Add option="-lQt5XcbQpa" />
@@ -96,6 +94,7 @@
 			<Add option="-lqgif" />
 			<Add option="-lxkbcommon-x11" />
 			<Add option="-lxkbcommon" />
+			<Add option="-lfs -lgtaconfig -lrwlib" />
 			<Add option="-e_start_natexec" />
 			<Add directory="../vendor/gtaconfig/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/FileSystem/lib/linux/$(TARGET_NAME)/" />
@@ -108,9 +107,6 @@
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.h" />
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.hxx" />
 		<UnitsGlob directory="../include" recursive="1" wildcard="*.h" />
-		<Extensions>
-			<code_completion />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

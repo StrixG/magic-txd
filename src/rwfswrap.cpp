@@ -43,7 +43,7 @@ struct rwFileSystemStreamWrapEnv
     {
         inline eirFileSystemMetaInfo( void )
         {
-            this->theStream = NULL;
+            this->theStream = nullptr;
         }
 
         inline ~eirFileSystemMetaInfo( void )
@@ -250,7 +250,7 @@ struct rwFileSystemStreamWrapEnv
     {
         rw::Interface *rwEngine = mainwnd->GetEngine();
 
-        rwEngine->SetFileInterface( NULL );
+        rwEngine->SetFileInterface( nullptr );
 
         // Streams are unregistered automatically when the engine is destroyed.
         // TODO: could be dangerous. unregistering is way cleaner.
