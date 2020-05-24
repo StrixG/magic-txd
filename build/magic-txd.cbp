@@ -45,7 +45,7 @@
 			<Add directory="../include" />
 			<Add directory="../src/config" />
 			<Add directory="../vendor/FileSystem/include" />
-			<Add directory="../vendor/Qt5.13/include" />
+			<Add directory="../vendor/Qt5.15/include" />
 			<Add directory="../vendor/rwlib/include" />
 			<Add directory="../vendor/eirrepo" />
 			<Add directory="../magic_api" />
@@ -53,20 +53,13 @@
 			<Add directory="../vendor/shextshared" />
 			<Add directory="../vendor/NativeExecutive/include" />
 			<Add directory="../src" />
-			<Add directory="../vendor/Qt5.13/include/QtCore/5.13.1" />
-			<Add directory="../vendor/Qt5.13/include/QtCore" />
+			<Add directory="../vendor/Qt5.15/include/QtCore/5.15.0" />
+			<Add directory="../vendor/Qt5.15/include/QtCore" />
 		</Compiler>
 		<Linker>
 			<Add option="-lQt5Widgets" />
 			<Add option="-lqxcb" />
 			<Add option="-lQt5XcbQpa" />
-			<Add option="-lxcb-static" />
-			<Add option="-lxcb" />
-			<Add option="-lX11" />
-			<Add option="-lX11-xcb" />
-			<Add option="-lXi" />
-			<Add option="-lSM" />
-			<Add option="-lICE" />
 			<Add option="-lQt5EventDispatcherSupport" />
 			<Add option="-lQt5ThemeSupport" />
 			<Add option="-lQt5FontDatabaseSupport" />
@@ -94,14 +87,33 @@
 			<Add option="-lqgif" />
 			<Add option="-lxkbcommon-x11" />
 			<Add option="-lxkbcommon" />
+			<Add option="-lxcb" />
+			<Add option="-lxcb-xkb" />
+			<Add option="-lxcb-keysyms" />
+			<Add option="-lxcb-icccm" />
+			<Add option="-lxcb-sync" />
+			<Add option="-lxcb-xfixes" />
+			<Add option="-lxcb-shape" />
+			<Add option="-lxcb-shm" />
+			<Add option="-lxcb-render" />
+			<Add option="-lxcb-render-util" />
+			<Add option="-lxcb-image" />
+			<Add option="-lxcb-xinerama" />
+			<Add option="-lxcb-randr" />
+			<Add option="-lxcb-xinput" />
+			<Add option="-lX11" />
+			<Add option="-lX11-xcb" />
+			<Add option="-lXi" />
+			<Add option="-lSM" />
+			<Add option="-lICE" />
 			<Add option="-lfs -lgtaconfig -lrwlib" />
 			<Add option="-e_start_natexec" />
 			<Add directory="../vendor/gtaconfig/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/FileSystem/lib/linux/$(TARGET_NAME)/" />
 			<Add directory="../vendor/rwlib/output/linux/$(TARGET_NAME)/" />
-			<Add directory="../vendor/Qt5.13/lib/linux/" />
-			<Add directory="../vendor/Qt5.13/lib/linux/plugins/platforms/" />
-			<Add directory="../vendor/Qt5.13/lib/linux/plugins/imageformats/" />
+			<Add directory="../vendor/Qt5.15/lib/linux/" />
+			<Add directory="../vendor/Qt5.15/lib/linux/plugins/platforms/" />
+			<Add directory="../vendor/Qt5.15/lib/linux/plugins/imageformats/" />
 		</Linker>
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.cpp" />
 		<UnitsGlob directory="../src" recursive="1" wildcard="*.h" />
